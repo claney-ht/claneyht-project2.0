@@ -1,5 +1,5 @@
 // Configuration
-const ADMIN_PASSWORD = "claney2024"; // Change ce mot de passe
+const ADMIN_PASSWORD = "Ryosuke#001"; // Change ce mot de passe
 const WHATSAPP_NUMBER = "50936535649";
 const INSTAGRAM_USERNAME = "claney_ht";
 
