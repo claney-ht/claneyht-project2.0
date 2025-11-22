@@ -7,193 +7,76 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation Fixe -->
+    <!-- Navigation -->
     <header class="header">
         <nav class="nav">
             <div class="nav-brand">
                 <div class="profile-photo small">
-                    <img src="claneyht-logo.png" alt="Claney HT" class="profile-img">
+                    <!-- REMPLACER PAR TON LOGO -->
+                    <div class="logo-placeholder">CH</div>
                 </div>
                 <span class="nav-name">CLANEY HT</span>
             </div>
             <div class="nav-links">
                 <a href="#accueil" class="nav-link active">Accueil</a>
-                <a href="#apropos" class="nav-link">À Propos</a>
                 <a href="#services" class="nav-link">Services</a>
                 <a href="#projets" class="nav-link">Projets</a>
-                <a href="#blog" class="nav-link">Blog</a>
                 <a href="#contact" class="nav-link">Contact</a>
                 <button class="nav-cta" onclick="redirectToWhatsApp()">
                     <i class="fab fa-whatsapp"></i> Discutons
                 </button>
-                <button class="admin-btn" onclick="openAdminModal()">
+                <!-- Bouton Admin caché -->
+                <button class="admin-btn" onclick="openAdminModal()" title="Admin">
                     <i class="fas fa-chart-bar"></i>
                 </button>
-            </div>
-            <div class="mobile-menu">
-                <i class="fas fa-bars"></i>
             </div>
         </nav>
     </header>
 
-    <!-- Chat en Direct -->
-    <div class="chat-widget">
-        <div class="chat-header" onclick="toggleChat()">
-            <i class="fas fa-comments"></i>
-            <span>Chat</span>
-            <div class="chat-indicator"></div>
-        </div>
-        <div class="chat-body">
-            <div class="chat-messages" id="chatMessages">
-                <div class="message bot">
-                    <div class="message-content">
-                        Bonjour ! 👋 Je suis Claney HT. Comment puis-vous aider votre business aujourd'hui ?
-                    </div>
-                </div>
-            </div>
-            <div class="chat-input">
-                <input type="text" id="chatInput" placeholder="Tapez votre message...">
-                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
-    </div>
-
     <div class="container">
-        <!-- Section Hero -->
-        <section id="accueil" class="hero" data-aos="fade-up">
-            <div class="hero-background"></div>
+        <!-- Hero Section SIMPLIFIÉE -->
+        <section id="accueil" class="hero">
             <div class="brand-container">
-                <div class="profile-photo" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="claneyht-logo.png" alt="Claney HT" class="profile-img">
+                <div class="profile-photo">
+                    <!-- TON LOGO ICI -->
+                    <div class="logo-placeholder large">CH</div>
                 </div>
-                <div class="brand-text" data-aos="fade-left" data-aos-delay="400">
+                <div class="brand-text">
                     <h1>CLANEY HT</h1>
                     <div class="subtitle">Architecte Digital & Stratège Multidisciplinaire</div>
                     <div class="tagline">Je construis votre écosystème digital rentable <span class="hashtag">#growthmindset</span></div>
-                    
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">Projets Livrés</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">3+</div>
-                            <div class="stat-label">Ans d'Expérience</div>
-                        </div>
-                        <div class="stat">
-                            <div class="stat-number">100%</div>
-                            <div class="stat-label">Clients Satisfaits</div>
-                        </div>
-                    </div>
                 </div>
             </div>
             
-            <div class="hero-cta" data-aos="fade-up" data-aos-delay="600">
+            <div class="hero-cta">
                 <button class="primary-cta" onclick="redirectToWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> Commencer un Projet
+                    <i class="fab fa-whatsapp"></i> Discuter sur WhatsApp
                 </button>
-                <button class="primary-cta secondary" onclick="openBookingModal()">
-                    <i class="fas fa-calendar"></i> Réserver un Call
+                <button class="primary-cta secondary" onclick="redirectToInstagram()">
+                    <i class="fab fa-instagram"></i> Voir Instagram
                 </button>
-            </div>
-
-            <div class="scroll-indicator">
-                <i class="fas fa-chevron-down"></i>
             </div>
         </section>
 
-        <!-- Section À Propos -->
-        <section id="apropos" class="about-section" data-aos="fade-up">
-            <h2 class="section-title">Mon Parcours</h2>
-            <div class="about-content">
-                <div class="about-text" data-aos="fade-right">
-                    <h3>Architecte Digital Passionné</h3>
-                    <p>Avec plus de 3 ans d'expérience dans le digital, j'ai accompagné des dizaines d'entreprises dans leur transformation numérique. Mon expertise couvre le développement web, le design UX/UI, et les stratégies de trading algorithmique.</p>
-                    
-                    <div class="skills">
-                        <div class="skill">
-                            <div class="skill-info">
-                                <span>Développement Web</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="95"></div>
-                            </div>
-                        </div>
-                        <div class="skill">
-                            <div class="skill-info">
-                                <span>Design UX/UI</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="90"></div>
-                            </div>
-                        </div>
-                        <div class="skill">
-                            <div class="skill-info">
-                                <span>Trading Algorithmique</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-width="85"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="about-timeline" data-aos="fade-left">
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-date">2021 - Présent</div>
-                            <div class="timeline-content">
-                                <h4>Architecte Digital Freelance</h4>
-                                <p>Création d'écosystèmes digitaux pour startups et PME</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">2025 - 2026</div>
-                            <div class="timeline-content">
-                                <h4>Développeur Full-Stack</h4>
-                                <p>Développement d'applications web complexes</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-date">2019 - 2020</div>
-                            <div class="timeline-content">
-                                <h4>Formation Intensive</h4>
-                                <p>Spécialisation en développement et design digital</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Services -->
-        <section id="services" class="services-section" data-aos="fade-up">
+        <!-- Section Services SIMPLIFIÉE -->
+        <section id="services" class="services-section">
             <h2 class="section-title">Mes Services</h2>
             <div class="services-grid">
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-code"></i>
                     </div>
                     <h3>Développement Web</h3>
-                    <p>Applications web sur mesure, sites vitrines, e-commerce</p>
-                    <div class="service-price">À partir de 150€</div>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Site responsive</li>
-                        <li><i class="fas fa-check"></i> SEO optimisé</li>
-                        <li><i class="fas fa-check"></i> Hébergement inclus</li>
-                    </ul>
+                    <p>Sites web sur mesure, applications responsive et modernes</p>
+                    <div class="service-price">À partir de 500€</div>
                     <button class="service-cta" onclick="redirectToWhatsApp()">
                         Demander un devis
                     </button>
                 </div>
 
-                <div class="service-card featured" data-aos="zoom-in" data-aos-delay="400">
+                <div class="service-card featured">
                     <div class="service-badge">Populaire</div>
                     <div class="service-icon">
                         <i class="fas fa-layer-group"></i>
@@ -201,354 +84,105 @@
                     <h3>Architecture Digitale</h3>
                     <p>Écosystème digital complet pour votre business</p>
                     <div class="service-price">À partir de 1500€</div>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Site + CRM</li>
-                        <li><i class="fas fa-check"></i> Automatisation</li>
-                        <li><i class="fas fa-check"></i> Analytics avancé</li>
-                    </ul>
                     <button class="service-cta" onclick="redirectToWhatsApp()">
                         Choisir ce pack
                     </button>
                 </div>
 
-                <div class="service-card" data-aos="zoom-in" data-aos-delay="600">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3>Consulting Trading</h3>
-                    <p>Stratégies de trading algorithmique personnalisées</p>
-                    <div class="service-price">À partir de 300€/mois</div>
-                    <ul class="service-features">
-                        <li><i class="fas fa-check"></i> Backtesting</li>
-                        <li><i class="fas fa-check"></i> Automatisation</li>
-                        <li><i class="fas fa-check"></i> Support 24/7</li>
-                    </ul>
+                    <h3>Stratégie Trading</h3>
+                    <p>Algorithmes et stratégies de trading personnalisées</p>
+                    <div class="service-price">Sur mesure</div>
                     <button class="service-cta" onclick="redirectToWhatsApp()">
-                        Démarrer
+                        En savoir plus
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- Section Projets (existante mais améliorée) -->
-        <section id="projets" class="projects-section" data-aos="fade-up">
+        <!-- Section Projets SIMPLIFIÉE -->
+        <section id="projets" class="projects-section">
             <h2 class="section-title">Mes Réalisations</h2>
             <div class="projects-grid">
-                <!-- Les 3 projets existants restent -->
-            </div>
-        </section>
-
-        <!-- Section Témoignages -->
-        <section class="testimonials-section" data-aos="fade-up">
-            <h2 class="section-title">Ils me font confiance</h2>
-            <div class="testimonials-slider">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        "Claney a transformé notre présence digitale. Notre trafic a augmenté de 300% en 3 mois !"
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-layer-group"></i>
                     </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">JD</div>
-                        <div class="author-info">
-                            <div class="author-name">Jean D.</div>
-                            <div class="author-company">Startup Tech</div>
-                        </div>
+                    <h3>Architecture Digitale Complète</h3>
+                    <div class="project-meta">
+                        <span><i class="far fa-clock"></i> 6-8 semaines</span>
+                        <span><i class="far fa-building"></i> Startup Tech</span>
                     </div>
+                    <p class="challenge"><strong>Défi:</strong> Création d'un écosystème digital from scratch</p>
+                    <ul class="project-features">
+                        <li><i class="fas fa-check"></i> Site vitrine + e-commerce</li>
+                        <li><i class="fas fa-check"></i> Automatisation des processus</li>
+                        <li><i class="fas fa-check"></i> CRM intégré</li>
+                    </ul>
+                    <div class="results">
+                        <h4><i class="fas fa-trophy"></i> Résultats</h4>
+                        <p>+300% trafic • +45% conversion • ROI 3 mois</p>
+                    </div>
+                    <button class="cta-button" onclick="redirectToWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> Discuter de ce projet
+                    </button>
                 </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        "Expertise remarquable en développement. Livraison dans les temps et qualité exceptionnelle."
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">MS</div>
-                        <div class="author-info">
-                            <div class="author-name">Gédéon J.</div>
-                            <div class="author-company">Agence Marketing</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Section Blog -->
-        <section id="blog" class="blog-section" data-aos="fade-up">
-            <h2 class="section-title">Articles Récents</h2>
-            <div class="blog-grid">
-                <article class="blog-card">
-                    <div class="blog-image">
-                        <img src="https://via.placeholder.com/400x250" alt="Article blog">
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-laptop-code"></i>
                     </div>
-                    <div class="blog-content">
-                        <h3>Comment choisir la bonne stack technique en 2024</h3>
-                        <p>Guide complet pour sélectionner les technologies adaptées à votre projet...</p>
-                        <div class="blog-meta">
-                            <span><i class="far fa-calendar"></i> 20 Nov 2025</span>
-                            <span><i class="far fa-clock"></i> 5 min read</span>
-                        </div>
-                        <button class="blog-cta">Lire l'article</button>
+                    <h3>Application Web Sur Mesure</h3>
+                    <div class="project-meta">
+                        <span><i class="fas fa-code-branch"></i> Stack MERN</span>
+                        <span><i class="fas fa-users"></i> SaaS B2B</span>
                     </div>
-                </article>
-                
-                <article class="blog-card">
-                    <div class="blog-image">
-                        <img src="https://via.placeholder.com/400x250" alt="Article blog">
+                    <p class="challenge"><strong>Défi:</strong> Plateforme de gestion d'entreprise</p>
+                    <ul class="project-features">
+                        <li><i class="fas fa-check"></i> Dashboard avancé</li>
+                        <li><i class="fas fa-check"></i> API REST personnalisée</li>
+                        <li><i class="fas fa-check"></i> Base de données sécurisée</li>
+                    </ul>
+                    <div class="results">
+                        <h4><i class="fas fa-rocket"></i> Performance</h4>
+                        <p>Chargement < 2s • 99.9% uptime • Sécurisé</p>
                     </div>
-                    <div class="blog-content">
-                        <h3>Les 5 erreurs à éviter en trading algorithmique</h3>
-                        <p>Découvrez les pièges courants et comment les éviter pour optimiser vos stratégies...</p>
-                        <div class="blog-meta">
-                            <span><i class="far fa-calendar"></i> 22 Nov 2025</span>
-                            <span><i class="far fa-clock"></i> 7 min read</span>
-                        </div>
-                        <button class="blog-cta">Lire l'article</button>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- Section Contact Améliorée -->
-        <section id="contact" class="contact-section" data-aos="fade-up">
-            <h2 class="section-title">Travaillons Ensemble</h2>
-            <div class="contact-container">
-                <div class="contact-info" data-aos="fade-right">
-                    <h3>Parlons de votre projet</h3>
-                    <p>Discutons de la manière dont je peux aider votre business à grandir.</p>
-                    
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <i class="fab fa-whatsapp"></i>
-                            <div>
-                                <strong>WhatsApp</strong>
-                                <span>+509 36 53 56 49</span>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <i class="fab fa-instagram"></i>
-                            <div>
-                                <strong>Instagram</strong>
-                                <span>@claney_ht</span>
-                            </div>
-                        </div>
-                        <div class="contact-method">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <strong>Email</strong>
-                                <span>claneyht@gmail.com.com</span>
-                            </div>
-                        </div>
-                    </div>
+                    <button class="cta-button" onclick="redirectToWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> Voir la démo
+                    </button>
                 </div>
-                
-                <div class="contact-form" data-aos="fade-left">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <input type="text" placeholder="Votre nom" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Votre email" required>
-                        </div>
-                        <div class="form-group">
-                            <select required>
-                                <option value="">Type de projet</option>
-                                <option value="web">Développement Web</option>
-                                <option value="archi">Architecture Digitale</option>
-                                <option value="trading">Consulting Trading</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="Décrivez votre projet..." rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="form-cta">
-                            <i class="fas fa-paper-plane"></i> Envoyer le message
-                        </button>
-                    </form>
+
+                <div class="project-card">
+                    <div class="project-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Algorithmie Financière</h3>
+                    <div class="project-meta">
+                        <span><i class="fas fa-chart-bar"></i> Trading</span>
+                        <span><i class="fab fa-python"></i> Python</span>
+                    </div>
+                    <p class="challenge"><strong>Défi:</strong> Automatisation des stratégies</p>
+                    <ul class="project-features">
+                        <li><i class="fas fa-check"></i> Backtesting rigoureux</li>
+                        <li><i class="fas fa-check"></i> Gestion des risques</li>
+                        <li><i class="fas fa-check"></i> Monitoring 24/7</li>
+                    </ul>
+                    <div class="results">
+                        <h4><i class="fas fa-trending-up"></i> Performance</h4>
+                        <p>15% ROI mensuel • Drawdown < 5%</p>
+                    </div>
+                    <button class="cta-button" onclick="redirectToWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> Voir les stats
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-main">
-                    <div class="footer-brand">
-                        <div class="profile-photo small">
-                            <img src="claneyht-logo.png" alt="Claney HT" class="profile-img">
-                        </div>
-                        <div>
-                            <h3>CLANEY HT</h3>
-                            <p>Architecte Digital & Stratège Multidisciplinaire</p>
-                        </div>
-                    </div>
-                    
-                    <div class="footer-links">
-                        <div class="footer-column">
-                            <h4>Services</h4>
-                            <a href="#">Développement Web</a>
-                            <a href="#">Architecture Digitale</a>
-                            <a href="#">Trading Algorithmique</a>
-                        </div>
-                        <div class="footer-column">
-                            <h4>Navigation</h4>
-                            <a href="#accueil">Accueil</a>
-                            <a href="#apropos">À Propos</a>
-                            <a href="#projets">Projets</a>
-                            <a href="#blog">Blog</a>
-                        </div>
-                        <div class="footer-column">
-                            <h4>Légal</h4>
-                            <a href="#">Mentions légales</a>
-                            <a href="#">Politique de confidentialité</a>
-                            <a href="#">CGV</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="footer-bottom">
-                    <div class="social-links">
-                        <a href="https://wa.me/50936535649" target="_blank" class="social-btn">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="https://instagram.com/claney_ht" target="_blank" class="social-btn">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://canya.com/design/DAG5" target="_blank" class="social-btn">
-                            <i class="fas fa-briefcase"></i>
-                        </a>
-                    </div>
-                    <p>© 2024 Claney HT - Tous droits réservés</p>
-                    <p class="growth-mindset">#growthmindset</p>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Modals existants + nouveaux -->
-    <!-- Modal Booking -->
-    <div id="bookingModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('bookingModal')">&times;</span>
-            <h2><i class="fas fa-calendar"></i> Réserver un Appel</h2>
-            <div class="booking-options">
-                <div class="booking-option" onclick="bookCall('15min')">
-                    <h3>📞 Call Découverte</h3>
-                    <p>15 minutes - Gratuit</p>
-                    <span>Discutons de votre projet</span>
-                </div>
-                <div class="booking-option" onclick="bookCall('30min')">
-                    <h3>💼 Consultation</h3>
-                    <p>30 minutes - 20€</p>
-                    <span>Analyse détaillée</span>
-                </div>
-                <div class="booking-option" onclick="bookCall('60min')">
-                    <h3>🚀 Stratégie</h3>
-                    <p>60 minutes - 50€</p>
-                    <span>Plan d'action complet</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modals admin et contact existants -->
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="main.js"></script>
-</body>
-    </html>                </ul>
-
-                <div class="results">
-                    <h4><i class="fas fa-trophy"></i> Résultats Concrets</h4>
-                    <p>+300% trafic organique • +45% taux de conversion • ROI sous 3 mois</p>
-                </div>
-
-                <div class="tech-stack">
-                    <span class="tech-tag"><i class="fab fa-wordpress"></i> WordPress</span>
-                    <span class="tech-tag"><i class="fas fa-shopping-cart"></i> WooCommerce</span>
-                    <span class="tech-tag"><i class="fas fa-cube"></i> HubSpot</span>
-                    <span class="tech-tag"><i class="fab fa-google"></i> Google Analytics</span>
-                </div>
-
-                <button class="cta-button" onclick="redirectToWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> Discuter de ce projet
-                </button>
-            </div>
-
-            <!-- Projet 2: Développement Web -->
-            <div class="project-card">
-                <div class="project-icon">
-                    <i class="fas fa-laptop-code"></i>
-                </div>
-                <h3>Application Web Sur Mesure</h3>
-                <div class="project-meta">
-                    <span><i class="fas fa-code-branch"></i> Stack: MERN</span>
-                    <span><i class="fas fa-users"></i> Client: SaaS B2B</span>
-                </div>
-                
-                <p class="challenge"><strong>Défi:</strong> Plateforme de gestion d'entreprise</p>
-                
-                <ul class="project-features">
-                    <li><i class="fas fa-tachometer-alt"></i> Dashboard administrateur avancé</li>
-                    <li><i class="fas fa-server"></i> API REST personnalisée</li>
-                    <li><i class="fas fa-database"></i> Base de données sécurisée</li>
-                    <li><i class="fas fa-mobile-alt"></i> Interface responsive</li>
-                </ul>
-
-                <div class="results">
-                    <h4><i class="fas fa-rocket"></i> Performance Technique</h4>
-                    <p>Temps chargement < 2s • 99.9% uptime • Sécurité renforcée</p>
-                </div>
-
-                <div class="tech-stack">
-                    <span class="tech-tag"><i class="fab fa-react"></i> React.js</span>
-                    <span class="tech-tag"><i class="fab fa-node-js"></i> Node.js</span>
-                    <span class="tech-tag"><i class="fas fa-database"></i> MongoDB</span>
-                    <span class="tech-tag"><i class="fab fa-aws"></i> AWS</span>
-                </div>
-
-                <button class="cta-button" onclick="redirectToWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> Demander une démo
-                </button>
-            </div>
-
-            <!-- Projet 3: Stratégie Trading -->
-            <div class="project-card">
-                <div class="project-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>Algorithmie Financière</h3>
-                <div class="project-meta">
-                    <span><i class="fas fa-chart-bar"></i> Domaine: Trading</span>
-                    <span><i class="fab fa-python"></i> Outils: Python</span>
-                </div>
-                
-                <p class="challenge"><strong>Défi:</strong> Automatisation des stratégies de trading</p>
-                
-                <ul class="project-features">
-                    <li><i class="fas fa-history"></i> Backtesting rigoureux</li>
-                    <li><i class="fas fa-shield-alt"></i> Gestion des risques intégrée</li>
-                    <li><i class="fas fa-chart-candle"></i> Analyse technique avancée</li>
-                    <li><i class="fas fa-eye"></i> Monitoring 24/7</li>
-                </ul>
-
-                <div class="results">
-                    <h4><i class="fas fa-trending-up"></i> Performance Trading</h4>
-                    <p>15% ROI mensuel • Drawdown < 5% • Exécution ultra-rapide</p>
-                </div>
-
-                <div class="tech-stack">
-                    <span class="tech-tag"><i class="fab fa-python"></i> Python</span>
-                    <span class="tech-tag"><i class="fas fa-exchange-alt"></i> MetaTrader</span>
-                    <span class="tech-tag"><i class="fas fa-brain"></i> TensorFlow</span>
-                    <span class="tech-tag"><i class="fab fa-aws"></i> AWS Lambda</span>
-                </div>
-
-                <button class="cta-button" onclick="redirectToWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> Voir les performances
-                </button>
-            </div>
-        </div>
-
-        <!-- Section Contact -->
-        <section class="contact-section">
+        <!-- Section Contact SIMPLIFIÉE -->
+        <section id="contact" class="contact-section">
             <h2 class="section-title">Travaillons Ensemble</h2>
             <div class="contact-options">
                 <div class="contact-option" onclick="redirectToWhatsApp()">
@@ -565,17 +199,17 @@
                         <i class="fab fa-instagram"></i>
                     </div>
                     <h3>Instagram</h3>
-                    <p>Voir mes projets et m'envoyer un message</p>
+                    <p>Voir mes projets récents</p>
                     <span class="contact-cta">Me suivre <i class="fas fa-arrow-right"></i></span>
                 </div>
                 
-                <div class="contact-option" onclick="openContactModal()">
+                <div class="contact-option" onclick="openEmail()">
                     <div class="contact-icon">
                         <i class="fas fa-envelope"></i>
                     </div>
                     <h3>Email</h3>
                     <p>Pour les projets détaillés</p>
-                    <span class="contact-cta">Envoyer un email <i class="fas fa-arrow-right"></i></span>
+                    <span class="contact-cta">Envoyer email <i class="fas fa-arrow-right"></i></span>
                 </div>
             </div>
         </section>
@@ -600,32 +234,29 @@
         </footer>
     </div>
 
-    <!-- Modal Contact -->
-    <div id="contactModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('contactModal')">&times;</span>
-            <h2><i class="fas fa-paper-plane"></i> Contactez-moi</h2>
-            <div class="contact-info">
-                <div class="contact-item" onclick="redirectToWhatsApp()" style="cursor: pointer;">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>+509 36 53 56 49</span>
-                </div>
-                <div class="contact-item" onclick="redirectToInstagram()" style="cursor: pointer;">
-                    <i class="fab fa-instagram"></i>
-                    <span>@claney_ht</span>
-                </div>
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>claneyht@gmail.com</span>
+    <!-- Chat Widget CORRIGÉ -->
+    <div class="chat-widget">
+        <div class="chat-header" onclick="toggleChat()">
+            <i class="fas fa-comments"></i>
+            <span>Chat</span>
+            <div class="chat-indicator"></div>
+        </div>
+        <div class="chat-body">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="message-content">
+                        Bonjour ! 👋 Je suis Claney HT. Comment puis-je vous aider ?
+                    </div>
                 </div>
             </div>
-            <button class="modal-cta" onclick="redirectToWhatsApp()">
-                <i class="fab fa-whatsapp"></i> Discuter sur WhatsApp
-            </button>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Tapez votre message...">
+                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
         </div>
     </div>
 
-    <!-- Modal Admin Login -->
+    <!-- Modal Admin -->
     <div id="adminLoginModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('adminLoginModal')">&times;</span>
@@ -633,7 +264,7 @@
             <div class="login-form">
                 <div class="form-group">
                     <label for="adminPassword">Mot de passe :</label>
-                    <input type="password" id="adminPassword" placeholder="Entrez le mot de passe admin" class="form-input">
+                    <input type="password" id="adminPassword" placeholder="Entrez le mot de passe" class="form-input">
                 </div>
                 <button class="modal-cta" onclick="loginToAdmin()">
                     <i class="fas fa-sign-in-alt"></i> Se connecter
@@ -642,82 +273,6 @@
         </div>
     </div>
 
-    <!-- Modal Admin Dashboard -->
-    <div id="adminDashboard" class="modal admin-modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('adminDashboard')">&times;</span>
-            <h2><i class="fas fa-chart-bar"></i> Dashboard Admin</h2>
-            
-            <div class="admin-stats">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="totalVisitors">0</h3>
-                        <p>Visiteurs Totaux</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="pageViews">0</h3>
-                        <p>Vues de Page</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="whatsappClicks">0</h3>
-                        <p>Clicks WhatsApp</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fab fa-instagram"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3 id="instagramClicks">0</h3>
-                        <p>Clicks Instagram</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="admin-charts">
-                <div class="chart-section">
-                    <h3>Activité des Visiteurs</h3>
-                    <div class="chart-container">
-                        <canvas id="visitorsChart"></canvas>
-                    </div>
-                </div>
-                
-                <div class="chart-section">
-                    <h3>Clicks par Plateforme</h3>
-                    <div class="chart-container">
-                        <canvas id="clicksChart"></canvas>
-                    </div>
-                </div>
-            </div>
-
-            <div class="admin-actions">
-                <button class="admin-btn" onclick="exportData()">
-                    <i class="fas fa-download"></i> Exporter les données
-                </button>
-                <button class="admin-btn reset" onclick="resetStats()">
-                    <i class="fas fa-redo"></i> Reset Statistiques
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="main.js"></script>
 </body>
-</html>
+        </html>
