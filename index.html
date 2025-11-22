@@ -1,1 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claney HT - Architecte Digital & Stratège Multidisciplinaire</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Bouton Admin Secret -->
+    <div class="admin-access">
+        <button class="admin-hidden-btn" onclick="openAdminLogin()">
+            <i class="fas fa-cog"></i>
+        </button>
+    </div>
 
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="brand-container">
+                <div class="profile-photo">
+                    <img src="claneyht-logo.png" alt="Claney HT Photo de Profil" class="profile-img">
+                </div>
+                <div class="brand-text">
+                    <h1>CLANEY HT</h1>
+                    <div class="subtitle">Architecte Digital & Stratège Multidisciplinaire</div>
+                    <div class="tagline">Je construis votre écosystème digital rentable <span class="hashtag">#growthmindset</span></div>
+                </div>
+            </div>
+            
+            <div class="hero-cta">
+                <button class="primary-cta" onclick="redirectToWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> Discutons sur WhatsApp
+                </button>
+                <button class="primary-cta secondary" onclick="redirectToInstagram()">
+                    <i class="fab fa-instagram"></i> Message sur Instagram
+                </button>
+            </div>
+        </section>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+            
+            <!-- Projet 1: Architecture Digitale -->
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h3>Architecture Digitale Complète</h3>
+                <div class="project-meta">
+                    <span><i class="far fa-clock"></i> Durée: 6-8 semaines</span>
+                    <span><i class="far fa-building"></i> Client: Startup Tech</span>
+                </div>
+                
+                <p class="challenge"><strong>Défi:</strong> Création d'un écosystème digital from scratch</p>
+                
+                <ul class="project-features">
+                    <li><i class="fas fa-desktop"></i> Site vitrine + boutique en ligne</li>
+                    <li><i class="fas fa-robot"></i> Automatisation des processus</li>
+                    <li><i class="fas fa-chart-line"></i> Système CRM intégré</li>
+                    <li><i class="fas fa-chart-bar"></i> Analytics & Tracking avancé</li>
+                </ul>
+
+                <div class="results">
+                    <h4><i class="fas fa-trophy"></i> Résultats Concrets</h4>
+                    <p>+300% trafic organique • +45% taux de conversion • ROI sous 3 mois</p>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-tag"><i class="fab fa-wordpress"></i> WordPress</span>
+                    <span class="tech-tag"><i class="fas fa-shopping-cart"></i> WooCommerce</span>
+                    <span class="tech-tag"><i class="fas fa-cube"></i> HubSpot</span>
+                    <span class="tech-tag"><i class="fab fa-google"></i> Google Analytics</span>
+                </div>
+
+                <button class="cta-button" onclick="redirectToWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> Discuter de ce projet
+                </button>
+            </div>
+
+            <!-- Projet 2: Développement Web -->
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-laptop-code"></i>
+                </div>
+                <h3>Application Web Sur Mesure</h3>
+                <div class="project-meta">
+                    <span><i class="fas fa-code-branch"></i> Stack: MERN</span>
+                    <span><i class="fas fa-users"></i> Client: SaaS B2B</span>
+                </div>
+                
+                <p class="challenge"><strong>Défi:</strong> Plateforme de gestion d'entreprise</p>
+                
+                <ul class="project-features">
+                    <li><i class="fas fa-tachometer-alt"></i> Dashboard administrateur avancé</li>
+                    <li><i class="fas fa-server"></i> API REST personnalisée</li>
+                    <li><i class="fas fa-database"></i> Base de données sécurisée</li>
+                    <li><i class="fas fa-mobile-alt"></i> Interface responsive</li>
+                </ul>
+
+                <div class="results">
+                    <h4><i class="fas fa-rocket"></i> Performance Technique</h4>
+                    <p>Temps chargement < 2s • 99.9% uptime • Sécurité renforcée</p>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-tag"><i class="fab fa-react"></i> React.js</span>
+                    <span class="tech-tag"><i class="fab fa-node-js"></i> Node.js</span>
+                    <span class="tech-tag"><i class="fas fa-database"></i> MongoDB</span>
+                    <span class="tech-tag"><i class="fab fa-aws"></i> AWS</span>
+                </div>
+
+                <button class="cta-button" onclick="redirectToWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> Demander une démo
+                </button>
+            </div>
+
+            <!-- Projet 3: Stratégie Trading -->
+            <div class="project-card">
+                <div class="project-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Algorithmie Financière</h3>
+                <div class="project-meta">
+                    <span><i class="fas fa-chart-bar"></i> Domaine: Trading</span>
+                    <span><i class="fab fa-python"></i> Outils: Python</span>
+                </div>
+                
+                <p class="challenge"><strong>Défi:</strong> Automatisation des stratégies de trading</p>
+                
+                <ul class="project-features">
+                    <li><i class="fas fa-history"></i> Backtesting rigoureux</li>
+                    <li><i class="fas fa-shield-alt"></i> Gestion des risques intégrée</li>
+                    <li><i class="fas fa-chart-candle"></i> Analyse technique avancée</li>
+                    <li><i class="fas fa-eye"></i> Monitoring 24/7</li>
+                </ul>
+
+                <div class="results">
+                    <h4><i class="fas fa-trending-up"></i> Performance Trading</h4>
+                    <p>15% ROI mensuel • Drawdown < 5% • Exécution ultra-rapide</p>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-tag"><i class="fab fa-python"></i> Python</span>
+                    <span class="tech-tag"><i class="fas fa-exchange-alt"></i> MetaTrader</span>
+                    <span class="tech-tag"><i class="fas fa-brain"></i> TensorFlow</span>
+                    <span class="tech-tag"><i class="fab fa-aws"></i> AWS Lambda</span>
+                </div>
+
+                <button class="cta-button" onclick="redirectToWhatsApp()">
+                    <i class="fab fa-whatsapp"></i> Voir les performances
+                </button>
+            </div>
+        </div>
+
+        <!-- Section Contact -->
+        <section class="contact-section">
+            <h2 class="section-title">Travaillons Ensemble</h2>
+            <div class="contact-options">
+                <div class="contact-option" onclick="redirectToWhatsApp()">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3>WhatsApp</h3>
+                    <p>Discussion directe et rapide</p>
+                    <span class="contact-cta">Me contacter <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="contact-option" onclick="redirectToInstagram()">
+                    <div class="contact-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <h3>Instagram</h3>
+                    <p>Voir mes projets et m'envoyer un message</p>
+                    <span class="contact-cta">Me suivre <i class="fas fa-arrow-right"></i></span>
+                </div>
+                
+                <div class="contact-option" onclick="openContactModal()">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>Pour les projets détaillés</p>
+                    <span class="contact-cta">Envoyer un email <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="https://wa.me/50936535649" target="_blank" class="social-btn">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="https://instagram.com/claney_ht" target="_blank" class="social-btn">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                    <a href="https://canya.com/design/DAG5" target="_blank" class="social-btn">
+                        <i class="fas fa-briefcase"></i> Portfolio
+                    </a>
+                </div>
+                <p>© 2024 Claney HT - Architecte Digital & Stratège Multidisciplinaire</p>
+                <p class="growth-mindset">#growthmindset</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal Contact -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('contactModal')">&times;</span>
+            <h2><i class="fas fa-paper-plane"></i> Contactez-moi</h2>
+            <div class="contact-info">
+                <div class="contact-item" onclick="redirectToWhatsApp()" style="cursor: pointer;">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>+509 36 53 56 49</span>
+                </div>
+                <div class="contact-item" onclick="redirectToInstagram()" style="cursor: pointer;">
+                    <i class="fab fa-instagram"></i>
+                    <span>@claney_ht</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>claney_ht@pro.com</span>
+                </div>
+            </div>
+            <button class="modal-cta" onclick="redirectToWhatsApp()">
+                <i class="fab fa-whatsapp"></i> Discuter sur WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal Admin Login -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('adminLoginModal')">&times;</span>
+            <h2><i class="fas fa-lock"></i> Accès Admin</h2>
+            <div class="login-form">
+                <div class="form-group">
+                    <label for="adminPassword">Mot de passe :</label>
+                    <input type="password" id="adminPassword" placeholder="Entrez le mot de passe admin" class="form-input">
+                </div>
+                <button class="modal-cta" onclick="loginToAdmin()">
+                    <i class="fas fa-sign-in-alt"></i> Se connecter
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Admin Dashboard -->
+    <div id="adminDashboard" class="modal admin-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('adminDashboard')">&times;</span>
+            <h2><i class="fas fa-chart-bar"></i> Dashboard Admin</h2>
+            
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalVisitors">0</h3>
+                        <p>Visiteurs Totaux</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="pageViews">0</h3>
+                        <p>Vues de Page</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="whatsappClicks">0</h3>
+                        <p>Clicks WhatsApp</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="instagramClicks">0</h3>
+                        <p>Clicks Instagram</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-charts">
+                <div class="chart-section">
+                    <h3>Activité des Visiteurs</h3>
+                    <div class="chart-container">
+                        <canvas id="visitorsChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-section">
+                    <h3>Clicks par Plateforme</h3>
+                    <div class="chart-container">
+                        <canvas id="clicksChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-actions">
+                <button class="admin-btn" onclick="exportData()">
+                    <i class="fas fa-download"></i> Exporter les données
+                </button>
+                <button class="admin-btn reset" onclick="resetStats()">
+                    <i class="fas fa-redo"></i> Reset Statistiques
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
