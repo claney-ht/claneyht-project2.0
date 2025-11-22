@@ -3,32 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Claney HT - Architecte Digital & Stratège Multidisciplinaire</title>
+    <title>Claney HT - Architecte Digital & Expert Growth 2025</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
+    <!-- Header avec Badges de Certification -->
     <header class="header">
         <nav class="nav">
             <div class="nav-brand">
-                <div class="profile-photo small">
-                    <!-- REMPLACER PAR TON LOGO -->
-                    <div class="logo-placeholder">CH</div>
+                <div class="logo">
+                    <img src="claneyht-logo.png" alt="Claney HT" class="logo-img">
                 </div>
-                <span class="nav-name">CLANEY HT</span>
+                <div class="brand-identity">
+                    <span class="nav-name">CLANEY HT</span>
+                    <div class="certification-badges">
+                        <span class="badge" title="Expert Certifié Digital">
+                            <i class="fas fa-shield-check"></i> Expert Digital
+                        </span>
+                        <span class="badge" title="Spécialiste Algorithmes">
+                            <i class="fas fa-robot"></i> Algorithmes
+                        </span>
+                        <span class="badge" title="Formateur Certifié">
+                            <i class="fas fa-graduation-cap"></i> Formateur Pro
+                        </span>
+                    </div>
+                </div>
             </div>
             <div class="nav-links">
-                <a href="#accueil" class="nav-link active">Accueil</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#projets" class="nav-link">Projets</a>
-                <a href="#contact" class="nav-link">Contact</a>
-                <button class="nav-cta" onclick="redirectToWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> Discutons
-                </button>
-                <!-- Bouton Admin caché -->
-                <button class="admin-btn" onclick="openAdminModal()" title="Admin">
+                <a href="#accueil" class="nav-link active">
+                    <i class="fas fa-home"></i> Accueil
+                </a>
+                <a href="#solutions" class="nav-link">
+                    <i class="fas fa-rocket"></i> Solutions
+                </a>
+                <a href="#academie" class="nav-link">
+                    <i class="fas fa-viruses"></i> Académie
+                </a>
+                <a href="#trading" class="nav-link">
+                    <i class="fas fa-chart-line"></i> Trading
+                </a>
+                <a href="#resultats" class="nav-link">
+                    <i class="fas fa-trophy"></i> Résultats
+                </a>
+                <a href="#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i> Contact
+                </a>
+                <button class="admin-btn" onclick="openAdminModal()" title="Espace Admin">
                     <i class="fas fa-chart-bar"></i>
                 </button>
             </div>
@@ -36,180 +57,594 @@
     </header>
 
     <div class="container">
-        <!-- Hero Section SIMPLIFIÉE -->
+        <!-- Section Hero -->
         <section id="accueil" class="hero">
-            <div class="brand-container">
-                <div class="profile-photo">
-                    <!-- TON LOGO ICI -->
-                    <div class="logo-placeholder large">CH</div>
-                </div>
-                <div class="brand-text">
+            <div class="hero-content">
+                <div class="hero-text">
                     <h1>CLANEY HT</h1>
-                    <div class="subtitle">Architecte Digital & Stratège Multidisciplinaire</div>
+                    <div class="subtitle">Architecte Digital & Expert Growth 2025</div>
                     <div class="tagline">Je construis votre écosystème digital rentable <span class="hashtag">#growthmindset</span></div>
+                    
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <div class="stat-number">60+</div>
+                            <div class="stat-label">Projets Livrés</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">4+</div>
+                            <div class="stat-label">Ans d'Expérience</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Clients Satisfaits</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="profile-photo">
+                        <img src="claneyht-logo.png" alt="Claney HT" class="profile-img">
+                    </div>
                 </div>
             </div>
             
             <div class="hero-cta">
-                <button class="primary-cta" onclick="redirectToWhatsApp()">
-                    <i class="fab fa-whatsapp"></i> Discuter sur WhatsApp
-                </button>
-                <button class="primary-cta secondary" onclick="redirectToInstagram()">
-                    <i class="fab fa-instagram"></i> Voir Instagram
+                <button class="primary-cta" onclick="scrollToSection('solutions')">
+                    <i class="fas fa-rocket"></i> Découvrir mes Solutions
                 </button>
             </div>
         </section>
 
-        <!-- Section Services SIMPLIFIÉE -->
-        <section id="services" class="services-section">
-            <h2 class="section-title">Mes Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Développement Web</h3>
-                    <p>Sites web sur mesure, applications responsive et modernes</p>
-                    <div class="service-price">À partir de 500€</div>
-                    <button class="service-cta" onclick="redirectToWhatsApp()">
-                        Demander un devis
-                    </button>
-                </div>
-
-                <div class="service-card featured">
-                    <div class="service-badge">Populaire</div>
-                    <div class="service-icon">
+        <!-- Section Solutions -->
+        <section id="solutions" class="solutions-section">
+            <h2 class="section-title">
+                <i class="fas fa-rocket"></i> Solutions Expert 2025
+            </h2>
+            
+            <div class="solutions-grid">
+                <!-- Architecture Digital -->
+                <div class="solution-card">
+                    <div class="solution-icon">
                         <i class="fas fa-layer-group"></i>
                     </div>
-                    <h3>Architecture Digitale</h3>
-                    <p>Écosystème digital complet pour votre business</p>
-                    <div class="service-price">À partir de 1500€</div>
-                    <button class="service-cta" onclick="redirectToWhatsApp()">
-                        Choisir ce pack
+                    <h3><i class="fas fa-layer-group"></i> Architecture Digital</h3>
+                    <p>Écosystèmes complets intégrant IA et automation</p>
+                    <div class="solution-features">
+                        <span><i class="fas fa-check"></i> Sites web performants</span>
+                        <span><i class="fas fa-check"></i> Automatisation marketing</span>
+                        <span><i class="fas fa-check"></i> CRM personnalisé</span>
+                        <span><i class="fas fa-check"></i> Solutions IA avancées</span>
+                    </div>
+                    <button class="solution-cta" onclick="openSolutionModal('architecture')">
+                        <i class="fas fa-info-circle"></i> Voir le détail complet
                     </button>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
+                <!-- Formation Réseaux Sociaux -->
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-viruses"></i>
                     </div>
-                    <h3>Stratégie Trading</h3>
-                    <p>Algorithmes et stratégies de trading personnalisées</p>
-                    <div class="service-price">Sur mesure</div>
-                    <button class="service-cta" onclick="redirectToWhatsApp()">
-                        En savoir plus
+                    <h3><i class="fas fa-viruses"></i> Masterclass Viralité</h3>
+                    <p>Formations complètes TikTok, Instagram, YouTube</p>
+                    <div class="solution-features">
+                        <span><i class="fas fa-check"></i> Algorithmes 2025 décryptés</span>
+                        <span><i class="fas fa-check"></i> Stratégies de contenu</span>
+                        <span><i class="fas fa-check"></i> Growth hacking avancé</span>
+                        <span><i class="fas fa-check"></i> Monétisation audience</span>
+                    </div>
+                    <button class="solution-cta" onclick="openSolutionModal('formation')">
+                        <i class="fas fa-play-circle"></i> Voir le programme
+                    </button>
+                </div>
+
+                <!-- Trading Algorithmique -->
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3><i class="fas fa-robot"></i> Trading Algorithmique</h3>
+                    <p>Stratégies IA et machine learning avancées</p>
+                    <div class="solution-features">
+                        <span><i class="fas fa-check"></i> Algorithmes personnalisés</span>
+                        <span><i class="fas fa-check"></i> Backtesting rigoureux</span>
+                        <span><i class="fas fa-check"></i> Monitoring 24/7</span>
+                        <span><i class="fas fa-check"></i> Gestion risques</span>
+                    </div>
+                    <button class="solution-cta" onclick="openSolutionModal('trading')">
+                        <i class="fas fa-chart-line"></i> Voir les performances
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- Section Projets SIMPLIFIÉE -->
-        <section id="projets" class="projects-section">
-            <h2 class="section-title">Mes Réalisations</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-                    <h3>Architecture Digitale Complète</h3>
-                    <div class="project-meta">
-                        <span><i class="far fa-clock"></i> 6-8 semaines</span>
-                        <span><i class="far fa-building"></i> Startup Tech</span>
-                    </div>
-                    <p class="challenge"><strong>Défi:</strong> Création d'un écosystème digital from scratch</p>
-                    <ul class="project-features">
-                        <li><i class="fas fa-check"></i> Site vitrine + e-commerce</li>
-                        <li><i class="fas fa-check"></i> Automatisation des processus</li>
-                        <li><i class="fas fa-check"></i> CRM intégré</li>
-                    </ul>
-                    <div class="results">
-                        <h4><i class="fas fa-trophy"></i> Résultats</h4>
-                        <p>+300% trafic • +45% conversion • ROI 3 mois</p>
-                    </div>
-                    <button class="cta-button" onclick="redirectToWhatsApp()">
-                        <i class="fab fa-whatsapp"></i> Discuter de ce projet
-                    </button>
-                </div>
+        <!-- Section Académie Viralité -->
+        <section id="academie" class="academie-section">
+            <h2 class="section-title">
+                <i class="fas fa-viruses"></i> Académie Viralité 2025
+            </h2>
 
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-laptop-code"></i>
+            <!-- Algorithmes TikTok -->
+            <div class="algo-card">
+                <div class="algo-header">
+                    <div class="algo-icon">
+                        <i class="fab fa-tiktok"></i>
                     </div>
-                    <h3>Application Web Sur Mesure</h3>
-                    <div class="project-meta">
-                        <span><i class="fas fa-code-branch"></i> Stack MERN</span>
-                        <span><i class="fas fa-users"></i> SaaS B2B</span>
-                    </div>
-                    <p class="challenge"><strong>Défi:</strong> Plateforme de gestion d'entreprise</p>
-                    <ul class="project-features">
-                        <li><i class="fas fa-check"></i> Dashboard avancé</li>
-                        <li><i class="fas fa-check"></i> API REST personnalisée</li>
-                        <li><i class="fas fa-check"></i> Base de données sécurisée</li>
-                    </ul>
-                    <div class="results">
-                        <h4><i class="fas fa-rocket"></i> Performance</h4>
-                        <p>Chargement < 2s • 99.9% uptime • Sécurisé</p>
-                    </div>
-                    <button class="cta-button" onclick="redirectToWhatsApp()">
-                        <i class="fab fa-whatsapp"></i> Voir la démo
-                    </button>
+                    <h3><i class="fab fa-tiktok"></i> Algorithme TikTok 2025</h3>
                 </div>
+                <div class="algo-content">
+                    <div class="strategy">
+                        <h4><i class="fas fa-magic"></i> Score de Viralité 2025</h4>
+                        <ul>
+                            <li><i class="fas fa-check"></i> <strong>Taux de completion</strong> : Doit dépasser 80%</li>
+                            <li><i class="fas fa-check"></i> <strong>Taux de partage</strong> : Minimum 5% pour la viralité</li>
+                            <li><i class="fas fa-check"></i> <strong>Temps de visionnage</strong> : Metric principale</li>
+                            <li><i class="fas fa-check"></i> <strong>Engagement précoce</strong> : Crucial premières 60min</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="strategy">
+                        <h4><i class="fas fa-clock"></i> Timing de Publication Optimal</h4>
+                        <div class="timing-grid">
+                            <div class="time-slot">
+                                <i class="fas fa-sun"></i>
+                                <strong>12h-14h</strong>
+                                <span>Pause déjeuner</span>
+                            </div>
+                            <div class="time-slot">
+                                <i class="fas fa-briefcase"></i>
+                                <strong>17h-19h</strong>
+                                <span>Fin de journée</span>
+                            </div>
+                            <div class="time-slot">
+                                <i class="fas fa-moon"></i>
+                                <strong>21h-23h</strong>
+                                <span>Soirée détente</span>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-chart-line"></i>
+                    <div class="strategy">
+                        <h4><i class="fas fa-chart-bar"></i> Niches Rentables 2025</h4>
+                        <div class="niches-grid">
+                            <div class="niche">
+                                <i class="fas fa-coins"></i>
+                                <strong>Finance & Crypto</strong>
+                                <span>CPM élevé, audience qualifiée</span>
+                            </div>
+                            <div class="niche">
+                                <i class="fas fa-laptop-code"></i>
+                                <strong>Tech & IA</strong>
+                                <span>Contenu viral, croissance rapide</span>
+                            </div>
+                            <div class="niche">
+                                <i class="fas fa-brain"></i>
+                                <strong>Développement Perso</strong>
+                                <span>Engagement communautaire fort</span>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Algorithmie Financière</h3>
-                    <div class="project-meta">
-                        <span><i class="fas fa-chart-bar"></i> Trading</span>
-                        <span><i class="fab fa-python"></i> Python</span>
-                    </div>
-                    <p class="challenge"><strong>Défi:</strong> Automatisation des stratégies</p>
-                    <ul class="project-features">
-                        <li><i class="fas fa-check"></i> Backtesting rigoureux</li>
-                        <li><i class="fas fa-check"></i> Gestion des risques</li>
-                        <li><i class="fas fa-check"></i> Monitoring 24/7</li>
-                    </ul>
-                    <div class="results">
-                        <h4><i class="fas fa-trending-up"></i> Performance</h4>
-                        <p>15% ROI mensuel • Drawdown < 5%</p>
-                    </div>
-                    <button class="cta-button" onclick="redirectToWhatsApp()">
-                        <i class="fab fa-whatsapp"></i> Voir les stats
-                    </button>
                 </div>
+                <button class="algo-cta" onclick="openContactModal('formation_tiktok')">
+                    <i class="fas fa-graduation-cap"></i> Formation TikTok Complète
+                </button>
             </div>
-        </section>
 
-        <!-- Section Contact SIMPLIFIÉE -->
-        <section id="contact" class="contact-section">
-            <h2 class="section-title">Travaillons Ensemble</h2>
-            <div class="contact-options">
-                <div class="contact-option" onclick="redirectToWhatsApp()">
-                    <div class="contact-icon">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <h3>WhatsApp</h3>
-                    <p>Discussion directe et rapide</p>
-                    <span class="contact-cta">Me contacter <i class="fas fa-arrow-right"></i></span>
-                </div>
-                
-                <div class="contact-option" onclick="redirectToInstagram()">
-                    <div class="contact-icon">
+            <!-- Algorithmes Instagram -->
+            <div class="algo-card">
+                <div class="algo-header">
+                    <div class="algo-icon">
                         <i class="fab fa-instagram"></i>
                     </div>
-                    <h3>Instagram</h3>
-                    <p>Voir mes projets récents</p>
-                    <span class="contact-cta">Me suivre <i class="fas fa-arrow-right"></i></span>
+                    <h3><i class="fab fa-instagram"></i> Algorithme Instagram 2025</h3>
+                </div>
+                <div class="algo-content">
+                    <div class="strategy">
+                        <h4><i class="fas fa-sitemap"></i> Structure du Feed 2025</h4>
+                        <ul>
+                            <li><i class="fas fa-video"></i> <strong>Reels</strong> : 70% de la distribution organique</li>
+                            <li><i class="fas fa-camera"></i> <strong>Stories</strong> : Engagement direct et authentique</li>
+                            <li><i class="fas fa-images"></i> <strong>Feed</strong> : Branding et valeur ajoutée</li>
+                            <li><i class="fas fa-bullhorn"></i> <strong>Broadcast Channels</strong> : Nouveau goldmine 2025</li>
+                        </ul>
+                    </div>
+
+                    <div class="strategy">
+                        <h4><i class="fas fa-crosshairs"></i> Stratégie de Contenu Multi-format</h4>
+                        <div class="content-matrix">
+                            <div class="content-type">
+                                <i class="fas fa-video"></i>
+                                <strong>Reels Éducatifs</strong>
+                                <span>Tips rapides, tutoriels</span>
+                            </div>
+                            <div class="content-type">
+                                <i class="fas fa-chart-line"></i>
+                                <strong>Carrousels Data</strong>
+                                <span>Chiffres, statistiques, études</span>
+                            </div>
+                            <div class="content-type">
+                                <i class="fas fa-user-check"></i>
+                                <strong>Story Engagement</strong>
+                                <span>Polls, questions, interactions</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="strategy">
+                        <h4><i class="fas fa-hashtag"></i> Stratégie Hashtags 2025</h4>
+                        <div class="hashtag-strategy">
+                            <div class="hashtag-type">
+                                <i class="fas fa-bullseye"></i>
+                                <strong>3-5 hashtags niche</strong>
+                                <span>Audience ciblée</span>
+                            </div>
+                            <div class="hashtag-type">
+                                <i class="fas fa-chart-line"></i>
+                                <strong>5-7 hashtags tendance</strong>
+                                <span>Découverte organique</span>
+                            </div>
+                            <div class="hashtag-type">
+                                <i class="fas fa-users"></i>
+                                <strong>2-3 hashtags communauté</strong>
+                                <span>Engagement local</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="algo-cta" onclick="openContactModal('formation_instagram')">
+                    <i class="fas fa-graduation-cap"></i> Formation Instagram Complète
+                </button>
+            </div>
+
+            <!-- Algorithmes YouTube -->
+            <div class="algo-card">
+                <div class="algo-header">
+                    <div class="algo-icon">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <h3><i class="fab fa-youtube"></i> Algorithme YouTube 2025</h3>
+                </div>
+                <div class="algo-content">
+                    <div class="strategy">
+                        <h4><i class="fas fa-chess-board"></i> Score de Performance YouTube</h4>
+                        <ul>
+                            <li><i class="fas fa-clock"></i> <strong>Durée de visionnage</strong> : Metric principale #1</li>
+                            <li><i class="fas fa-retweet"></i> <strong>Taux de rétention</strong> : Critère crucial de ranking</li>
+                            <li><i class="fas fa-bolt"></i> <strong>Engagement précoce</strong> : Vital premières 24h</li>
+                            <li><i class="fas fa-mouse-pointer"></i> <strong>CTR miniature</strong> : Doit dépasser 8%</li>
+                        </ul>
+                    </div>
+
+                    <div class="strategy">
+                        <h4><i class="fas fa-calendar-alt"></i> Calendrier de Publication Optimal</h4>
+                        <div class="youtube-schedule">
+                            <div class="schedule-slot">
+                                <i class="fas fa-sun"></i>
+                                <strong>Mardi 10h</strong>
+                                <span>Pic d'engagement semaine</span>
+                            </div>
+                            <div class="schedule-slot">
+                                <i class="fas fa-moon"></i>
+                                <strong>Jeudi 20h</strong>
+                                <span>Visionnage soirée détente</span>
+                            </div>
+                            <div class="schedule-slot">
+                                <i class="fas fa-weekend"></i>
+                                <strong>Dimanche 17h</strong>
+                                <span>Fin de weekend, audience disponible</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="strategy">
+                        <h4><i class="fas fa-search"></i> SEO YouTube Avancé 2025</h4>
+                        <div class="seo-tips">
+                            <div class="seo-tip">
+                                <i class="fas fa-key"></i>
+                                <strong>Recherche mots-clés</strong>
+                                <span>YouTube Suggest + outils externes</span>
+                            </div>
+                            <div class="seo-tip">
+                                <i class="fas fa-heading"></i>
+                                <strong>Titres optimisés</strong>
+                                <span>Mot-clé principal dans les 60 premiers caractères</span>
+                            </div>
+                            <div class="seo-tip">
+                                <i class="fas fa-align-left"></i>
+                                <strong>Descriptions détaillées</strong>
+                                <span>Minimum 200 mots avec timestamps</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="algo-cta" onclick="openContactModal('formation_youtube')">
+                    <i class="fas fa-graduation-cap"></i> Formation YouTube Complète
+                </button>
+            </div>
+        </section>
+
+        <!-- Section Trading Algorithmique -->
+        <section id="trading" class="trading-section">
+            <h2 class="section-title">
+                <i class="fas fa-robot"></i> Trading Algorithmique 2025
+            </h2>
+
+            <div class="trading-grid">
+                <div class="trading-card">
+                    <div class="trading-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3><i class="fas fa-brain"></i> Stratégies IA Avancées</h3>
+                    <p>Algorithmes de machine learning et intelligence artificielle</p>
+                    <div class="trading-features">
+                        <span><i class="fas fa-check"></i> Reinforcement Learning</span>
+                        <span><i class="fas fa-check"></i> Neural Networks</span>
+                        <span><i class="fas fa-check"></i> Predictive Analytics</span>
+                        <span><i class="fas fa-check"></i> Pattern Recognition</span>
+                    </div>
+                    <button class="trading-cta" onclick="openTradingModal('strategies')">
+                        <i class="fas fa-chart-line"></i> Voir les performances
+                    </button>
+                </div>
+
+                <div class="trading-card">
+                    <div class="trading-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3><i class="fas fa-shield-alt"></i> Gestion des Risques</h3>
+                    <p>Systèmes avancés de protection et optimisation du capital</p>
+                    <div class="trading-features">
+                        <span><i class="fas fa-check"></i> Stop-loss dynamiques</span>
+                        <span><i class="fas fa-check"></i> Position sizing intelligent</span>
+                        <span><i class="fas fa-check"></i> Correlation analysis</span>
+                        <span><i class="fas fa-check"></i> Risk-adjusted returns</span>
+                    </div>
+                    <button class="trading-cta" onclick="openTradingModal('risks')">
+                        <i class="fas fa-shield-alt"></i> Découvrir la méthode
+                    </button>
+                </div>
+
+                <div class="trading-card">
+                    <div class="trading-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3><i class="fas fa-bolt"></i> Exécution Haute Fréquence</h3>
+                    <p>Technologies d'exécution ultra-rapide et latence réduite</p>
+                    <div class="trading-features">
+                        <span><i class="fas fa-check"></i> Colocation servers</span>
+                        <span><i class="fas fa-check"></i> API direct market access</span>
+                        <span><i class="fas fa-check"></i> Smart order routing</span>
+                        <span><i class="fas fa-check"></i> Real-time analytics</span>
+                    </div>
+                    <button class="trading-cta" onclick="openTradingModal('execution')">
+                        <i class="fas fa-bolt"></i> Voir la technologie
+                    </button>
+                </div>
+            </div>
+
+            <div class="performance-stats">
+                <h3><i class="fas fa-trophy"></i> Statistiques de Performance</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">15-25%</div>
+                        <div class="stat-label">ROI Mensuel Moyen</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">< 3%</div>
+                        <div class="stat-label">Drawdown Maximum</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">99.8%</div>
+                        <div class="stat-label">Taux de réussite</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label">Monitoring actif</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Résultats -->
+        <section id="resultats" class="results-section">
+            <h2 class="section-title">
+                <i class="fas fa-trophy"></i> Résultats Concrets 2025
+            </h2>
+
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="result-stats">
+                        <div class="stat-number">60+</div>
+                        <div class="stat-label">Projets Livrés</div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="result-stats">
+                        <div class="stat-number">+400%</div>
+                        <div class="stat-label">ROI Client Moyen</div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="result-stats">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Satisfaction Client</div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="result-stats">
+                        <div class="stat-number">4+</div>
+                        <div class="stat-label">Ans d'Expertise</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="case-studies">
+                <h3><i class="fas fa-chart-bar"></i> Études de Cas Récentes</h3>
+                
+                <div class="case-study">
+                    <div class="case-header">
+                        <div class="case-client">
+                            <i class="fas fa-store"></i>
+                            <strong>E-commerce Luxe</strong>
+                        </div>
+                        <div class="case-duration">3 mois</div>
+                    </div>
+                    <div class="case-results">
+                        <div class="result-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>+300% trafic organique</span>
+                        </div>
+                        <div class="result-item">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>+45% taux de conversion</span>
+                        </div>
+                        <div class="result-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>ROI 450% en 90 jours</span>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="contact-option" onclick="openEmail()">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
+                <div class="case-study">
+                    <div class="case-header">
+                        <div class="case-client">
+                            <i class="fas fa-coins"></i>
+                            <strong>Trader Indépendant</strong>
+                        </div>
+                        <div class="case-duration">6 mois</div>
                     </div>
-                    <h3>Email</h3>
-                    <p>Pour les projets détaillés</p>
-                    <span class="contact-cta">Envoyer email <i class="fas fa-arrow-right"></i></span>
+                    <div class="case-results">
+                        <div class="result-item">
+                            <i class="fas fa-robot"></i>
+                            <span>Algorithmes personnalisés</span>
+                        </div>
+                        <div class="result-item">
+                            <i class="fas fa-trending-up"></i>
+                            <span>+18% ROI mensuel moyen</span>
+                        </div>
+                        <div class="result-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Drawdown < 3%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="case-study">
+                    <div class="case-header">
+                        <div class="case-client">
+                            <i class="fab fa-tiktok"></i>
+                            <strong>Creator TikTok</strong>
+                        </div>
+                        <div class="case-duration">30 jours</div>
+                    </div>
+                    <div class="case-results">
+                        <div class="result-item">
+                            <i class="fas fa-users"></i>
+                            <span>+12K abonnés</span>
+                        </div>
+                        <div class="result-item">
+                            <i class="fas fa-eye"></i>
+                            <span>Vidéos à 1M+ vues</span>
+                        </div>
+                        <div class="result-item">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>Premiers revenus à J15</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Contact -->
+        <section id="contact" class="contact-section">
+            <h2 class="section-title">
+                <i class="fas fa-envelope"></i> Contact Intelligent
+            </h2>
+
+            <div class="contact-funnel">
+                <!-- Niveau 1 : Abonnements Réseaux -->
+                <div class="funnel-tier">
+                    <h3><i class="fas fa-heart"></i> Me Suivre Gratuitement</h3>
+                    <div class="social-subscription">
+                        <a href="https://tiktok.com/@claney_ht" target="_blank" class="social-subscribe">
+                            <i class="fab fa-tiktok"></i>
+                            <span>Suivre sur TikTok</span>
+                        </a>
+                        <a href="https://instagram.com/claney_ht" target="_blank" class="social-subscribe">
+                            <i class="fab fa-instagram"></i>
+                            <span>Suivre sur Instagram</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Niveau 2 : Contact Direct -->
+                <div class="funnel-tier">
+                    <h3><i class="fas fa-comments"></i> Discutons de Votre Projet</h3>
+                    <div class="contact-methods">
+                        <button class="contact-method" onclick="openWhatsApp()">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>WhatsApp Rapide</span>
+                            <small>Réponse en quelques minutes</small>
+                        </button>
+                        
+                        <button class="contact-method" onclick="openEmail()">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email Détaillé</span>
+                            <small>Pour les projets complexes</small>
+                        </button>
+                        
+                        <button class="contact-method" onclick="openCalendly()">
+                            <i class="fas fa-video"></i>
+                            <span>Visio 30min</span>
+                            <small>Appel découverte gratuit</small>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Niveau 3 : Informations de Contact -->
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <strong>WhatsApp</strong>
+                            <span>+509 36 53 56 49</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <span>claneyht@gmail.com</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fab fa-instagram"></i>
+                        <div>
+                            <strong>Instagram</strong>
+                            <span>@claney_ht</span>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fab fa-tiktok"></i>
+                        <div>
+                            <strong>TikTok</strong>
+                            <span>@claney_ht</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -217,43 +652,76 @@
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-content">
-                <div class="social-links">
-                    <a href="https://wa.me/50936535649" target="_blank" class="social-btn">
-                        <i class="fab fa-whatsapp"></i> WhatsApp
-                    </a>
-                    <a href="https://instagram.com/claney_ht" target="_blank" class="social-btn">
-                        <i class="fab fa-instagram"></i> Instagram
-                    </a>
-                    <a href="https://canya.com/design/DAG5" target="_blank" class="social-btn">
-                        <i class="fas fa-briefcase"></i> Portfolio
-                    </a>
+                <div class="footer-brand">
+                    <div class="logo">
+                        <img src="claneyht-logo.png" alt="Claney HT" class="logo-img">
+                    </div>
+                    <div class="brand-info">
+                        <h3>CLANEY HT</h3>
+                        <p>Architecte Digital & Expert Growth 2025</p>
+                        <div class="footer-badges">
+                            <span class="badge">
+                                <i class="fas fa-shield-check"></i> Expert Certifié
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <p>© 2024 Claney HT - Architecte Digital & Stratège Multidisciplinaire</p>
-                <p class="growth-mindset">#growthmindset</p>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4><i class="fas fa-rocket"></i> Solutions</h4>
+                        <a href="#solutions">Architecture Digital</a>
+                        <a href="#academie">Formations Viralité</a>
+                        <a href="#trading">Trading Algorithmique</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4><i class="fas fa-link"></i> Liens Rapides</h4>
+                        <a href="#accueil">Accueil</a>
+                        <a href="#resultats">Résultats</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4><i class="fas fa-shield-alt"></i> Légal</h4>
+                        <a href="#" onclick="openLegalModal('mentions')">Mentions légales</a>
+                        <a href="#" onclick="openLegalModal('confidentialite')">Confidentialité</a>
+                        <a href="#" onclick="openLegalModal('cookies')">Cookies</a>
+                    </div>
+                </div>
+
+                <div class="footer-social">
+                    <h4><i class="fas fa-hashtag"></i> Suivez-moi</h4>
+                    <div class="social-links">
+                        <a href="https://tiktok.com/@claney_ht" target="_blank" class="social-link">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://instagram.com/claney_ht" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://wa.me/50936535649" target="_blank" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="mailto:claneyht@gmail.com" class="social-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Claney HT - Tous droits réservés</p>
+                <p class="growth-mindset">#growthmindset #digitalexpert #algorithmes2025</p>
             </div>
         </footer>
     </div>
 
-    <!-- Chat Widget CORRIGÉ -->
-    <div class="chat-widget">
-        <div class="chat-header" onclick="toggleChat()">
-            <i class="fas fa-comments"></i>
-            <span>Chat</span>
-            <div class="chat-indicator"></div>
+    <!-- Bulle WhatsApp Flottante -->
+    <div class="whatsapp-bubble" onclick="openWhatsApp()">
+        <div class="whatsapp-icon">
+            <i class="fab fa-whatsapp"></i>
         </div>
-        <div class="chat-body">
-            <div class="chat-messages" id="chatMessages">
-                <div class="message bot">
-                    <div class="message-content">
-                        Bonjour ! 👋 Je suis Claney HT. Comment puis-je vous aider ?
-                    </div>
-                </div>
-            </div>
-            <div class="chat-input">
-                <input type="text" id="chatInput" placeholder="Tapez votre message...">
-                <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
-            </div>
-        </div>
+        <div class="whatsapp-pulse"></div>
     </div>
 
     <!-- Modal Admin -->
@@ -263,8 +731,8 @@
             <h2><i class="fas fa-lock"></i> Accès Admin</h2>
             <div class="login-form">
                 <div class="form-group">
-                    <label for="adminPassword">Mot de passe :</label>
-                    <input type="password" id="adminPassword" placeholder="Entrez le mot de passe" class="form-input">
+                    <label for="adminPassword"><i class="fas fa-key"></i> Mot de passe :</label>
+                    <input type="password" id="adminPassword" placeholder="Entrez le mot de passe admin" class="form-input">
                 </div>
                 <button class="modal-cta" onclick="loginToAdmin()">
                     <i class="fas fa-sign-in-alt"></i> Se connecter
@@ -273,6 +741,221 @@
         </div>
     </div>
 
+    <!-- Modal Dashboard Admin -->
+    <div id="adminDashboard" class="modal admin-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('adminDashboard')">&times;</span>
+            <h2><i class="fas fa-chart-bar"></i> Dashboard Admin</h2>
+            
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalVisitors">0</h3>
+                        <p>Visiteurs Totaux</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="pageViews">0</h3>
+                        <p>Vues de Page</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="whatsappClicks">0</h3>
+                        <p>Clicks WhatsApp</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="instagramClicks">0</h3>
+                        <p>Clicks Instagram</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-actions">
+                <button class="admin-btn" onclick="exportData()">
+                    <i class="fas fa-download"></i> Exporter les données
+                </button>
+                <button class="admin-btn reset" onclick="resetStats()">
+                    <i class="fas fa-redo"></i> Reset Statistiques
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals Solutions -->
+    <div id="architectureModal" class="modal solution-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('architectureModal')">&times;</span>
+            <h2><i class="fas fa-layer-group"></i> Architecture Digital Complète</h2>
+            <div class="modal-body">
+                <div class="solution-details">
+                    <h3><i class="fas fa-cogs"></i> Ce que j'intègre :</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> <strong>Sites web ultra-performants</strong> (Load time < 2s)</li>
+                        <li><i class="fas fa-check"></i> <strong>Automatisation marketing complète</strong></li>
+                        <li><i class="fas fa-check"></i> <strong>CRM personnalisé et intégré</strong></li>
+                        <li><i class="fas fa-check"></i> <strong>Solutions IA et machine learning</strong></li>
+                        <li><i class="fas fa-check"></i> <strong>Analytics et tracking avancé</strong></li>
+                        <li><i class="fas fa-check"></i> <strong>Formation et support continu</strong></li>
+                    </ul>
+
+                    <div class="process">
+                        <h3><i class="fas fa-play-circle"></i> Processus de collaboration :</h3>
+                        <div class="process-steps">
+                            <div class="step">
+                                <i class="fas fa-search"></i>
+                                <strong>Audit & Analyse</strong>
+                                <span>Étude de votre besoin</span>
+                            </div>
+                            <div class="step">
+                                <i class="fas fa-pencil-alt"></i>
+                                <strong>Conception</strong>
+                                <span>Solutions sur mesure</span>
+                            </div>
+                            <div class="step">
+                                <i class="fas fa-code"></i>
+                                <strong>Développement</strong>
+                                <span>Implémentation technique</span>
+                            </div>
+                            <div class="step">
+                                <i class="fas fa-rocket"></i>
+                                <strong>Lancement</strong>
+                                <span>Déploiement et optimisation</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-options">
+                    <button class="contact-option" onclick="openWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> Discuter sur WhatsApp
+                    </button>
+                    <button class="contact-option" onclick="openEmail()">
+                        <i class="fas fa-envelope"></i> Envoyer un email détaillé
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="formationModal" class="modal solution-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('formationModal')">&times;</span>
+            <h2><i class="fas fa-viruses"></i> Masterclass Viralité Complète</h2>
+            <div class="modal-body">
+                <div class="solution-details">
+                    <h3><i class="fas fa-graduation-cap"></i> Programme de Formation :</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> <strong>Module TikTok</strong> : Algorithmes 2025 + stratégies virales</li>
+                        <li><i class="fas fa-check"></i> <strong>Module Instagram</strong> : Growth hacking + monétisation</li>
+                        <li><i class="fas fa-check"></i> <strong>Module YouTube</strong> : SEO avancé + optimisation contenu</li>
+                        <li><i class="fas fa-check"></i> <strong>Stratégies cross-plateformes</strong> : Synergies et automation</li>
+                        <li><i class="fas fa-check"></i> <strong>Analyse de données</strong> : Métriques et optimisation</li>
+                        <li><i class="fas fa-check"></i> <strong>Support personnalisé</strong> : Coaching individuel</li>
+                    </ul>
+
+                    <div class="bonus-section">
+                        <h3><i class="fas fa-gift"></i> Bonus inclus :</h3>
+                        <div class="bonus-grid">
+                            <div class="bonus">
+                                <i class="fas fa-tools"></i>
+                                <strong>Kits de production</strong>
+                                <span>Templates et outils</span>
+                            </div>
+                            <div class="bonus">
+                                <i class="fas fa-users"></i>
+                                <strong>Communauté privée</strong>
+                                <span>Réseau d'entraide</span>
+                            </div>
+                            <div class="bonus">
+                                <i class="fas fa-sync-alt"></i>
+                                <strong>Mises à jour gratuites</strong>
+                                <span>Évolutions algorithmes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-options">
+                    <button class="contact-option" onclick="openWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> Discuter de la formation
+                    </button>
+                    <button class="contact-option" onclick="openEmail()">
+                        <i class="fas fa-envelope"></i> Demander le programme détaillé
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tradingModal" class="modal solution-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('tradingModal')">&times;</span>
+            <h2><i class="fas fa-robot"></i> Trading Algorithmique Avancé</h2>
+            <div class="modal-body">
+                <div class="solution-details">
+                    <h3><i class="fas fa-chart-line"></i> Technologies et Méthodologies :</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> <strong>Machine Learning</strong> : Algorithmes auto-apprenants</li>
+                        <li><i class="fas fa-check"></i> <strong>Analyse prédictive</strong> : Modèles statistiques avancés</li>
+                        <li><i class="fas fa-check"></i> <strong>Backtesting rigoureux</strong> : Validation sur données historiques</li>
+                        <li><i class="fas fa-check"></i> <strong>Gestion des risques</strong> : Systèmes de protection automatiques</li>
+                        <li><i class="fas fa-check"></i> <strong>Monitoring 24/7</strong> : Surveillance continue des performances</li>
+                        <li><i class="fas fa-check"></i> <strong>Optimisation continue</strong> : Amélioration permanente</li>
+                    </ul>
+
+                    <div class="performance-section">
+                        <h3><i class="fas fa-trophy"></i> Performances moyennes :</h3>
+                        <div class="performance-grid">
+                            <div class="performance-item">
+                                <i class="fas fa-arrow-up"></i>
+                                <strong>15-25%</strong>
+                                <span>ROI mensuel</span>
+                            </div>
+                            <div class="performance-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <strong>< 3%</strong>
+                                <span>Drawdown max</span>
+                            </div>
+                            <div class="performance-item">
+                                <i class="fas fa-bolt"></i>
+                                <strong>99.8%</strong>
+                                <span>Taux réussite</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-options">
+                    <button class="contact-option" onclick="openWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> Discuter des performances
+                    </button>
+                    <button class="contact-option" onclick="openEmail()">
+                        <i class="fas fa-envelope"></i> Demander l'analyse détaillée
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="main.js"></script>
 </body>
-        </html>
+</html>
