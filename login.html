@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Connexion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER SIMPLE ===== */
+        .pf-login-header {
+            padding: var(--spacing-md) 0;
+            text-align: center;
+            border-bottom: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+        }
+
+        .pf-login-header h1 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+        }
+
+        .pf-login-header p {
+            color: var(--color-gray-medium);
+            margin-top: var(--spacing-xs);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-login-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-xl) 0;
+        }
+
+        .pf-login-container {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-xl);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* ===== FORM STYLES ===== */
+        .pf-form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-dark);
+            background-color: var(--color-white);
+            transition: border-color 0.2s ease;
+        }
+
+        .pf-form-input:focus {
+            outline: none;
+            border-color: var(--color-blue-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .pf-input-with-icon {
+            position: relative;
+        }
+
+        .pf-input-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-gray-medium);
+            cursor: pointer;
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        /* ===== LINKS ===== */
+        .pf-login-links {
+            margin-top: var(--spacing-md);
+            text-align: center;
+        }
+
+        .pf-login-link {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .pf-login-link:hover {
+            text-decoration: underline;
+        }
+
+        .pf-forgot-password {
+            display: block;
+            margin-top: var(--spacing-xs);
+            font-size: 0.8125rem;
+        }
+
+        .pf-signup-link {
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--color-gray-light);
+        }
+
+        /* ===== ERROR MESSAGES ===== */
+        .pf-error-message {
+            color: var(--color-error);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-error-message.show {
+            display: block;
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-login-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+        }
+
+        .pf-login-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 480px) {
+            .pf-login-container {
+                padding: var(--spacing-lg);
+                margin: 0 var(--spacing-sm);
+            }
+            
+            .pf-login-main {
+                padding: var(--spacing-lg) 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-login-header">
+        <div class="container">
+            <h1>PayFusion</h1>
+            <p>Connectez-vous à votre compte</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pf-login-main">
+        <div class="container">
+            <div class="pf-login-container">
+                <form id="loginForm">
+                    <div class="pf-form-group">
+                        <label for="emailOrPhone" class="pf-form-label">
+                            <i class="fas fa-envelope"></i> Email ou Téléphone
+                        </label>
+                        <input 
+                            type="text" 
+                            id="emailOrPhone" 
+                            class="pf-form-input" 
+                            placeholder="exemple@email.com ou +509XXXXXXXX"
+                            required
+                        >
+                        <div id="emailError" class="pf-error-message">
+                            Veuillez entrer un email ou numéro valide
+                        </div>
+                    </div>
+
+                    <div class="pf-form-group">
+                        <label for="password" class="pf-form-label">
+                            <i class="fas fa-lock"></i> Mot de passe
+                        </label>
+                        <div class="pf-input-with-icon">
+                            <input 
+                                type="password" 
+                                id="password" 
+                                class="pf-form-input" 
+                                placeholder="Votre mot de passe"
+                                required
+                            >
+                            <i class="fas fa-eye pf-input-icon" id="togglePassword"></i>
+                        </div>
+                        <div id="passwordError" class="pf-error-message">
+                            Le mot de passe doit contenir au moins 6 caractères
+                        </div>
+                    </div>
+
+                    <div class="pf-form-group">
+                        <button type="submit" class="pf-btn pf-btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Se connecter
+                        </button>
+                    </div>
+
+                    <div class="pf-login-links">
+                        <a href="forgot-password.html" class="pf-login-link pf-forgot-password">
+                            <i class="fas fa-key"></i> Mot de passe oublié ?
+                        </a>
+                    </div>
+                </form>
+
+                <div class="pf-signup-link">
+                    <p>Vous n'avez pas de compte ?</p>
+                    <a href="register.html" class="pf-btn pf-btn-secondary">
+                        <i class="fas fa-user-plus"></i> Créer un compte
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-login-footer">
+        <div class="container">
+            <p>Besoin d'aide ? <a href="support.html">Contactez le support</a> ou WhatsApp: +509 3944 2808</p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+
+        // Validation functions
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function isValidPhone(phone) {
+            const re = /^\+?[0-9]{10,15}$/;
+            return re.test(phone.replace(/\s/g, ''));
+        }
+
+        function isValidPassword(password) {
+            return password.length >= 6;
+        }
+
+        // Form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailOrPhone = document.getElementById('emailOrPhone').value;
+            const password = document.getElementById('password').value;
+            
+            let isValid = true;
+            
+            // Reset errors
+            document.getElementById('emailError').classList.remove('show');
+            document.getElementById('passwordError').classList.remove('show');
+            
+            // Validate email/phone
+            if (!isValidEmail(emailOrPhone) && !isValidPhone(emailOrPhone)) {
+                document.getElementById('emailError').classList.add('show');
+                isValid = false;
+            }
+            
+            // Validate password
+            if (!isValidPassword(password)) {
+                document.getElementById('passwordError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Simulate login process
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
+                submitBtn.disabled = true;
+                
+                // Simulate API call delay
+                setTimeout(() => {
+                    // For now, redirect to home.html
+                    // Later will integrate with Firebase
+                    window.location.href = 'home.html';
+                }, 1500);
+            }
+        });
+
+        // Real-time validation
+        document.getElementById('emailOrPhone').addEventListener('input', function() {
+            const value = this.value;
+            if (value && (isValidEmail(value) || isValidPhone(value))) {
+                document.getElementById('emailError').classList.remove('show');
+            }
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            if (isValidPassword(this.value)) {
+                document.getElementById('passwordError').classList.remove('show');
+            }
+        });
+
+        // Enter key support
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && document.activeElement.id === 'password') {
+                document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+</html>

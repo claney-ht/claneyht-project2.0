@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Support Client</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --color-gaming: #f97316;
+            --color-streaming: #8b5cf6;
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER ===== */
+        .pf-support-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-gray-light);
+            padding: var(--spacing-md) 0;
+        }
+
+        .pf-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pf-back-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .pf-back-btn:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-page-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+            text-align: center;
+        }
+
+        .pf-user-menu {
+            position: relative;
+        }
+
+        .pf-menu-button {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .pf-menu-button:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-menu-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-blue-primary);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-support-main {
+            padding: var(--spacing-xl) 0;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .pf-support-hero {
+            background: linear-gradient(135deg, var(--color-blue-primary) 0%, var(--color-blue-light) 100%);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            color: var(--color-white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pf-support-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><path d="M0,0 L1000,100 L1000,0 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .pf-hero-title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            z-index: 1;
+        }
+
+        .pf-hero-subtitle {
+            font-size: var(--font-size-base);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== QUICK CONTACT ===== */
+        .pf-quick-contact {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-contact-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pf-contact-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pf-contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-md);
+            font-size: 1.5rem;
+            color: var(--color-blue-primary);
+        }
+
+        .pf-contact-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-contact-info {
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-response-time {
+            font-size: 0.875rem;
+            color: var(--color-success);
+            font-weight: 500;
+            margin-top: var(--spacing-sm);
+        }
+
+        /* ===== FAQ SECTION ===== */
+        .pf-faq-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-section-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-faq-categories {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .pf-category-btn {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            color: var(--color-gray-medium);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .pf-category-btn:hover {
+            border-color: var(--color-blue-primary);
+            color: var(--color-blue-primary);
+        }
+
+        .pf-category-btn.active {
+            background: var(--color-blue-primary);
+            border-color: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-faq-list {
+            display: none;
+        }
+
+        .pf-faq-list.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .pf-faq-item {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            margin-bottom: var(--spacing-sm);
+            border: 1px solid var(--color-gray-light);
+            overflow: hidden;
+        }
+
+        .pf-faq-question {
+            padding: var(--spacing-lg);
+            font-weight: 600;
+            color: var(--color-gray-dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+
+        .pf-faq-question:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-faq-answer {
+            padding: 0 var(--spacing-lg);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-faq-item.active .pf-faq-answer {
+            padding: 0 var(--spacing-lg) var(--spacing-lg);
+            max-height: 500px;
+        }
+
+        .pf-faq-item.active .pf-faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .pf-faq-toggle {
+            transition: transform 0.3s ease;
+            color: var(--color-gray-medium);
+        }
+
+        /* ===== TICKETS SECTION ===== */
+        .pf-tickets-section {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-tickets-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-tickets-filters {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-filter-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            background: var(--color-white);
+            color: var(--color-gray-dark);
+            font-size: var(--font-size-sm);
+        }
+
+        .pf-tickets-table {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-table-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            background: var(--color-gray-very-light);
+            padding: var(--spacing-md);
+            font-weight: 600;
+            color: var(--color-gray-dark);
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+
+        @media (max-width: 768px) {
+            .pf-table-header {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .pf-table-header :nth-child(3),
+            .pf-table-header :nth-child(4) {
+                display: none;
+            }
+        }
+
+        .pf-table-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--color-gray-very-light);
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .pf-table-row {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .pf-table-row :nth-child(3),
+            .pf-table-row :nth-child(4) {
+                display: none;
+            }
+        }
+
+        .pf-table-row:last-child {
+            border-bottom: none;
+        }
+
+        .pf-table-row:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-ticket-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .pf-status-open {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--color-blue-primary);
+        }
+
+        .pf-status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--color-warning);
+        }
+
+        .pf-status-resolved {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+        }
+
+        .pf-status-closed {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--color-error);
+        }
+
+        /* ===== NEW TICKET FORM ===== */
+        .pf-new-ticket {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-form-label i {
+            margin-right: 0.5rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-form-input, .pf-form-select, .pf-form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-dark);
+            background-color: var(--color-white);
+            transition: border-color 0.2s ease;
+        }
+
+        .pf-form-input:focus,
+        .pf-form-select:focus,
+        .pf-form-textarea:focus {
+            outline: none;
+            border-color: var(--color-blue-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .pf-form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .pf-form-note {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+            margin-top: 0.25rem;
+        }
+
+        .pf-file-upload {
+            border: 2px dashed var(--color-gray-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pf-file-upload:hover {
+            border-color: var(--color-blue-primary);
+            background: var(--color-blue-very-light);
+        }
+
+        .pf-file-input {
+            display: none;
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .pf-btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        .pf-btn-success {
+            background-color: var(--color-success);
+            color: var(--color-white);
+        }
+
+        .pf-btn-success:hover {
+            background-color: #0da271;
+        }
+
+        .pf-btn-lg {
+            padding: 1rem 2rem;
+            font-size: var(--font-size-base);
+        }
+
+        .pf-btn-block {
+            width: 100%;
+        }
+
+        /* ===== ERROR MESSAGES ===== */
+        .pf-error-message {
+            color: var(--color-error);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-error-message.show {
+            display: block;
+        }
+
+        .pf-success-message {
+            color: var(--color-success);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-success-message.show {
+            display: block;
+        }
+
+        /* ===== NO DATA ===== */
+        .pf-no-data {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--color-gray-medium);
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-support-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-support-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .pf-quick-contact {
+                grid-template-columns: 1fr;
+            }
+            
+            .pf-faq-categories {
+                flex-direction: column;
+            }
+            
+            .pf-category-btn {
+                text-align: left;
+            }
+            
+            .pf-tickets-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .pf-tickets-filters {
+                flex-direction: column;
+            }
+            
+            .pf-action-buttons {
+                flex-direction: column;
+            }
+            
+            .pf-btn {
+                width: 100%;
+            }
+            
+            .pf-header-content {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+            
+            .pf-back-btn {
+                align-self: flex-start;
+            }
+            
+            .pf-new-ticket {
+                padding: var(--spacing-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-support-header">
+        <div class="container">
+            <div class="pf-header-content">
+                <a href="home.html" class="pf-back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
+                
+                <h1 class="pf-page-title">Support Client</h1>
+                
+                <div class="pf-user-menu">
+                    <button class="pf-menu-button" onclick="window.location.href='account.html'">
+                        <div class="pf-menu-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pf-support-main">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="pf-support-hero">
+                <h1 class="pf-hero-title">Nous sommes là pour vous aider</h1>
+                <p class="pf-hero-subtitle">
+                    Assistance 24/7 pour toutes vos questions et problèmes. Notre équipe est disponible pour vous aider rapidement et efficacement.
+                </p>
+            </div>
+
+            <!-- Quick Contact -->
+            <div class="pf-quick-contact">
+                <div class="pf-contact-card">
+                    <div class="pf-contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3 class="pf-contact-title">Support WhatsApp</h3>
+                    <p class="pf-contact-info">
+                        Assistance instantanée pour les problèmes urgents
+                    </p>
+                    <a href="https://wa.me/50939442808" class="pf-btn pf-btn-success pf-btn-block">
+                        <i class="fab fa-whatsapp"></i> +509 3944 2808
+                    </a>
+                    <div class="pf-response-time">
+                        <i class="fas fa-bolt"></i> Réponse en moins de 5 minutes
+                    </div>
+                </div>
+                
+                <div class="pf-contact-card">
+                    <div class="pf-contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="pf-contact-title">Email Support</h3>
+                    <p class="pf-contact-info">
+                        Pour les questions détaillées et documents
+                    </p>
+                    <a href="mailto:support.payfusion@gmail.com" class="pf-btn pf-btn-primary pf-btn-block">
+                        <i class="fas fa-envelope"></i> support.payfusion@gmail.com
+                    </a>
+                    <div class="pf-response-time">
+                        <i class="fas fa-clock"></i> Réponse sous 12 heures
+                    </div>
+                </div>
+                
+                <div class="pf-contact-card">
+                    <div class="pf-contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3 class="pf-contact-title">Appel Téléphonique</h3>
+                    <p class="pf-contact-info">
+                        Pour les problèmes complexes nécessitant une discussion
+                    </p>
+                    <a href="tel:+50939442808" class="pf-btn pf-btn-secondary pf-btn-block">
+                        <i class="fas fa-phone"></i> +509 3944 2808
+                    </a>
+                    <div class="pf-response-time">
+                        <i class="fas fa-user-check"></i> Disponible 24/7
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <section class="pf-faq-section">
+                <h2 class="pf-section-title">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Questions Fréquentes (FAQ)</span>
+                </h2>
+                
+                <div class="pf-faq-categories">
+                    <button class="pf-category-btn active" data-category="general">
+                        <i class="fas fa-home"></i> Général
+                    </button>
+                    <button class="pf-category-btn" data-category="payments">
+                        <i class="fas fa-credit-card"></i> Paiements
+                    </button>
+                    <button class="pf-category-btn" data-category="services">
+                        <i class="fas fa-concierge-bell"></i> Services
+                    </button>
+                    <button class="pf-category-btn" data-category="account">
+                        <i class="fas fa-user"></i> Compte
+                    </button>
+                    <button class="pf-category-btn" data-category="security">
+                        <i class="fas fa-shield-alt"></i> Sécurité
+                    </button>
+                </div>
+                
+                <!-- General FAQ -->
+                <div class="pf-faq-list active" id="generalFaq">
+                    <div class="pf-faq-item">
+                        <div class="pf-faq-question">
+                            <span>Qu'est-ce que PayFusion ?</span>
+                            <i class="fas fa-chevron-down pf-faq-toggle"></i>
+                        </div>
+                        <div class="pf-faq-answer">
+                            <p>PayFusion est une plateforme haïtienne tout-en-un offrant des services financiers (recharge Wise, PayPal, USDT), gaming (Free Fire) et streaming (Netflix) avec des paiements sécurisés et un support 24/7.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-faq-item">
+                        <div class="pf-faq-question">
+                            <span>Quelles sont les heures de support ?</span>
+                            <i class="fas fa-chevron-down pf-faq-toggle"></i>
+                        </div>
+                        <div class="pf-faq-answer">
+                            <p>Notre support est disponible 24 heures sur 24, 7 jours sur 7 :</p>
+                            <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                                <li>WhatsApp : Réponse en moins de 5 minutes</li>
+                                <li>Email : Réponse sous 12 heures</li>
+                                <li>Téléphone : Disponible pour les urgences</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-faq-item">
+                        <div class="pf-faq-question">
+                            <span>PayFusion est-il sécurisé ?</span>
+                            <i class="fas fa-chevron-down pf-faq-toggle"></i>
+                        </div>
+                        <div class="pf-faq-answer">
+                            <p>Oui, PayFusion utilise les dernières technologies de sécurité :</p>
+                            <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                                <li>Cryptage SSL 256-bit pour toutes les transactions</li>
+                                <li>Vérification KYC obligatoire</li>
+                                <li>Système de détection de fraude en temps réel</li>
+                                <li>Authentification à deux facteurs disponible</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payments FAQ -->
+                <div class="pf-faq-list" id="paymentsFaq">
+                    <div class="pf-faq-item">
+                        <div class="pf-faq-question">
+                            <span>Quelles méthodes de paiement acceptez-vous ?</span>
+                            <i class="fas fa-chevron-down pf-faq-toggle"></i>
+                        </div>
+                        <div class="pf-faq-answer">
+                            <p>Nous acceptons les méthodes de paiement suivantes :</p>
+                            <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                                <li><strong>MonCash</strong> : +509 3944 2808 (Marco Bien-Aimé)</li>
+                                <li><strong>NatCash</strong> : +509 3574 1778 (Marco Bien-Aimé)</li>
+                                <li><strong>USDT</strong> : TRC20 (TJHVCbXMBQdtzurHngB1aXSFkR9TWYvZ94)</li>
+                                <li><strong>Solde PayFusion</strong> : Pour les utilisateurs vérifiés</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-faq-item">
+                        <div class="pf-faq-question">
+                            <span>Combien de temps pour un dépôt ?</span>
+                            <i class="fas fa-chevron-down pf-faq-toggle"></i>
+                        </div>
+                        <div class="pf-faq-answer">
+                            <p>Les délais de dépôt varient selon la méthode :</p>
+                            <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                                <li><strong>MonCash/NatCash</strong> : 10-30 minutes après confirmation</li>
+                                <li><strong>USDT</strong> : Dépend des confirmations blockchain (généralement 15-60 minutes)</li>
+                                <li><strong>Transfert bancaire</strong> : 1-2 jours ouvrables</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem;">Minimum de dépôt : 150 HTG pour toutes les méthodes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-faq-item">
+                        <div class="pf-faq-question">
+                            <span>Comment retirer mes fonds ?</span>
+                            <i class="fas fa-chevron-down pf-faq-toggle"></i>
+                        </div>
+                        <div class="pf-faq-answer">
+                            <p>Pour retirer vos fonds :</p>
+                            <ol style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                                <li>Allez dans la section Portefeuille</li>
+                                <li>Sélectionnez "Retrait de fonds"</li>
+                                <li>Choisissez votre méthode (MonCash, NatCash, bancaire)</li>
+                                <li>Entrez le montant et confirmez</li>
+                            </ol>
+                            <p style="margin-top: 0.5rem;">Les retraits sont traités sous 1-24 heures. Minimum : 150 HTG.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Services FAQ -->
+                <div class="pf-faq-list" id="servicesFaq">
+                    <div class="pf-faq-item">
+                        <div class="pf-faq-question">
+                            <span>Combien de temps pour recevoir mes diamants Free Fire ?</span>
+                            <i class="fas fa-chevron-down pf-faq-toggle"></i>
+                        </div>
+                        <div class="pf-faq-answer">
+                            <p>La livraison des diamants Free Fire est presque instantanée :</p>
+                            <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                                <li><strong>Livraison standard</strong> : 5-10 minutes</li>
+                                <li><strong>Livraison express</strong> : 2-5 minutes (pour les gros packs)</li>
+                                <li><strong>Heures de pointe</strong> : Jusqu'à 15 minutes</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem;">Assurez-vous que votre ID Free Fire est correct et que votre compte est accessible.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-faq-item">
+                        <div class="pf-faq-question">
+                            <span>Comment activer mon abonnement Netflix ?</span>
+                            <i class="fas fa-chevron-down pf-faq-toggle"></i>
+                        </div>
+                        <div class="pf-faq-answer">
+                            <p>Après achat de votre abonnement Netflix :</p>
+                            <ol style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                                <li>Vous recevrez un email avec les identifiants</li>
+                                <li>Connectez-vous sur Netflix avec ces identifiants</li>
+                                <li>Changez le mot de passe pour sécuriser votre compte</li>
+                                <li>Profitez de Netflix Premium 4K !</li>
+                            </ol>
+                            <p style="margin-top: 0.5rem;">Durée d'activation : 15-30 minutes après paiement confirmé.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-faq-item">
+                        <div class="pf-faq-question">
+                            <span>Quels sont les taux pour les services financiers ?</span>
+                            <i class="fas fa-chevron-down pf-faq-toggle"></i>
+                        </div>
+                        <div class="pf-faq-answer">
+                            <p>Taux de change fixe : <strong>1 USD = 150 HTG</strong></p>
+                            <p>Plages disponibles : 10 USD à 100 USD (1,500 HTG à 15,000 HTG)</p>
+                            <p style="margin-top: 0.5rem;">Services disponibles :</p>
+                            <ul style="margin-top: 0.5rem; padding-left: 1.5rem;">
+                                <li>Wise (Personal/Business)</li>
+                                <li>PayPal (Personal/Business)</li>
+                                <li>USDT (TRC20)</li>
+                            </ul>
+                            <p style="margin-top: 0.5rem;">Tous les services sont livrés instantanément après confirmation de paiement.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tickets Section -->
+            <section class="pf-tickets-section">
+                <div class="pf-tickets-header">
+                    <h2 class="pf-section-title">
+                        <i class="fas fa-ticket-alt"></i>
+                        <span>Mes Tickets de Support</span>
+                    </h2>
+                    
+                    <div class="pf-tickets-filters">
+                        <select class="pf-filter-select" id="ticketStatus">
+                            <option value="">Tous les statuts</option>
+                            <option value="open">Ouverts</option>
+                            <option value="pending">En attente</option>
+                            <option value="resolved">Résolus</option>
+                            <option value="closed">Fermés</option>
+                        </select>
+                        
+                        <select class="pf-filter-select" id="ticketPriority">
+                            <option value="">Toutes les priorités</option>
+                            <option value="high">Haute</option>
+                            <option value="medium">Moyenne</option>
+                            <option value="low">Basse</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="pf-tickets-table">
+                    <div class="pf-table-header">
+                        <div>Ticket ID</div>
+                        <div>Sujet</div>
+                        <div>Date</div>
+                        <div>Statut</div>
+                    </div>
+                    
+                    <div id="ticketsList">
+                        <!-- Tickets will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="pf-no-data" id="noTicketsMessage" style="display: none;">
+                    <i class="fas fa-ticket-alt" style="font-size: 3rem; color: var(--color-gray-light); margin-bottom: var(--spacing-sm);"></i>
+                    <h3>Aucun ticket de support</h3>
+                    <p>Créez votre premier ticket ci-dessous ou contactez-nous directement.</p>
+                </div>
+            </section>
+
+            <!-- New Ticket Form -->
+            <section class="pf-new-ticket">
+                <h2 class="pf-section-title">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Créer un Nouveau Ticket</span>
+                </h2>
+                
+                <form id="supportTicketForm">
+                    <div class="pf-form-group">
+                        <label for="ticketSubject" class="pf-form-label">
+                            <i class="fas fa-heading"></i> Sujet du ticket
+                        </label>
+                        <input 
+                            type="text" 
+                            id="ticketSubject" 
+                            class="pf-form-input" 
+                            placeholder="Ex: Problème avec un dépôt MonCash"
+                            required
+                            maxlength="100"
+                        >
+                        <div class="pf-form-note">
+                            Décrivez brièvement votre problème (max 100 caractères)
+                        </div>
+                        <div id="subjectError" class="pf-error-message">
+                            Le sujet est requis (max 100 caractères)
+                        </div>
+                    </div>
+                    
+                    <div class="pf-form-group">
+                        <label for="ticketCategory" class="pf-form-label">
+                            <i class="fas fa-folder"></i> Catégorie
+                        </label>
+                        <select id="ticketCategory" class="pf-form-select" required>
+                            <option value="">Sélectionnez une catégorie</option>
+                            <option value="payment">Problème de paiement</option>
+                            <option value="service">Service non livré</option>
+                            <option value="account">Problème de compte</option>
+                            <option value="security">Problème de sécurité</option>
+                            <option value="refund">Demande de remboursement</option>
+                            <option value="other">Autre</option>
+                        </select>
+                        <div id="categoryError" class="pf-error-message">
+                            Veuillez sélectionner une catégorie
+                        </div>
+                    </div>
+                    
+                    <div class="pf-form-group">
+                        <label for="ticketPriority" class="pf-form-label">
+                            <i class="fas fa-exclamation-circle"></i> Priorité
+                        </label>
+                        <select id="ticketPriority" class="pf-form-select" required>
+                            <option value="">Sélectionnez une priorité</option>
+                            <option value="high">Haute (Problème urgent)</option>
+                            <option value="medium" selected>Moyenne (Problème normal)</option>
+                            <option value="low">Basse (Question générale)</option>
+                        </select>
+                        <div class="pf-form-note">
+                            Haute priorité : Réponse en moins de 30 minutes
+                        </div>
+                    </div>
+                    
+                    <div class="pf-form-group">
+                        <label for="ticketDescription" class="pf-form-label">
+                            <i class="fas fa-align-left"></i> Description détaillée
+                        </label>
+                        <textarea 
+                            id="ticketDescription" 
+                            class="pf-form-textarea" 
+                            placeholder="Décrivez votre problème en détail. Incluez les informations pertinentes comme les numéros de transaction, les ID de commande, etc."
+                            required
+                            minlength="20"
+                            maxlength="2000"
+                        ></textarea>
+                        <div class="pf-form-note">
+                            Minimum 20 caractères. Soyez le plus précis possible.
+                        </div>
+                        <div id="descriptionError" class="pf-error-message">
+                            La description doit contenir au moins 20 caractères
+                        </div>
+                    </div>
+                    
+                    <div class="pf-form-group">
+                        <label class="pf-form-label">
+                            <i class="fas fa-paperclip"></i> Pièces jointes (optionnel)
+                        </label>
+                        <div class="pf-file-upload" onclick="document.getElementById('ticketFiles').click()">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--color-gray-medium); margin-bottom: var(--spacing-sm);"></i>
+                            <p>Cliquez pour téléverser des captures d'écran</p>
+                            <p class="pf-form-note">
+                                Formats acceptés: JPG, PNG, PDF • Max 5MB par fichier • Max 3 fichiers
+                            </p>
+                            <input type="file" id="ticketFiles" class="pf-file-input" multiple accept=".jpg,.jpeg,.png,.pdf">
+                        </div>
+                        <div id="filePreview" style="margin-top: var(--spacing-sm); display: none;">
+                            <div id="fileList"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-action-buttons">
+                        <button type="reset" class="pf-btn pf-btn-secondary">
+                            <i class="fas fa-eraser"></i> Effacer le formulaire
+                        </button>
+                        <button type="submit" class="pf-btn pf-btn-primary">
+                            <i class="fas fa-paper-plane"></i> Soumettre le ticket
+                        </button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-support-footer">
+        <div class="container">
+            <p>Pour une assistance immédiate : <a href="https://wa.me/50939442808">WhatsApp +509 3944 2808</a></p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // State
+        let currentFaqCategory = 'general';
+        let uploadedFiles = [];
+
+        // DOM Elements
+        const faqCategories = document.querySelectorAll('.pf-category-btn');
+        const faqLists = document.querySelectorAll('.pf-faq-list');
+        const faqItems = document.querySelectorAll('.pf-faq-item');
+
+        // Sample Tickets Data
+        const sampleTickets = [
+            {
+                id: 'TKT-20241215-001',
+                subject: 'Dépôt MonCash non crédité',
+                date: '15 Déc 2024, 14:30',
+                status: 'open',
+                priority: 'high',
+                category: 'payment',
+                lastUpdate: 'Il y a 2 heures'
+            },
+            {
+                id: 'TKT-20241214-002',
+                subject: 'Diamants Free Fire non reçus',
+                date: '14 Déc 2024, 19:15',
+                status: 'pending',
+                priority: 'medium',
+                category: 'service',
+                lastUpdate: 'Il y a 1 jour'
+            },
+            {
+                id: 'TKT-20241212-003',
+                subject: 'Problème de connexion au compte',
+                date: '12 Déc 2024, 10:45',
+                status: 'resolved',
+                priority: 'medium',
+                category: 'account',
+                lastUpdate: 'Il y a 3 jours'
+            },
+            {
+                id: 'TKT-20241210-004',
+                subject: 'Demande de remboursement',
+                date: '10 Déc 2024, 16:20',
+                status: 'closed',
+                priority: 'low',
+                category: 'refund',
+                lastUpdate: 'Il y a 5 jours'
+            },
+            {
+                id: 'TKT-20241208-005',
+                subject: 'Question sur les limites de transaction',
+                date: '08 Déc 2024, 21:30',
+                status: 'resolved',
+                priority: 'low',
+                category: 'other',
+                lastUpdate: 'Il y a 7 jours'
+            }
+        ];
+
+        // Switch FAQ category
+        function switchFaqCategory(category) {
+            currentFaqCategory = category;
+            
+            // Update category buttons
+            faqCategories.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.category === category) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update FAQ lists
+            faqLists.forEach(list => {
+                list.classList.remove('active');
+                if (list.id === category + 'Faq') {
+                    list.classList.add('active');
+                }
+            });
+        }
+
+        // Toggle FAQ item
+        function toggleFaqItem(item) {
+            item.classList.toggle('active');
+        }
+
+        // Load tickets
+        function loadTickets() {
+            const statusFilter = document.getElementById('ticketStatus').value;
+            const priorityFilter = document.getElementById('ticketPriority').value;
+            
+            let filteredTickets = sampleTickets.filter(ticket => {
+                // Status filter
+                if (statusFilter && ticket.status !== statusFilter) return false;
+                
+                // Priority filter
+                if (priorityFilter && ticket.priority !== priorityFilter) return false;
+                
+                return true;
+            });
+            
+            // Display tickets
+            const ticketsList = document.getElementById('ticketsList');
+            const noTicketsMessage = document.getElementById('noTicketsMessage');
+            
+            if (filteredTickets.length === 0) {
+                ticketsList.innerHTML = '';
+                noTicketsMessage.style.display = 'block';
+                return;
+            }
+            
+            noTicketsMessage.style.display = 'none';
+            
+            let html = '';
+            filteredTickets.forEach(ticket => {
+                const statusClass = `pf-status-${ticket.status}`;
+                const statusText = {
+                    'open': 'Ouvert',
+                    'pending': 'En attente',
+                    'resolved': 'Résolu',
+                    'closed': 'Fermé'
+                }[ticket.status];
+                
+                const priorityText = {
+                    'high': 'Haute',
+                    'medium': 'Moyenne',
+                    'low': 'Basse'
+                }[ticket.priority];
+                
+                html += `
+                    <div class="pf-table-row" style="cursor: pointer;" onclick="viewTicket('${ticket.id}')">
+                        <div>
+                            <strong>${ticket.id}</strong>
+                            <div class="pf-form-note">Priorité: ${priorityText}</div>
+                        </div>
+                        <div>${ticket.subject}</div>
+                        <div>
+                            <div>${ticket.date}</div>
+                            <div class="pf-form-note">${ticket.lastUpdate}</div>
+                        </div>
+                        <div><span class="pf-ticket-status ${statusClass}">${statusText}</span></div>
+                    </div>
+                `;
+            });
+            
+            ticketsList.innerHTML = html;
+        }
+
+        // Handle file upload
+        function handleFileUpload(files) {
+            const maxFiles = 3;
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+            
+            // Clear existing files if starting over
+            if (uploadedFiles.length >= maxFiles) {
+                alert(`Maximum ${maxFiles} fichiers autorisés`);
+                return;
+            }
+            
+            Array.from(files).slice(0, maxFiles - uploadedFiles.length).forEach(file => {
+                // Validate file
+                if (file.size > maxSize) {
+                    alert(`Fichier "${file.name}" trop volumineux. Maximum 5MB.`);
+                    return;
+                }
+                
+                if (!allowedTypes.includes(file.type)) {
+                    alert(`Format de fichier non supporté pour "${file.name}". Utilisez JPG, PNG ou PDF.`);
+                    return;
+                }
+                
+                // Add to uploaded files
+                uploadedFiles.push(file);
+            });
+            
+            updateFilePreview();
+        }
+
+        // Update file preview
+        function updateFilePreview() {
+            const filePreview = document.getElementById('filePreview');
+            const fileList = document.getElementById('fileList');
+            
+            if (uploadedFiles.length === 0) {
+                filePreview.style.display = 'none';
+                return;
+            }
+            
+            filePreview.style.display = 'block';
+            
+            let html = '<div style="display: flex; flex-direction: column; gap: var(--spacing-sm);">';
+            
+            uploadedFiles.forEach((file, index) => {
+                const fileSize = (file.size / 1024 / 1024).toFixed(2); // MB
+                
+                html += `
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--spacing-sm); background: var(--color-gray-very-light); border-radius: var(--border-radius);">
+                        <div style="display: flex; align-items: center; gap: var(--spacing-sm);">
+                            <i class="fas fa-file" style="color: var(--color-gray-medium);"></i>
+                            <div>
+                                <div style="font-weight: 500; color: var(--color-gray-dark);">${file.name}</div>
+                                <div class="pf-form-note">${fileSize} MB</div>
+                            </div>
+                        </div>
+                        <button type="button" class="pf-btn pf-btn-secondary pf-btn-sm" onclick="removeFile(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            fileList.innerHTML = html;
+        }
+
+        // Remove file
+        function removeFile(index) {
+            uploadedFiles.splice(index, 1);
+            updateFilePreview();
+        }
+
+        // Validate ticket form
+        function validateTicketForm() {
+            const subject = document.getElementById('ticketSubject').value.trim();
+            const category = document.getElementById('ticketCategory').value;
+            const description = document.getElementById('ticketDescription').value.trim();
+            
+            let isValid = true;
+            
+            // Reset errors
+            document.getElementById('subjectError').classList.remove('show');
+            document.getElementById('categoryError').classList.remove('show');
+            document.getElementById('descriptionError').classList.remove('show');
+            
+            // Validate subject
+            if (!subject || subject.length > 100) {
+                document.getElementById('subjectError').classList.add('show');
+                isValid = false;
+            }
+            
+            // Validate category
+            if (!category) {
+                document.getElementById('categoryError').classList.add('show');
+                isValid = false;
+            }
+            
+            // Validate description
+            if (!description || description.length < 20) {
+                document.getElementById('descriptionError').classList.add('show');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        // Submit ticket
+        function submitTicket(e) {
+            e.preventDefault();
+            
+            if (!validateTicketForm()) {
+                return;
+            }
+            
+            const subject = document.getElementById('ticketSubject').value.trim();
+            const category = document.getElementById('ticketCategory').value;
+            const priority = document.getElementById('ticketPriority').value;
+            const description = document.getElementById('ticketDescription').value.trim();
+            
+            // Prepare ticket data
+            const ticketData = {
+                id: `TKT-${Date.now().toString().slice(-6)}-${Math.floor(Math.random() * 1000).toString().padStart(3, '0')}`,
+                subject: subject,
+                category: category,
+                priority: priority,
+                description: description,
+                files: uploadedFiles.length,
+                timestamp: new Date().toISOString(),
+                status: 'open',
+                userId: 'current-user-id' // In real app, get from auth
+            };
+            
+            // Show loading
+            const submitBtn = document.querySelector('#supportTicketForm button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // In real app, upload files and create ticket in Firebase
+                console.log('Ticket submitted:', ticketData);
+                
+                // Reset form
+                document.getElementById('supportTicketForm').reset();
+                uploadedFiles = [];
+                updateFilePreview();
+                
+                // Show success message
+                alert(`Ticket créé avec succès !\n\nID: ${ticketData.id}\n\nNotre équipe vous répondra dans les plus brefs délais.`);
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Reload tickets
+                loadTickets();
+                
+            }, 2000);
+        }
+
+        // View ticket (simulated)
+        function viewTicket(ticketId) {
+            alert(`Voir les détails du ticket ${ticketId}\n\nDans l'application complète, cela ouvrirait une page de conversation détaillée.`);
+            // In real app, redirect to ticket detail page
+        }
+
+        // Initialize
+        function init() {
+            // FAQ category switching
+            faqCategories.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    switchFaqCategory(btn.dataset.category);
+                });
+            });
+            
+            // FAQ item toggling
+            faqItems.forEach(item => {
+                const question = item.querySelector('.pf-faq-question');
+                question.addEventListener('click', () => {
+                    toggleFaqItem(item);
+                });
+            });
+            
+            // Ticket filters
+            document.getElementById('ticketStatus').addEventListener('change', loadTickets);
+            document.getElementById('ticketPriority').addEventListener('change', loadTickets);
+            
+            // File upload
+            document.getElementById('ticketFiles').addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    handleFileUpload(e.target.files);
+                }
+            });
+            
+            // Form submission
+            document.getElementById('supportTicketForm').addEventListener('submit', submitTicket);
+            
+            // Real-time form validation
+            document.getElementById('ticketSubject').addEventListener('input', function() {
+                if (this.value.trim() && this.value.length <= 100) {
+                    document.getElementById('subjectError').classList.remove('show');
+                }
+            });
+            
+            document.getElementById('ticketCategory').addEventListener('change', function() {
+                if (this.value) {
+                    document.getElementById('categoryError').classList.remove('show');
+                }
+            });
+            
+            document.getElementById('ticketDescription').addEventListener('input', function() {
+                if (this.value.trim().length >= 20) {
+                    document.getElementById('descriptionError').classList.remove('show');
+                }
+            });
+            
+            // Load initial data
+            loadTickets();
+        }
+        
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

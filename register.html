@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Inscription</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER ===== */
+        .pf-register-header {
+            padding: var(--spacing-md) 0;
+            text-align: center;
+            border-bottom: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+        }
+
+        .pf-register-header h1 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+        }
+
+        .pf-register-header p {
+            color: var(--color-gray-medium);
+            margin-top: var(--spacing-xs);
+        }
+
+        /* ===== PROGRESS STEPS ===== */
+        .pf-progress-steps {
+            display: flex;
+            justify-content: center;
+            margin: var(--spacing-lg) 0 var(--spacing-xl);
+            position: relative;
+        }
+
+        .pf-progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            width: 120px;
+        }
+
+        .pf-step-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--color-gray-light);
+            color: var(--color-gray-medium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            transition: all 0.3s ease;
+        }
+
+        .pf-step-label {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+            text-align: center;
+        }
+
+        .pf-progress-step.active .pf-step-number {
+            background: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-progress-step.active .pf-step-label {
+            color: var(--color-blue-primary);
+            font-weight: 500;
+        }
+
+        .pf-progress-step.completed .pf-step-number {
+            background: var(--color-success);
+            color: var(--color-white);
+        }
+
+        .pf-progress-line {
+            position: absolute;
+            top: 18px;
+            left: 60px;
+            right: 60px;
+            height: 2px;
+            background: var(--color-gray-light);
+            z-index: 0;
+        }
+
+        .pf-progress-fill {
+            position: absolute;
+            top: 18px;
+            left: 60px;
+            height: 2px;
+            background: var(--color-blue-primary);
+            transition: width 0.3s ease;
+        }
+
+        /* ===== FORM CONTAINER ===== */
+        .pf-register-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 0 var(--spacing-xl);
+        }
+
+        .pf-register-container {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-xl);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        /* ===== FORM STYLES ===== */
+        .pf-form-step {
+            display: none;
+        }
+
+        .pf-form-step.active {
+            display: block;
+        }
+
+        .pf-form-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+            text-align: center;
+        }
+
+        .pf-form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-md);
+        }
+
+        .pf-form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-form-label i {
+            margin-right: 0.5rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-dark);
+            background-color: var(--color-white);
+            transition: border-color 0.2s ease;
+        }
+
+        .pf-form-input:focus {
+            outline: none;
+            border-color: var(--color-blue-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .pf-input-with-icon {
+            position: relative;
+        }
+
+        .pf-input-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-gray-medium);
+            cursor: pointer;
+        }
+
+        .pf-country-code {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            background: var(--color-gray-very-light);
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-phone-input {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: var(--spacing-sm);
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--spacing-xl);
+            gap: var(--spacing-sm);
+        }
+
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            min-width: 120px;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        .pf-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ===== ERROR MESSAGES ===== */
+        .pf-error-message {
+            color: var(--color-error);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-error-message.show {
+            display: block;
+        }
+
+        /* ===== CHECKBOX ===== */
+        .pf-checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+
+        .pf-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--color-gray-medium);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            margin-top: 0.125rem;
+            transition: all 0.2s ease;
+        }
+
+        .pf-checkbox.checked {
+            background-color: var(--color-blue-primary);
+            border-color: var(--color-blue-primary);
+        }
+
+        .pf-checkbox.checked::after {
+            content: "✓";
+            color: var(--color-white);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .pf-checkbox-label {
+            font-size: 0.8125rem;
+            line-height: 1.4;
+        }
+
+        .pf-checkbox-label a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+        }
+
+        .pf-checkbox-label a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-register-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+        }
+
+        .pf-register-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .pf-register-container {
+                padding: var(--spacing-lg);
+                margin: 0 var(--spacing-sm);
+            }
+            
+            .pf-form-row {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
+            }
+            
+            .pf-progress-step {
+                width: 90px;
+            }
+            
+            .pf-progress-line {
+                left: 45px;
+                right: 45px;
+            }
+            
+            .pf-progress-fill {
+                left: 45px;
+            }
+            
+            .pf-form-buttons {
+                flex-direction: column;
+            }
+            
+            .pf-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-register-header">
+        <div class="container">
+            <h1>PayFusion</h1>
+            <p>Créez votre compte en 3 étapes simples</p>
+        </div>
+    </header>
+
+    <!-- Progress Steps -->
+    <div class="container">
+        <div class="pf-progress-steps">
+            <div class="pf-progress-step active" data-step="1">
+                <div class="pf-step-number">1</div>
+                <div class="pf-step-label">Informations personnelles</div>
+            </div>
+            <div class="pf-progress-step" data-step="2">
+                <div class="pf-step-number">2</div>
+                <div class="pf-step-label">Sécurité du compte</div>
+            </div>
+            <div class="pf-progress-step" data-step="3">
+                <div class="pf-step-number">3</div>
+                <div class="pf-step-label">Confirmation</div>
+            </div>
+            <div class="pf-progress-line"></div>
+            <div class="pf-progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+    <!-- Main Form -->
+    <main class="pf-register-main">
+        <div class="container">
+            <div class="pf-register-container">
+                <!-- Step 1: Personal Info -->
+                <form id="registerForm">
+                    <div id="step1" class="pf-form-step active">
+                        <h3 class="pf-form-title">
+                            <i class="fas fa-user-circle"></i> Informations personnelles
+                        </h3>
+                        
+                        <div class="pf-form-row">
+                            <div class="pf-form-group">
+                                <label for="firstName" class="pf-form-label">
+                                    <i class="fas fa-user"></i> Prénom
+                                </label>
+                                <input type="text" id="firstName" class="pf-form-input" placeholder="Votre prénom" required>
+                                <div id="firstNameError" class="pf-error-message">
+                                    Le prénom est requis
+                                </div>
+                            </div>
+                            
+                            <div class="pf-form-group">
+                                <label for="lastName" class="pf-form-label">
+                                    <i class="fas fa-user"></i> Nom
+                                </label>
+                                <input type="text" id="lastName" class="pf-form-input" placeholder="Votre nom" required>
+                                <div id="lastNameError" class="pf-error-message">
+                                    Le nom est requis
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pf-form-group">
+                            <label for="email" class="pf-form-label">
+                                <i class="fas fa-envelope"></i> Adresse email
+                            </label>
+                            <input type="email" id="email" class="pf-form-input" placeholder="exemple@email.com" required>
+                            <div id="emailError" class="pf-error-message">
+                                Veuillez entrer un email valide
+                            </div>
+                        </div>
+                        
+                        <div class="pf-form-group">
+                            <label for="phone" class="pf-form-label">
+                                <i class="fas fa-phone"></i> Numéro de téléphone
+                            </label>
+                            <div class="pf-phone-input">
+                                <div class="pf-country-code">
+                                    <i class="fas fa-flag"></i> +509
+                                </div>
+                                <input type="tel" id="phone" class="pf-form-input" placeholder="XXXXXXXX" pattern="[0-9]{8}" required>
+                            </div>
+                            <div id="phoneError" class="pf-error-message">
+                                Entrez 8 chiffres (ex: 39442808)
+                            </div>
+                        </div>
+                        
+                        <div class="pf-form-group">
+                            <label for="birthDate" class="pf-form-label">
+                                <i class="fas fa-birthday-cake"></i> Date de naissance
+                            </label>
+                            <input type="date" id="birthDate" class="pf-form-input" required>
+                            <div id="birthDateError" class="pf-error-message">
+                                Vous devez avoir au moins 18 ans
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Security -->
+                    <div id="step2" class="pf-form-step">
+                        <h3 class="pf-form-title">
+                            <i class="fas fa-shield-alt"></i> Sécurité du compte
+                        </h3>
+                        
+                        <div class="pf-form-group">
+                            <label for="password" class="pf-form-label">
+                                <i class="fas fa-lock"></i> Mot de passe
+                            </label>
+                            <div class="pf-input-with-icon">
+                                <input type="password" id="password" class="pf-form-input" placeholder="Créez un mot de passe sécurisé" required>
+                                <i class="fas fa-eye pf-input-icon" id="togglePassword"></i>
+                            </div>
+                            <div id="passwordError" class="pf-error-message">
+                                Minimum 8 caractères avec majuscule, minuscule et chiffre
+                            </div>
+                        </div>
+                        
+                        <div class="pf-form-group">
+                            <label for="confirmPassword" class="pf-form-label">
+                                <i class="fas fa-lock"></i> Confirmer le mot de passe
+                            </label>
+                            <div class="pf-input-with-icon">
+                                <input type="password" id="confirmPassword" class="pf-form-input" placeholder="Répétez votre mot de passe" required>
+                                <i class="fas fa-eye pf-input-icon" id="toggleConfirmPassword"></i>
+                            </div>
+                            <div id="confirmPasswordError" class="pf-error-message">
+                                Les mots de passe ne correspondent pas
+                            </div>
+                        </div>
+                        
+                        <div class="pf-checkbox-group">
+                            <div class="pf-checkbox" id="termsCheckbox"></div>
+                            <label class="pf-checkbox-label">
+                                J'accepte les <a href="#">conditions d'utilisation</a> et la <a href="#">politique de confidentialité</a> de PayFusion
+                            </label>
+                        </div>
+                        <div id="termsError" class="pf-error-message">
+                            Vous devez accepter les conditions
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Confirmation -->
+                    <div id="step3" class="pf-form-step">
+                        <h3 class="pf-form-title">
+                            <i class="fas fa-check-circle"></i> Confirmation
+                        </h3>
+                        
+                        <div class="pf-summary">
+                            <div class="pf-summary-item">
+                                <strong>Nom complet:</strong>
+                                <span id="summaryName">-</span>
+                            </div>
+                            <div class="pf-summary-item">
+                                <strong>Email:</strong>
+                                <span id="summaryEmail">-</span>
+                            </div>
+                            <div class="pf-summary-item">
+                                <strong>Téléphone:</strong>
+                                <span id="summaryPhone">-</span>
+                            </div>
+                            <div class="pf-summary-item">
+                                <strong>Date de naissance:</strong>
+                                <span id="summaryBirthDate">-</span>
+                            </div>
+                        </div>
+                        
+                        <div class="pf-checkbox-group" style="margin-top: var(--spacing-lg);">
+                            <div class="pf-checkbox" id="kycCheckbox"></div>
+                            <label class="pf-checkbox-label">
+                                Je comprends que je devrai compléter la vérification KYC pour utiliser tous les services
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Buttons -->
+                    <div class="pf-form-buttons">
+                        <button type="button" class="pf-btn pf-btn-secondary" id="prevBtn" style="display: none;">
+                            <i class="fas fa-arrow-left"></i> Retour
+                        </button>
+                        <button type="button" class="pf-btn pf-btn-primary" id="nextBtn">
+                            Suivant <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button type="submit" class="pf-btn pf-btn-success" id="submitBtn" style="display: none;">
+                            <i class="fas fa-check"></i> Créer mon compte
+                        </button>
+                    </div>
+                </form>
+                
+                <div style="text-align: center; margin-top: var(--spacing-lg);">
+                    <p>Vous avez déjà un compte ? <a href="login.html" class="pf-btn pf-btn-secondary" style="display: inline-flex; width: auto; margin-top: var(--spacing-sm);">
+                        <i class="fas fa-sign-in-alt"></i> Se connecter
+                    </a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-register-footer">
+        <div class="container">
+            <p>Besoin d'aide ? Contactez-nous: <a href="https://wa.me/50939442808">WhatsApp +509 3944 2808</a></p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+<script>
+    // Current step tracking
+    let currentStep = 1;
+    const totalSteps = 3;
+    
+    // DOM Elements
+    const steps = document.querySelectorAll('.pf-progress-step');
+    const formSteps = document.querySelectorAll('.pf-form-step');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const progressFill = document.getElementById('progressFill');
+    
+    // Validation functions
+    function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    }
+    
+    function isValidPhone(phone) {
+        return /^\d{8}$/.test(phone);
+    }
+    
+    function isValidPassword(password) {
+        return password.length >= 8 && 
+               /[A-Z]/.test(password) && 
+               /[a-z]/.test(password) && 
+               /\d/.test(password);
+    }
+    
+    function isAdult(birthDate) {
+        const today = new Date();
+        const birth = new Date(birthDate);
+        let age = today.getFullYear() - birth.getFullYear();
+        const monthDiff = today.getMonth() - birth.getMonth();
+        
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+            age--;
+        }
+        
+        return age >= 18;
+    }
+    
+    // Update progress bar
+    function updateProgress() {
+        const progressWidth = ((currentStep - 1) / (totalSteps - 1)) * 100;
+        progressFill.style.width = `${progressWidth}%`;
+        
+        // Update step indicators
+        steps.forEach(step => {
+            const stepNum = parseInt(step.dataset.step);
+            step.classList.remove('active', 'completed');
+            
+            if (stepNum < currentStep) {
+                step.classList.add('completed');
+            } else if (stepNum === currentStep) {
+                step.classList.add('active');
+            }
+        });
+    }
+    
+    // Show specific step
+    function showStep(step) {
+        // Hide all steps
+        formSteps.forEach(formStep => {
+            formStep.classList.remove('active');
+        });
+        
+        // Show current step
+        document.getElementById(`step${step}`).classList.add('active');
+        
+        // Update buttons
+        prevBtn.style.display = step === 1 ? 'none' : 'flex';
+        nextBtn.style.display = step === totalSteps ? 'none' : 'flex';
+        submitBtn.style.display = step === totalSteps ? 'flex' : 'none';
+        
+        // Update summary on step 3
+        if (step === 3) {
+            updateSummary();
+        }
+    }
+    
+    // Update summary information
+    function updateSummary() {
+        document.getElementById('summaryName').textContent = 
+            `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`;
+        document.getElementById('summaryEmail').textContent = 
+            document.getElementById('email').value;
+        document.getElementById('summaryPhone').textContent = 
+            `+509 ${document.getElementById('phone').value}`;
+        document.getElementById('summaryBirthDate').textContent = 
+            new Date(document.getElementById('birthDate').value).toLocaleDateString('fr-FR');
+    }
+    
+    // Validate current step
+    function validateStep(step) {
+        let isValid = true;
+        
+        // Reset all errors
+        document.querySelectorAll('.pf-error-message').forEach(error => {
+            error.classList.remove('show');
+        });
+        
+        // Step 1 validation
+        if (step === 1) {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const birthDate = document.getElementById('birthDate').value;
+            
+            if (!firstName.trim()) {
+                document.getElementById('firstNameError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (!lastName.trim()) {
+                document.getElementById('lastNameError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (!isValidEmail(email)) {
+                document.getElementById('emailError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (!isValidPhone(phone)) {
+                document.getElementById('phoneError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (!birthDate || !isAdult(birthDate)) {
+                document.getElementById('birthDateError').classList.add('show');
+                isValid = false;
+            }
+        }
+        
+        // Step 2 validation
+        if (step === 2) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const termsChecked = document.getElementById('termsCheckbox').classList.contains('checked');
+            
+            if (!isValidPassword(password)) {
+                document.getElementById('passwordError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (!termsChecked) {
+                document.getElementById('termsError').classList.add('show');
+                isValid = false;
+            }
+        }
+        
+        // Step 3 validation
+        if (step === 3) {
+            const kycChecked = document.getElementById('kycCheckbox').classList.contains('checked');
+            if (!kycChecked) {
+                alert('Veuillez accepter de compléter la vérification KYC.');
+                isValid = false;
+            }
+        }
+        
+        return isValid;
+    }
+    
+    // Initialize
+    function init() {
+        updateProgress();
+        showStep(currentStep);
+        
+        // Format phone input
+        document.getElementById('phone').addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '').slice(0, 8);
+        });
+        
+        // Set max birth date (18 years ago)
+        const today = new Date();
+        const maxDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
+        document.getElementById('birthDate').max = maxDate.toISOString().split('T')[0];
+        
+        // Password toggle
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+        
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('confirmPassword');
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            this.classList.toggle('fa-eye');
+            this.classList.toggle('fa-eye-slash');
+        });
+        
+        // Checkbox handlers
+        document.getElementById('termsCheckbox').addEventListener('click', function() {
+            this.classList.toggle('checked');
+        });
+        
+        document.getElementById('kycCheckbox').addEventListener('click', function() {
+            this.classList.toggle('checked');
+        });
+        
+        // Real-time validation for step 1
+        ['firstName', 'lastName', 'email', 'phone', 'birthDate'].forEach(fieldId => {
+            document.getElementById(fieldId).addEventListener('input', function() {
+                if (currentStep === 1) {
+                    validateStep(1); // Just to clear errors if valid
+                }
+            });
+        });
+        
+        // Real-time validation for step 2
+        ['password', 'confirmPassword'].forEach(fieldId => {
+            document.getElementById(fieldId).addEventListener('input', function() {
+                if (currentStep === 2) {
+                    validateStep(2); // Just to clear errors if valid
+                }
+            });
+        });
+    }
+    
+    // Event Listeners
+    prevBtn.addEventListener('click', function() {
+        if (currentStep > 1) {
+            currentStep--;
+            updateProgress();
+            showStep(currentStep);
+        }
+    });
+    
+    nextBtn.addEventListener('click', function() {
+        if (validateStep(currentStep)) {
+            currentStep++;
+            updateProgress();
+            showStep(currentStep);
+        }
+    });
+    
+    // Form submission - VERSION CORRIGÉE SANS SIMULATION
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (validateStep(3)) {
+            try {
+                // Show loading
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Création du compte...';
+                submitBtn.disabled = true;
+                
+                // Préparer les données utilisateur
+                const userData = {
+                    email: document.getElementById('email').value,
+                    password: document.getElementById('password').value,
+                    phone: '+509' + document.getElementById('phone').value,
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    birthDate: document.getElementById('birthDate').value
+                };
+                
+                // Utiliser la fonction registerUser de firebase-config.js
+                if (typeof registerUser !== 'undefined') {
+                    const result = await registerUser(userData);
+                    
+                    if (result.success) {
+                        // Redirection vers KYC après création réussie
+                        window.location.href = 'kyc.html?new_user=true';
+                    } else {
+                        // Afficher l'erreur Firebase
+                        alert(`Erreur d'inscription: ${result.error}`);
+                        
+                        // Réactiver le bouton
+                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Créer mon compte';
+                        submitBtn.disabled = false;
+                    }
+                } else {
+                    // Fallback si firebase-config.js n'est pas chargé
+                    console.error('Firebase non initialisé');
+                    alert('Erreur système. Veuillez rafraîchir la page.');
+                    
+                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Créer mon compte';
+                    submitBtn.disabled = false;
+                }
+                
+            } catch (error) {
+                console.error('Erreur inattendue:', error);
+                alert('Une erreur est survenue lors de l\'inscription.');
+                
+                submitBtn.innerHTML = '<i class="fas fa-check"></i> Créer mon compte';
+                submitBtn.disabled = false;
+            }
+        }
+    });
+    
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', init);
+</script>

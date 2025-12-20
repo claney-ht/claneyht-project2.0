@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Tableau de bord</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --color-gaming: #f97316;
+            --color-streaming: #8b5cf6;
+            --color-finance: #0ea5e9;
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --font-size-xxl: 2rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --sidebar-width: 250px;
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .pf-sidebar {
+            width: var(--sidebar-width);
+            background: var(--color-white);
+            border-right: 1px solid var(--color-gray-light);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .pf-sidebar-header {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--color-gray-light);
+            text-align: center;
+        }
+
+        .pf-sidebar-title {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--color-blue-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-sidebar-subtitle {
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+        }
+
+        .pf-user-info {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--color-gray-light);
+            text-align: center;
+        }
+
+        .pf-user-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-sm);
+            font-size: 1.5rem;
+            color: var(--color-blue-primary);
+        }
+
+        .pf-user-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .pf-user-email {
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            word-break: break-all;
+        }
+
+        /* ===== SIDEBAR NAVIGATION ===== */
+        .pf-sidebar-section {
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+
+        .pf-section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: 0.5px;
+        }
+
+        .pf-sidebar-list {
+            list-style: none;
+        }
+
+        .pf-sidebar-item {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.75rem;
+            text-decoration: none;
+            color: var(--color-gray-dark);
+            border-radius: var(--border-radius);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .pf-sidebar-link:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-sidebar-link.active {
+            background: var(--color-blue-very-light);
+            color: var(--color-blue-primary);
+            font-weight: 500;
+        }
+
+        .pf-sidebar-link.active .pf-checkbox {
+            border-color: var(--color-blue-primary);
+        }
+
+        .pf-sidebar-link.active .pf-checkbox::after {
+            content: "✓";
+            color: var(--color-blue-primary);
+        }
+
+        .pf-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--color-gray-medium);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .pf-sidebar-icon {
+            width: 20px;
+            text-align: center;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-sidebar-link.active .pf-sidebar-icon {
+            color: var(--color-blue-primary);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* ===== TOP BAR ===== */
+        .pf-top-bar {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-gray-light);
+            padding: var(--spacing-sm) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .pf-page-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-user-menu {
+            position: relative;
+        }
+
+        .pf-menu-button {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .pf-menu-button:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-menu-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-blue-primary);
+        }
+
+        .pf-menu-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--color-white);
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            min-width: 200px;
+            display: none;
+            z-index: 1000;
+        }
+
+        .pf-menu-dropdown.show {
+            display: block;
+        }
+
+        .pf-menu-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: var(--color-gray-dark);
+            transition: background 0.2s ease;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .pf-menu-item:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-menu-item i {
+            width: 20px;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-menu-divider {
+            height: 1px;
+            background: var(--color-gray-light);
+            margin: 0.5rem 0;
+        }
+
+        /* ===== CONTENT SECTIONS ===== */
+        .pf-content {
+            padding: var(--spacing-lg);
+        }
+
+        /* ===== OVERVIEW CARDS ===== */
+        .pf-overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-overview-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-card-title {
+            font-weight: 600;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .pf-balance-icon {
+            background: var(--color-blue-very-light);
+            color: var(--color-blue-primary);
+        }
+
+        .pf-activity-icon {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+        }
+
+        .pf-limits-icon {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--color-gaming);
+        }
+
+        .pf-balance-amount {
+            font-size: var(--font-size-xxl);
+            font-weight: 700;
+            color: var(--color-gray-dark);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-balance-label {
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+        }
+
+        /* ===== QUICK ACTIONS ===== */
+        .pf-section-title-large {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-action-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .pf-action-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-blue-light);
+        }
+
+        .pf-action-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-md);
+            font-size: 1.5rem;
+        }
+
+        .pf-action-finance {
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--color-finance);
+        }
+
+        .pf-action-gaming {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--color-gaming);
+        }
+
+        .pf-action-streaming {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--color-streaming);
+        }
+
+        .pf-action-wallet {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--color-blue-primary);
+        }
+
+        .pf-action-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-action-desc {
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+        }
+
+        /* ===== RECENT ACTIVITY ===== */
+        .pf-activity-list {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            overflow: hidden;
+        }
+
+        .pf-activity-item {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--color-gray-light);
+            transition: background 0.2s ease;
+        }
+
+        .pf-activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .pf-activity-item:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-activity-icon-small {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: var(--spacing-md);
+            flex-shrink: 0;
+        }
+
+        .pf-activity-deposit {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+        }
+
+        .pf-activity-withdrawal {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--color-error);
+        }
+
+        .pf-activity-purchase {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--color-gaming);
+        }
+
+        .pf-activity-details {
+            flex: 1;
+        }
+
+        .pf-activity-title {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .pf-activity-description {
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+        }
+
+        .pf-activity-amount {
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .pf-activity-positive {
+            color: var(--color-success);
+        }
+
+        .pf-activity-negative {
+            color: var(--color-error);
+        }
+
+        /* ===== MOBILE MENU ===== */
+        .pf-mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--color-gray-dark);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .pf-overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .pf-sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .pf-sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .pf-main-content {
+                margin-left: 0;
+            }
+            
+            .pf-mobile-menu-btn {
+                display: block;
+            }
+            
+            .pf-overview-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pf-actions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pf-content {
+                padding: var(--spacing-md);
+            }
+            
+            .pf-actions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pf-top-bar {
+                padding: var(--spacing-sm);
+            }
+            
+            .pf-menu-button span {
+                display: none;
+            }
+        }
+
+        /* ===== OVERLAY ===== */
+        .pf-sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            display: none;
+        }
+
+        .pf-sidebar-overlay.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="pf-sidebar" id="sidebar">
+        <div class="pf-sidebar-header">
+            <div class="pf-sidebar-title">PAY FUSION</div>
+            <div class="pf-sidebar-subtitle">Tableau de bord</div>
+        </div>
+
+        <div class="pf-user-info">
+            <div class="pf-user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="pf-user-name" id="userName">Jean Dupont</div>
+            <div class="pf-user-email" id="userEmail">jean.dupont@email.com</div>
+        </div>
+
+        <!-- Section Accueil -->
+        <div class="pf-sidebar-section">
+            <div class="pf-section-title">SECTION ACCUEIL</div>
+            <ul class="pf-sidebar-list">
+                <li class="pf-sidebar-item">
+                    <a href="home.html" class="pf-sidebar-link active" data-page="home">
+                        <div class="pf-checkbox"></div>
+                        <i class="fas fa-home pf-sidebar-icon"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                </li>
+                <li class="pf-sidebar-item">
+                    <a href="services.html" class="pf-sidebar-link" data-page="services">
+                        <div class="pf-checkbox"></div>
+                        <i class="fas fa-money-bill-wave pf-sidebar-icon"></i>
+                        <span>Services financiers</span>
+                    </a>
+                </li>
+                <li class="pf-sidebar-item">
+                    <a href="freefire.html" class="pf-sidebar-link" data-page="freefire">
+                        <div class="pf-checkbox"></div>
+                        <i class="fas fa-gamepad pf-sidebar-icon"></i>
+                        <span>Recharge Jeux</span>
+                    </a>
+                </li>
+                <li class="pf-sidebar-item">
+                    <a href="netflix.html" class="pf-sidebar-link" data-page="netflix">
+                        <div class="pf-checkbox"></div>
+                        <i class="fas fa-tv pf-sidebar-icon"></i>
+                        <span>Streaming</span>
+                    </a>
+                </li>
+                <li class="pf-sidebar-item">
+                    <a href="wallet.html" class="pf-sidebar-link" data-page="wallet">
+                        <div class="pf-checkbox"></div>
+                        <i class="fas fa-wallet pf-sidebar-icon"></i>
+                        <span>Portefeuille</span>
+                    </a>
+                </li>
+                <li class="pf-sidebar-item">
+                    <a href="payment.html" class="pf-sidebar-link" data-page="payment">
+                        <div class="pf-checkbox"></div>
+                        <i class="fas fa-shopping-cart pf-sidebar-icon"></i>
+                        <span>Commandes</span>
+                    </a>
+                </li>
+                <li class="pf-sidebar-item">
+                    <a href="account.html" class="pf-sidebar-link" data-page="account">
+                        <div class="pf-checkbox"></div>
+                        <i class="fas fa-user-circle pf-sidebar-icon"></i>
+                        <span>Profil</span>
+                    </a>
+                </li>
+                <li class="pf-sidebar-item">
+                    <a href="settings.html" class="pf-sidebar-link" data-page="settings">
+                        <div class="pf-checkbox"></div>
+                        <i class="fas fa-cog pf-sidebar-icon"></i>
+                        <span>Paramètres</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Section Aide et Soutien -->
+        <div class="pf-sidebar-section">
+            <div class="pf-section-title">SECTION AIDE ET SOUTIEN</div>
+            <ul class="pf-sidebar-list">
+                <li class="pf-sidebar-item">
+                    <a href="https://wa.me/50939442808" class="pf-sidebar-link" target="_blank">
+                        <div class="pf-checkbox"></div>
+                        <i class="fab fa-whatsapp pf-sidebar-icon"></i>
+                        <span>Canal WhatsApp</span>
+                    </a>
+                </li>
+                <li class="pf-sidebar-item">
+                    <a href="support.html" class="pf-sidebar-link" data-page="support">
+                        <div class="pf-checkbox"></div>
+                        <i class="fas fa-headset pf-sidebar-icon"></i>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li class="pf-sidebar-item">
+                    <a href="community.html" class="pf-sidebar-link" data-page="community">
+                        <div class="pf-checkbox"></div>
+                        <i class="fas fa-users pf-sidebar-icon"></i>
+                        <span>Communauté</span>
+                    </a>
+                </li>
+                <li class="pf-sidebar-item">
+                    <a href="logout.html" class="pf-sidebar-link" data-page="logout">
+                        <div class="pf-checkbox"></div>
+                        <i class="fas fa-sign-out-alt pf-sidebar-icon"></i>
+                        <span>Se Déconnecter</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- Overlay for mobile -->
+    <div class="pf-sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main Content -->
+    <main class="pf-main-content">
+        <!-- Top Bar -->
+        <div class="pf-top-bar">
+            <button class="pf-mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <div class="pf-page-title">Tableau de bord</div>
+            
+            <div class="pf-user-menu">
+                <button class="pf-menu-button" id="menuButton">
+                    <div class="pf-menu-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Mon compte</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                
+                <div class="pf-menu-dropdown" id="menuDropdown">
+                    <a href="account.html" class="pf-menu-item">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Mon profil</span>
+                    </a>
+                    <a href="settings.html" class="pf-menu-item">
+                        <i class="fas fa-cog"></i>
+                        <span>Paramètres</span>
+                    </a>
+                    <a href="notifications.html" class="pf-menu-item">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                    </a>
+                    <div class="pf-menu-divider"></div>
+                    <a href="kyc.html" class="pf-menu-item">
+                        <i class="fas fa-id-card"></i>
+                        <span>Vérification KYC</span>
+                    </a>
+                    <div class="pf-menu-divider"></div>
+                    <a href="logout.html" class="pf-menu-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Déconnexion</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="pf-content">
+            <!-- Overview Cards -->
+            <div class="pf-overview-grid">
+                <!-- Balance Card -->
+                <div class="pf-overview-card">
+                    <div class="pf-card-header">
+                        <h3 class="pf-card-title">Solde disponible</h3>
+                        <div class="pf-card-icon pf-balance-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                    </div>
+                    <div class="pf-balance-amount" id="currentBalance">2,500.00 HTG</div>
+                    <div class="pf-balance-label">Équivalent: ~16.67 USD</div>
+                </div>
+
+                <!-- Recent Activity Card -->
+                <div class="pf-overview-card">
+                    <div class="pf-card-header">
+                        <h3 class="pf-card-title">Activité récente</h3>
+                        <div class="pf-card-icon pf-activity-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="pf-balance-amount">12</div>
+                    <div class="pf-balance-label">Transactions ce mois-ci</div>
+                </div>
+
+                <!-- Limits Card -->
+                <div class="pf-overview-card">
+                    <div class="pf-card-header">
+                        <h3 class="pf-card-title">Limites disponibles</h3>
+                        <div class="pf-card-icon pf-limits-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="pf-balance-amount">9,500 HTG</div>
+                    <div class="pf-balance-label">Retrait journalier restant</div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <h2 class="pf-section-title-large">Actions rapides</h2>
+            <div class="pf-actions-grid">
+                <a href="services.html" class="pf-action-card">
+                    <div class="pf-action-icon pf-action-finance">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h4 class="pf-action-title">Services financiers</h4>
+                    <p class="pf-action-desc">Wise, PayPal, USDT</p>
+                </a>
+
+                <a href="freefire.html" class="pf-action-card">
+                    <div class="pf-action-icon pf-action-gaming">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h4 class="pf-action-title">Recharge Jeux</h4>
+                    <p class="pf-action-desc">Free Fire, Diamants</p>
+                </a>
+
+                <a href="netflix.html" class="pf-action-card">
+                    <div class="pf-action-icon pf-action-streaming">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h4 class="pf-action-title">Streaming</h4>
+                    <p class="pf-action-desc">Netflix Premium</p>
+                </a>
+
+                <a href="wallet.html" class="pf-action-card">
+                    <div class="pf-action-icon pf-action-wallet">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h4 class="pf-action-title">Dépôt rapide</h4>
+                    <p class="pf-action-desc">MonCash, NatCash, USDT</p>
+                </a>
+            </div>
+
+            <!-- Recent Activity -->
+            <h2 class="pf-section-title-large">Activité récente</h2>
+            <div class="pf-activity-list">
+                <!-- Activity Item 1 -->
+                <div class="pf-activity-item">
+                    <div class="pf-activity-icon-small pf-activity-deposit">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="pf-activity-details">
+                        <div class="pf-activity-title">Dépôt MonCash</div>
+                        <div class="pf-activity-description">Aujourd'hui, 14:30 • Transaction #TRX-7842</div>
+                    </div>
+                    <div class="pf-activity-amount pf-activity-positive">+1,500 HTG</div>
+                </div>
+
+                <!-- Activity Item 2 -->
+                <div class="pf-activity-item">
+                    <div class="pf-activity-icon-small pf-activity-purchase">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <div class="pf-activity-details">
+                        <div class="pf-activity-title">Achat Free Fire</div>
+                        <div class="pf-activity-description">Hier, 19:15 • Pack 1000+100 diamants</div>
+                    </div>
+                    <div class="pf-activity-amount pf-activity-negative">-1,650 HTG</div>
+                </div>
+
+                <!-- Activity Item 3 -->
+                <div class="pf-activity-item">
+                    <div class="pf-activity-icon-small pf-activity-withdrawal">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="pf-activity-details">
+                        <div class="pf-activity-title">Retrait NatCash</div>
+                        <div class="pf-activity-description">12 Déc, 10:45 • Transaction #TRX-7819</div>
+                    </div>
+                    <div class="pf-activity-amount pf-activity-negative">-3,000 HTG</div>
+                </div>
+
+                <!-- Activity Item 4 -->
+                <div class="pf-activity-item">
+                    <div class="pf-activity-icon-small pf-activity-deposit">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="pf-activity-details">
+                        <div class="pf-activity-title">Dépôt USDT</div>
+                        <div class="pf-activity-description">10 Déc, 16:20 • Équivalent 50 USD</div>
+                    </div>
+                    <div class="pf-activity-amount pf-activity-positive">+7,500 HTG</div>
+                </div>
+
+                <!-- Activity Item 5 -->
+                <div class="pf-activity-item">
+                    <div class="pf-activity-icon-small pf-activity-purchase">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <div class="pf-activity-details">
+                        <div class="pf-activity-title">Abonnement Netflix</div>
+                        <div class="pf-activity-description">8 Déc, 21:30 • 2 mois Premium</div>
+                    </div>
+                    <div class="pf-activity-amount pf-activity-negative">-900 HTG</div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // DOM Elements
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const menuButton = document.getElementById('menuButton');
+        const menuDropdown = document.getElementById('menuDropdown');
+        
+        // User data (simulated - will come from Firebase)
+        let userData = {
+            name: 'Jean Dupont',
+            email: 'jean.dupont@email.com',
+            balance: 2500.00,
+            kycStatus: 'pending'
+        };
+        
+        // Initialize user data
+        function initUserData() {
+            document.getElementById('userName').textContent = userData.name;
+            document.getElementById('userEmail').textContent = userData.email;
+            document.getElementById('currentBalance').textContent = 
+                userData.balance.toLocaleString('fr-HT', { minimumFractionDigits: 2 }) + ' HTG';
+        }
+        
+        // Toggle sidebar on mobile
+        function toggleSidebar() {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('show');
+        }
+        
+        // Toggle user menu dropdown
+        function toggleUserMenu() {
+            menuDropdown.classList.toggle('show');
+        }
+        
+        // Close sidebar on mobile when clicking outside
+        function closeSidebarOnClickOutside(e) {
+            if (window.innerWidth <= 768 && 
+                !sidebar.contains(e.target) && 
+                !mobileMenuBtn.contains(e.target)) {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('show');
+            }
+        }
+        
+        // Close dropdown when clicking outside
+        function closeDropdownOnClickOutside(e) {
+            if (!menuButton.contains(e.target) && !menuDropdown.contains(e.target)) {
+                menuDropdown.classList.remove('show');
+            }
+        }
+        
+        // Handle sidebar navigation
+        function setupSidebarNavigation() {
+            const sidebarLinks = document.querySelectorAll('.pf-sidebar-link[data-page]');
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#' || this.getAttribute('target') === '_blank') {
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    sidebarLinks.forEach(l => {
+                        l.classList.remove('active');
+                        l.querySelector('.pf-checkbox').innerHTML = '';
+                    });
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    this.querySelector('.pf-checkbox').innerHTML = '✓';
+                    
+                    // Get page name
+                    const page = this.dataset.page;
+                    
+                    // Simulate page navigation
+                    if (page === 'logout') {
+                        window.location.href = 'logout.html';
+                    } else {
+                        window.location.href = `${page}.html`;
+                    }
+                });
+            });
+        }
+        
+        // Simulate balance update (in real app, this would be from Firebase)
+        function simulateBalanceUpdate() {
+            // Random balance fluctuation for demo
+            const fluctuation = Math.random() * 100 - 50; // -50 to +50
+            userData.balance += fluctuation;
+            
+            // Update display
+            document.getElementById('currentBalance').textContent = 
+                userData.balance.toLocaleString('fr-HT', { minimumFractionDigits: 2 }) + ' HTG';
+            
+            // Simulate new transactions
+            const activityList = document.querySelector('.pf-activity-list');
+            const activities = [
+                {
+                    type: 'deposit',
+                    title: 'Dépôt MonCash',
+                    desc: 'Maintenant • Transaction #TRX-' + Math.floor(Math.random() * 9000 + 1000),
+                    amount: '+500 HTG'
+                },
+                {
+                    type: 'purchase',
+                    title: 'Achat Wise',
+                    desc: 'Maintenant • 20 USD recharge',
+                    amount: '-3,000 HTG'
+                }
+            ];
+            
+            // Only add if list exists
+            if (activityList && Math.random() > 0.7) { // 30% chance
+                const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+                const activityItem = document.createElement('div');
+                activityItem.className = 'pf-activity-item';
+                activityItem.innerHTML = `
+                    <div class="pf-activity-icon-small pf-activity-${randomActivity.type}">
+                        <i class="fas fa-${randomActivity.type === 'deposit' ? 'arrow-down' : 'shopping-cart'}"></i>
+                    </div>
+                    <div class="pf-activity-details">
+                        <div class="pf-activity-title">${randomActivity.title}</div>
+                        <div class="pf-activity-description">${randomActivity.desc}</div>
+                    </div>
+                    <div class="pf-activity-amount pf-activity-${randomActivity.type === 'deposit' ? 'positive' : 'negative'}">
+                        ${randomActivity.amount}
+                    </div>
+                `;
+                
+                // Add to top of list
+                activityList.insertBefore(activityItem, activityList.firstChild);
+                
+                // Limit to 10 items
+                if (activityList.children.length > 10) {
+                    activityList.removeChild(activityList.lastChild);
+                }
+            }
+        }
+        
+        // Initialize
+        function init() {
+            initUserData();
+            setupSidebarNavigation();
+            
+            // Event listeners
+            mobileMenuBtn.addEventListener('click', toggleSidebar);
+            sidebarOverlay.addEventListener('click', toggleSidebar);
+            menuButton.addEventListener('click', toggleUserMenu);
+            
+            // Close sidebar/dropdown when clicking outside
+            document.addEventListener('click', closeSidebarOnClickOutside);
+            document.addEventListener('click', closeDropdownOnClickOutside);
+            
+            // Close dropdown on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    menuDropdown.classList.remove('show');
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('open');
+                        sidebarOverlay.classList.remove('show');
+                    }
+                }
+            });
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    sidebar.classList.remove('open');
+                    sidebarOverlay.classList.remove('show');
+                }
+            });
+            
+            // Simulate real-time updates (for demo)
+            setInterval(simulateBalanceUpdate, 30000); // Every 30 seconds
+            
+            // Check KYC status
+            if (userData.kycStatus === 'pending') {
+                setTimeout(() => {
+                    const showNotification = confirm('Votre vérification KYC est en attente. Souhaitez-vous la compléter maintenant ?');
+                    if (showNotification) {
+                        window.location.href = 'kyc.html';
+                    }
+                }, 5000);
+            }
+        }
+        
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

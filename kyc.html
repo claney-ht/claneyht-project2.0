@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Vérification KYC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER ===== */
+        .pf-kyc-header {
+            padding: var(--spacing-md) 0;
+            text-align: center;
+            border-bottom: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+        }
+
+        .pf-kyc-header h1 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+        }
+
+        .pf-kyc-header p {
+            color: var(--color-gray-medium);
+            margin-top: var(--spacing-xs);
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .pf-kyc-progress {
+            padding: var(--spacing-lg) 0;
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+
+        .pf-progress-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .pf-progress-text {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 500;
+        }
+
+        .pf-progress-bar {
+            height: 8px;
+            background: var(--color-gray-light);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .pf-progress-fill {
+            height: 100%;
+            background: var(--color-blue-primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-kyc-main {
+            flex: 1;
+            padding: var(--spacing-xl) 0;
+        }
+
+        .pf-kyc-container {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-xl);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* ===== INFO BOX ===== */
+        .pf-info-box {
+            background: var(--color-blue-very-light);
+            border: 1px solid var(--color-blue-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-info-title {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-info-list {
+            list-style: none;
+            margin-top: var(--spacing-sm);
+        }
+
+        .pf-info-list li {
+            margin-bottom: var(--spacing-xs);
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-xs);
+        }
+
+        .pf-info-list i {
+            color: var(--color-blue-primary);
+            margin-top: 0.125rem;
+        }
+
+        /* ===== DOCUMENT UPLOAD ===== */
+        .pf-documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-document-card {
+            border: 2px dashed var(--color-gray-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pf-document-card:hover {
+            border-color: var(--color-blue-light);
+            background: var(--color-blue-very-light);
+        }
+
+        .pf-document-card.dragover {
+            border-color: var(--color-blue-primary);
+            background: var(--color-blue-very-light);
+            transform: scale(1.02);
+        }
+
+        .pf-document-card.uploaded {
+            border-color: var(--color-success);
+            border-style: solid;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .pf-document-icon {
+            font-size: 2.5rem;
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-document-card:hover .pf-document-icon {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-document-card.uploaded .pf-document-icon {
+            color: var(--color-success);
+        }
+
+        .pf-document-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-document-requirements {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-upload-btn {
+            background: var(--color-blue-primary);
+            color: var(--color-white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .pf-upload-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .pf-file-input {
+            display: none;
+        }
+
+        /* ===== PREVIEW ===== */
+        .pf-preview-container {
+            margin-top: var(--spacing-md);
+            display: none;
+        }
+
+        .pf-preview-container.show {
+            display: block;
+        }
+
+        .pf-preview-title {
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-preview {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            background: var(--color-gray-very-light);
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-sm);
+        }
+
+        .pf-preview-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-preview-details {
+            flex: 1;
+        }
+
+        .pf-preview-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            word-break: break-all;
+        }
+
+        .pf-preview-size {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-preview-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-preview-btn {
+            background: none;
+            border: none;
+            color: var(--color-gray-medium);
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+            border-radius: var(--border-radius);
+            transition: all 0.2s ease;
+        }
+
+        .pf-preview-btn:hover {
+            background: var(--color-gray-very-light);
+            color: var(--color-error);
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-kyc-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--spacing-xl);
+            gap: var(--spacing-sm);
+        }
+
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            min-width: 140px;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .pf-btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        .pf-btn-success {
+            background-color: var(--color-success);
+            color: var(--color-white);
+        }
+
+        /* ===== STATUS MESSAGES ===== */
+        .pf-status-message {
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            margin-top: var(--spacing-lg);
+            display: none;
+        }
+
+        .pf-status-message.show {
+            display: block;
+        }
+
+        .pf-status-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--color-success);
+            color: var(--color-success);
+        }
+
+        .pf-status-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--color-error);
+            color: var(--color-error);
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-kyc-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+        }
+
+        .pf-kyc-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .pf-documents-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pf-kyc-container {
+                padding: var(--spacing-lg);
+                margin: 0 var(--spacing-sm);
+            }
+            
+            .pf-kyc-actions {
+                flex-direction: column;
+            }
+            
+            .pf-btn {
+                width: 100%;
+            }
+            
+            .pf-preview {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .pf-preview-actions {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-kyc-header">
+        <div class="container">
+            <h1>PayFusion - Vérification KYC</h1>
+            <p>Vérifiez votre identité pour accéder à tous les services</p>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <section class="pf-kyc-progress">
+        <div class="container">
+            <div class="pf-progress-container">
+                <div class="pf-progress-text">
+                    <span>Étape 1 sur 2</span>
+                    <span id="progressText">0%</span>
+                </div>
+                <div class="pf-progress-bar">
+                    <div class="pf-progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="pf-kyc-main">
+        <div class="container">
+            <div class="pf-kyc-container">
+                <!-- Information Box -->
+                <div class="pf-info-box">
+                    <div class="pf-info-title">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Informations importantes</span>
+                    </div>
+                    <p>Pour votre sécurité et conformément à la réglementation, nous devons vérifier votre identité.</p>
+                    <ul class="pf-info-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Tous les documents doivent être clairs et lisibles</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Les photos doivent être en couleur et récentes</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Les fichiers ne doivent pas dépasser 5MB chacun</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <span>Formats acceptés: JPG, PNG, PDF</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Documents Upload -->
+                <div class="pf-documents-grid">
+                    <!-- Document 1: ID Front -->
+                    <div class="pf-document-card" id="cardFrontCard" data-type="card-front">
+                        <div class="pf-document-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <h4 class="pf-document-title">Carte d'identité - Recto</h4>
+                        <p class="pf-document-requirements">JPG, PNG ou PDF • Max 5MB</p>
+                        <button class="pf-upload-btn" onclick="triggerFileInput('cardFrontInput')">
+                            <i class="fas fa-upload"></i> Téléverser
+                        </button>
+                        <input type="file" id="cardFrontInput" class="pf-file-input" accept=".jpg,.jpeg,.png,.pdf" data-type="card-front">
+                        
+                        <div class="pf-preview-container" id="cardFrontPreview">
+                            <div class="pf-preview">
+                                <img src="" alt="Aperçu" class="pf-preview-image" id="cardFrontImage">
+                                <div class="pf-preview-details">
+                                    <div class="pf-preview-name" id="cardFrontName"></div>
+                                    <div class="pf-preview-size" id="cardFrontSize"></div>
+                                    <div class="pf-preview-actions">
+                                        <button class="pf-preview-btn" onclick="triggerFileInput('cardFrontInput')">
+                                            <i class="fas fa-sync-alt"></i> Remplacer
+                                        </button>
+                                        <button class="pf-preview-btn" onclick="removeFile('card-front')">
+                                            <i class="fas fa-trash-alt"></i> Supprimer
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Document 2: ID Back -->
+                    <div class="pf-document-card" id="cardBackCard" data-type="card-back">
+                        <div class="pf-document-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <h4 class="pf-document-title">Carte d'identité - Verso</h4>
+                        <p class="pf-document-requirements">JPG, PNG ou PDF • Max 5MB</p>
+                        <button class="pf-upload-btn" onclick="triggerFileInput('cardBackInput')">
+                            <i class="fas fa-upload"></i> Téléverser
+                        </button>
+                        <input type="file" id="cardBackInput" class="pf-file-input" accept=".jpg,.jpeg,.png,.pdf" data-type="card-back">
+                        
+                        <div class="pf-preview-container" id="cardBackPreview">
+                            <div class="pf-preview">
+                                <img src="" alt="Aperçu" class="pf-preview-image" id="cardBackImage">
+                                <div class="pf-preview-details">
+                                    <div class="pf-preview-name" id="cardBackName"></div>
+                                    <div class="pf-preview-size" id="cardBackSize"></div>
+                                    <div class="pf-preview-actions">
+                                        <button class="pf-preview-btn" onclick="triggerFileInput('cardBackInput')">
+                                            <i class="fas fa-sync-alt"></i> Remplacer
+                                        </button>
+                                        <button class="pf-preview-btn" onclick="removeFile('card-back')">
+                                            <i class="fas fa-trash-alt"></i> Supprimer
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Document 3: Selfie -->
+                    <div class="pf-document-card" id="selfieCard" data-type="selfie">
+                        <div class="pf-document-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <h4 class="pf-document-title">Selfie avec pièce d'identité</h4>
+                        <p class="pf-document-requirements">JPG ou PNG • Max 5MB</p>
+                        <button class="pf-upload-btn" onclick="triggerFileInput('selfieInput')">
+                            <i class="fas fa-upload"></i> Téléverser
+                        </button>
+                        <input type="file" id="selfieInput" class="pf-file-input" accept=".jpg,.jpeg,.png" data-type="selfie">
+                        
+                        <div class="pf-preview-container" id="selfiePreview">
+                            <div class="pf-preview">
+                                <img src="" alt="Aperçu" class="pf-preview-image" id="selfieImage">
+                                <div class="pf-preview-details">
+                                    <div class="pf-preview-name" id="selfieName"></div>
+                                    <div class="pf-preview-size" id="selfieSize"></div>
+                                    <div class="pf-preview-actions">
+                                        <button class="pf-preview-btn" onclick="triggerFileInput('selfieInput')">
+                                            <i class="fas fa-sync-alt"></i> Remplacer
+                                        </button>
+                                        <button class="pf-preview-btn" onclick="removeFile('selfie')">
+                                            <i class="fas fa-trash-alt"></i> Supprimer
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Messages -->
+                <div class="pf-status-message pf-status-error" id="errorMessage">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="errorText"></span>
+                </div>
+
+                <div class="pf-status-message pf-status-success" id="successMessage">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="successText">Tous les documents ont été téléversés avec succès !</span>
+                </div>
+
+                <!-- Actions -->
+                <div class="pf-kyc-actions">
+                    <a href="home.html" class="pf-btn pf-btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Retour au tableau de bord
+                    </a>
+                    <button class="pf-btn pf-btn-primary" id="submitKycBtn" disabled>
+                        <i class="fas fa-paper-plane"></i> Soumettre pour vérification
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-kyc-footer">
+        <div class="container">
+            <p>La vérification KYC prend généralement 24-48 heures. Vous serez notifié par email.</p>
+            <p>Besoin d'aide ? <a href="https://wa.me/50939442808">WhatsApp +509 3944 2808</a></p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+<script>
+    // State management
+    const uploadedFiles = {
+        'card-front': null,
+        'card-back': null,
+        'selfie': null
+    };
+    
+    const maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
+    const allowedImageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    const allowedPdfTypes = ['application/pdf'];
+    
+    // DOM Elements
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+    const submitBtn = document.getElementById('submitKycBtn');
+    const errorMessage = document.getElementById('errorMessage');
+    const errorText = document.getElementById('errorText');
+    const successMessage = document.getElementById('successMessage');
+    const successText = document.getElementById('successText');
+    
+    // Format file size
+    function formatFileSize(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+    
+    // Validate file
+    function validateFile(file, type) {
+        // Check file size
+        if (file.size > maxFileSize) {
+            return { valid: false, error: 'Le fichier dépasse la taille maximale de 5MB' };
+        }
+        
+        // Check file type
+        if (type === 'selfie') {
+            if (!allowedImageTypes.includes(file.type)) {
+                return { valid: false, error: 'Format invalide. Utilisez JPG ou PNG pour le selfie' };
+            }
+        } else {
+            if (!allowedImageTypes.includes(file.type) && !allowedPdfTypes.includes(file.type)) {
+                return { valid: false, error: 'Format invalide. Utilisez JPG, PNG ou PDF' };
+            }
+        }
+        
+        return { valid: true };
+    }
+    
+    // Update progress
+    function updateProgress() {
+        const uploadedCount = Object.values(uploadedFiles).filter(file => file !== null).length;
+        const totalCount = Object.keys(uploadedFiles).length;
+        const progress = (uploadedCount / totalCount) * 100;
+        
+        progressFill.style.width = `${progress}%`;
+        progressText.textContent = `${Math.round(progress)}%`;
+        
+        // Update progress text
+        if (uploadedCount === 0) {
+            progressText.textContent = '0% - Aucun document';
+        } else if (uploadedCount === totalCount) {
+            progressText.textContent = '100% - Complet';
+            successText.textContent = 'Tous les documents ont été téléversés avec succès !';
+        } else {
+            progressText.textContent = `${Math.round(progress)}% - ${uploadedCount}/${totalCount} documents`;
+            successText.textContent = `${uploadedCount}/${totalCount} documents téléversés`;
+        }
+        
+        // Enable/disable submit button
+        submitBtn.disabled = uploadedCount !== totalCount;
+        
+        // Show/hide success message
+        if (uploadedCount > 0) {
+            successMessage.classList.add('show');
+        } else {
+            successMessage.classList.remove('show');
+        }
+    }
+    
+    // Handle file upload
+    function handleFileUpload(file, type) {
+        console.log('Handling file upload for type:', type, 'File:', file.name);
+        
+        const validation = validateFile(file, type);
+        
+        if (!validation.valid) {
+            showError(validation.error);
+            return;
+        }
+        
+        // Store file
+        uploadedFiles[type] = file;
+        
+        // Update UI
+        updateFilePreview(file, type);
+        updateProgress();
+        
+        // Hide error message
+        hideError();
+    }
+    
+    // Update file preview
+    function updateFilePreview(file, type) {
+        console.log('Updating preview for type:', type);
+        
+        const card = document.getElementById(`${type}Card`);
+        const preview = document.getElementById(`${type}Preview`);
+        const image = document.getElementById(`${type}Image`);
+        const name = document.getElementById(`${type}Name`);
+        const size = document.getElementById(`${type}Size`);
+        
+        if (!card || !preview || !image || !name || !size) {
+            console.error('Missing elements for type:', type);
+            return;
+        }
+        
+        // Update card style
+        card.classList.add('uploaded');
+        
+        // Show preview
+        preview.classList.add('show');
+        
+        // Update preview details
+        name.textContent = file.name;
+        size.textContent = formatFileSize(file.size);
+        
+        // Create object URL for image preview
+        if (file.type.startsWith('image/')) {
+            const objectUrl = URL.createObjectURL(file);
+            image.src = objectUrl;
+            image.style.display = 'block';
+        } else if (file.type === 'application/pdf') {
+            // Use PDF icon for PDF files
+            image.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="%23334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M10 13h2"></path><path d="M10 16h2"></path><path d="M14 13h2"></path><path d="M14 16h2"></path></svg>';
+            image.style.display = 'block';
+        }
+        
+        console.log('Preview updated successfully for type:', type);
+    }
+    
+    // Trigger file input - CORRECTION SIMPLIFIÉE
+    function triggerFileInput(type) {
+        console.log('Triggering file input for type:', type);
+        
+        let inputId;
+        switch(type) {
+            case 'card-front': inputId = 'cardFrontInput'; break;
+            case 'card-back': inputId = 'cardBackInput'; break;
+            case 'selfie': inputId = 'selfieInput'; break;
+            default: return;
+        }
+        
+        const input = document.getElementById(inputId);
+        if (input) {
+            console.log('Found input:', inputId);
+            input.click();
+        } else {
+            console.error('Input not found:', inputId);
+        }
+    }
+    
+    // Remove file
+    function removeFile(type) {
+        console.log('Removing file for type:', type);
+        
+        const card = document.getElementById(`${type}Card`);
+        const preview = document.getElementById(`${type}Preview`);
+        const image = document.getElementById(`${type}Image`);
+        
+        // Determine input ID
+        let inputId;
+        switch(type) {
+            case 'card-front': inputId = 'cardFrontInput'; break;
+            case 'card-back': inputId = 'cardBackInput'; break;
+            case 'selfie': inputId = 'selfieInput'; break;
+            default: return;
+        }
+        
+        const input = document.getElementById(inputId);
+        
+        // Clear stored file
+        uploadedFiles[type] = null;
+        
+        // Reset file input
+        if (input) {
+            input.value = '';
+            console.log('Input reset for:', inputId);
+        }
+        
+        // Update UI
+        if (card) card.classList.remove('uploaded');
+        if (preview) preview.classList.remove('show');
+        if (image) image.src = '';
+        
+        // Update progress
+        updateProgress();
+    }
+    
+    // Show error message
+    function showError(message) {
+        console.error('Error:', message);
+        errorText.textContent = message;
+        errorMessage.classList.add('show');
+        
+        // Auto-hide error after 5 seconds
+        setTimeout(hideError, 5000);
+    }
+    
+    // Hide error message
+    function hideError() {
+        errorMessage.classList.remove('show');
+    }
+    
+    // Initialize - APPROCHE SIMPLIFIÉE
+    function init() {
+        console.log('Initializing KYC page...');
+        
+        // Update progress initially
+        updateProgress();
+        
+        // Setup file inputs with DIRECT event listeners
+        const fileInputs = [
+            { id: 'cardFrontInput', type: 'card-front' },
+            { id: 'cardBackInput', type: 'card-back' },
+            { id: 'selfieInput', type: 'selfie' }
+        ];
+        
+        fileInputs.forEach(({ id, type }) => {
+            const input = document.getElementById(id);
+            if (input) {
+                input.addEventListener('change', function(e) {
+                    console.log('File input changed for:', id, 'Files:', e.target.files.length);
+                    if (e.target.files.length > 0) {
+                        handleFileUpload(e.target.files[0], type);
+                    }
+                });
+                console.log('Event listener added for:', id);
+            } else {
+                console.error('Input not found:', id);
+            }
+        });
+        
+        // Setup upload buttons with DIRECT function calls
+        const uploadButtons = [
+            { btn: document.querySelector('#cardFrontCard .pf-upload-btn'), type: 'card-front' },
+            { btn: document.querySelector('#cardBackCard .pf-upload-btn'), type: 'card-back' },
+            { btn: document.querySelector('#selfieCard .pf-upload-btn'), type: 'selfie' }
+        ];
+        
+        uploadButtons.forEach(({ btn, type }) => {
+            if (btn) {
+                btn.onclick = function(e) {
+                    e.stopPropagation();
+                    triggerFileInput(type);
+                };
+                console.log('Upload button setup for:', type);
+            }
+        });
+        
+        // Setup replace buttons
+        const replaceButtons = document.querySelectorAll('.pf-preview-btn[onclick*="triggerFileInput"]');
+        replaceButtons.forEach(btn => {
+            const onclickAttr = btn.getAttribute('onclick');
+            if (onclickAttr && onclickAttr.includes('triggerFileInput')) {
+                // Remove the old onclick and add new event listener
+                btn.removeAttribute('onclick');
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    // Find which type this button belongs to
+                    const preview = this.closest('.pf-preview-container');
+                    if (preview) {
+                        const card = preview.closest('.pf-document-card');
+                        if (card) {
+                            const type = card.dataset.type;
+                            triggerFileInput(type);
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Setup remove buttons
+        const removeButtons = document.querySelectorAll('.pf-preview-btn[onclick*="removeFile"]');
+        removeButtons.forEach(btn => {
+            const onclickAttr = btn.getAttribute('onclick');
+            if (onclickAttr && onclickAttr.includes('removeFile')) {
+                // Remove the old onclick and add new event listener
+                btn.removeAttribute('onclick');
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    // Find which type this button belongs to
+                    const preview = this.closest('.pf-preview-container');
+                    if (preview) {
+                        const card = preview.closest('.pf-document-card');
+                        if (card) {
+                            const type = card.dataset.type;
+                            removeFile(type);
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Setup drag and drop
+        const cards = document.querySelectorAll('.pf-document-card');
+        cards.forEach(card => {
+            const type = card.dataset.type;
+            
+            card.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                card.classList.add('dragover');
+            });
+            
+            card.addEventListener('dragleave', () => {
+                card.classList.remove('dragover');
+            });
+            
+            card.addEventListener('drop', (e) => {
+                e.preventDefault();
+                card.classList.remove('dragover');
+                
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFileUpload(files[0], type);
+                }
+            });
+            
+            // Click on card (excluding buttons)
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.pf-upload-btn') && 
+                    !e.target.closest('.pf-preview-btn') &&
+                    !e.target.closest('.pf-file-input')) {
+                    triggerFileInput(type);
+                }
+            });
+        });
+        
+        // Submit button
+        submitBtn.addEventListener('click', submitKYC);
+        
+        // Allow Enter key on submit button
+        submitBtn.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !submitBtn.disabled) {
+                submitKYC();
+            }
+        });
+        
+        console.log('Initialization complete');
+    }
+    
+    // Submit KYC
+    function submitKYC() {
+        if (submitBtn.disabled) return;
+        
+        // Show loading
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
+        submitBtn.disabled = true;
+        
+        // Simulate API call
+        setTimeout(() => {
+            console.log('KYC soumis avec succès:', uploadedFiles);
+            
+            // Show success message
+            showSuccessMessage();
+            
+            // Redirect after delay
+            setTimeout(() => {
+                window.location.href = 'home.html?kyc=submitted';
+            }, 2000);
+        }, 2000);
+    }
+    
+    // Show success message
+    function showSuccessMessage() {
+        const container = document.querySelector('.pf-kyc-container');
+        if (container) {
+            container.innerHTML = `
+                <div style="text-align: center; padding: var(--spacing-xl) 0;">
+                    <div style="width: 100px; height: 100px; background: linear-gradient(135deg, var(--color-success) 0%, #34d399 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--spacing-lg);">
+                        <i class="fas fa-check" style="font-size: 3rem; color: white;"></i>
+                    </div>
+                    <h2 style="font-size: var(--font-size-lg); font-weight: 700; margin-bottom: var(--spacing-sm); color: var(--color-gray-dark);">
+                        KYC Soumis avec Succès !
+                    </h2>
+                    <p style="color: var(--color-gray-medium); margin-bottom: var(--spacing-xl); line-height: 1.6;">
+                        Votre vérification KYC a été soumise avec succès.<br>
+                        Notre équipe va vérifier vos documents sous <strong>24-48 heures</strong>.<br>
+                        Vous recevrez une notification par email dès que votre compte sera vérifié.
+                    </p>
+                    <div class="pf-kyc-actions">
+                        <a href="home.html" class="pf-btn pf-btn-primary">
+                            <i class="fas fa-home"></i> Retour au tableau de bord
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+    }
+    
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', init);
+</script>

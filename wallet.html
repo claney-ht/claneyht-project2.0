@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Portefeuille</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --color-gaming: #f97316;
+            --color-streaming: #8b5cf6;
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --font-size-xxl: 2rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER ===== */
+        .pf-wallet-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-gray-light);
+            padding: var(--spacing-md) 0;
+        }
+
+        .pf-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pf-back-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .pf-back-btn:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-page-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+            text-align: center;
+        }
+
+        .pf-user-menu {
+            position: relative;
+        }
+
+        .pf-menu-button {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .pf-menu-button:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-menu-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-blue-primary);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-wallet-main {
+            padding: var(--spacing-xl) 0;
+        }
+
+        /* ===== TABS NAVIGATION ===== */
+        .pf-tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xl);
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .pf-tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            color: var(--color-gray-medium);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .pf-tab:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-tab.active {
+            color: var(--color-blue-primary);
+            border-bottom-color: var(--color-blue-primary);
+            background: var(--color-blue-very-light);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        /* ===== TAB CONTENT ===== */
+        .pf-tab-content {
+            display: none;
+        }
+
+        .pf-tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ===== OVERVIEW SECTION ===== */
+        .pf-overview-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-balance-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            text-align: center;
+        }
+
+        .pf-balance-label {
+            font-size: 0.875rem;
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-balance-amount {
+            font-size: var(--font-size-xxl);
+            font-weight: 700;
+            color: var(--color-gray-dark);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .pf-balance-equivalent {
+            color: var(--color-gray-medium);
+            font-size: 0.875rem;
+        }
+
+        .pf-quick-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+            margin-top: var(--spacing-lg);
+        }
+
+        /* ===== DEPOSIT SECTION ===== */
+        .pf-deposit-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-method-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            transition: all 0.3s ease;
+        }
+
+        .pf-method-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pf-method-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-method-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: var(--color-blue-very-light);
+            color: var(--color-blue-primary);
+        }
+
+        .pf-method-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .pf-method-subtitle {
+            color: var(--color-gray-medium);
+            font-size: 0.875rem;
+        }
+
+        .pf-method-details {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-xs) 0;
+            border-bottom: 1px solid var(--color-gray-very-light);
+        }
+
+        .pf-detail-label {
+            color: var(--color-gray-medium);
+        }
+
+        .pf-detail-value {
+            font-weight: 500;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-method-form {
+            margin-top: var(--spacing-lg);
+        }
+
+        /* ===== FORM STYLES ===== */
+        .pf-form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-form-label i {
+            margin-right: 0.5rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-dark);
+            background-color: var(--color-white);
+            transition: border-color 0.2s ease;
+        }
+
+        .pf-form-input:focus {
+            outline: none;
+            border-color: var(--color-blue-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .pf-form-note {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+            margin-top: 0.25rem;
+        }
+
+        .pf-file-upload {
+            border: 2px dashed var(--color-gray-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pf-file-upload:hover {
+            border-color: var(--color-blue-primary);
+            background: var(--color-blue-very-light);
+        }
+
+        .pf-file-input {
+            display: none;
+        }
+
+        .pf-file-preview {
+            margin-top: var(--spacing-md);
+            display: none;
+        }
+
+        .pf-file-preview.show {
+            display: block;
+        }
+
+        .pf-preview-image {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--color-gray-light);
+            margin-top: var(--spacing-sm);
+        }
+
+        /* ===== WITHDRAWAL SECTION ===== */
+        .pf-limits-info {
+            background: var(--color-gray-very-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-limits-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .pf-limits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .pf-limit-item {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-limit-label {
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .pf-limit-value {
+            font-weight: 600;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-limit-used {
+            height: 4px;
+            background: var(--color-gray-light);
+            border-radius: 2px;
+            margin-top: var(--spacing-xs);
+            overflow: hidden;
+        }
+
+        .pf-limit-progress {
+            height: 100%;
+            background: var(--color-blue-primary);
+            border-radius: 2px;
+        }
+
+        /* ===== HISTORY SECTION ===== */
+        .pf-history-filters {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .pf-filter-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            background: var(--color-white);
+            color: var(--color-gray-dark);
+            font-size: var(--font-size-sm);
+        }
+
+        .pf-search-input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .pf-history-table {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-table-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            background: var(--color-gray-very-light);
+            padding: var(--spacing-md);
+            font-weight: 600;
+            color: var(--color-gray-dark);
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+
+        .pf-table-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--color-gray-very-light);
+            align-items: center;
+        }
+
+        .pf-table-row:last-child {
+            border-bottom: none;
+        }
+
+        .pf-table-row:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .pf-status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--color-warning);
+        }
+
+        .pf-status-completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+        }
+
+        .pf-status-failed {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--color-error);
+        }
+
+        .pf-no-data {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--color-gray-medium);
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            min-width: 140px;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .pf-btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        .pf-btn-success {
+            background-color: var(--color-success);
+            color: var(--color-white);
+        }
+
+        .pf-btn-success:hover {
+            background-color: #0da271;
+        }
+
+        .pf-btn-danger {
+            background-color: var(--color-error);
+            color: var(--color-white);
+        }
+
+        .pf-btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+            min-width: auto;
+        }
+
+        /* ===== ERROR MESSAGES ===== */
+        .pf-error-message {
+            color: var(--color-error);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-error-message.show {
+            display: block;
+        }
+
+        .pf-success-message {
+            color: var(--color-success);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-success-message.show {
+            display: block;
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-wallet-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-wallet-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .pf-deposit-methods {
+                grid-template-columns: 1fr;
+            }
+            
+            .pf-overview-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .pf-table-header,
+            .pf-table-row {
+                grid-template-columns: 1fr 1fr;
+                gap: var(--spacing-sm);
+            }
+            
+            .pf-table-header :nth-child(3),
+            .pf-table-header :nth-child(5),
+            .pf-table-row :nth-child(3),
+            .pf-table-row :nth-child(5) {
+                display: none;
+            }
+            
+            .pf-history-filters {
+                flex-direction: column;
+            }
+            
+            .pf-search-input {
+                min-width: 100%;
+            }
+            
+            .pf-header-content {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+            
+            .pf-back-btn {
+                align-self: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pf-tabs {
+                flex-direction: column;
+            }
+            
+            .pf-tab {
+                text-align: left;
+                border-bottom: none;
+                border-left: 2px solid transparent;
+            }
+            
+            .pf-tab.active {
+                border-left-color: var(--color-blue-primary);
+                border-bottom-color: transparent;
+            }
+            
+            .pf-quick-actions {
+                flex-direction: column;
+            }
+            
+            .pf-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-wallet-header">
+        <div class="container">
+            <div class="pf-header-content">
+                <a href="home.html" class="pf-back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
+                
+                <h1 class="pf-page-title">Portefeuille</h1>
+                
+                <div class="pf-user-menu">
+                    <button class="pf-menu-button" onclick="window.location.href='home.html'">
+                        <div class="pf-menu-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pf-wallet-main">
+        <div class="container">
+            <!-- Tabs Navigation -->
+            <div class="pf-tabs">
+                <button class="pf-tab active" data-tab="overview">
+                    <i class="fas fa-chart-pie"></i> Vue d'ensemble
+                </button>
+                <button class="pf-tab" data-tab="deposit">
+                    <i class="fas fa-arrow-down"></i> Dépôt de fonds
+                </button>
+                <button class="pf-tab" data-tab="withdrawal">
+                    <i class="fas fa-arrow-up"></i> Retrait de fonds
+                </button>
+                <button class="pf-tab" data-tab="history">
+                    <i class="fas fa-history"></i> Historique
+                </button>
+            </div>
+
+            <!-- Tab 1: Overview -->
+            <div class="pf-tab-content active" id="overviewTab">
+                <div class="pf-overview-cards">
+                    <!-- Main Balance -->
+                    <div class="pf-balance-card">
+                        <div class="pf-balance-label">Available Balance</div>
+                        <div class="pf-balance-amount" id="mainBalance">2,500.00 HTG</div>
+                        <div class="pf-balance-equivalent">~16.67 USD</div>
+                        
+                        <div class="pf-quick-actions">
+                            <button class="pf-btn pf-btn-primary pf-btn-sm" onclick="switchTab('deposit')">
+                                <i class="fas fa-plus"></i> Dépôt
+                            </button>
+                            <button class="pf-btn pf-btn-secondary pf-btn-sm" onclick="switchTab('withdrawal')">
+                                <i class="fas fa-minus"></i> Retrait
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- USD Balance -->
+                    <div class="pf-balance-card">
+                        <div class="pf-balance-label">Solde USD</div>
+                        <div class="pf-balance-amount" id="usdBalance">16.67 USD</div>
+                        <div class="pf-balance-equivalent">2,500.00 HTG</div>
+                        
+                        <div class="pf-quick-actions">
+                            <button class="pf-btn pf-btn-secondary pf-btn-sm" onclick="convertUSD()">
+                                <i class="fas fa-exchange-alt"></i> Convertir
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- USDT Balance -->
+                    <div class="pf-balance-card">
+                        <div class="pf-balance-label">Solde USDT</div>
+                        <div class="pf-balance-amount" id="usdtBalance">0.0000 USDT</div>
+                        <div class="pf-balance-equivalent">0.00 HTG</div>
+                        
+                        <div class="pf-quick-actions">
+                            <button class="pf-btn pf-btn-secondary pf-btn-sm" onclick="switchTab('deposit')">
+                                <i class="fas fa-wallet"></i> Recharger
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Transactions -->
+                <h3 style="margin-bottom: var(--spacing-lg); color: var(--color-gray-dark);">
+                    <i class="fas fa-clock"></i> Transactions récentes
+                </h3>
+                
+                <div class="pf-history-table">
+                    <div class="pf-table-header">
+                        <div>Date</div>
+                        <div>Type</div>
+                        <div>Description</div>
+                        <div>Montant</div>
+                        <div>Statut</div>
+                    </div>
+                    
+                    <!-- Sample transactions -->
+                    <div class="pf-table-row">
+                        <div>15 Déc, 14:30</div>
+                        <div>Dépôt</div>
+                        <div>MonCash #TRX-7842</div>
+                        <div style="color: var(--color-success);">+1,500 HTG</div>
+                        <div><span class="pf-status pf-status-completed">Complet</span></div>
+                    </div>
+                    
+                    <div class="pf-table-row">
+                        <div>14 Déc, 19:15</div>
+                        <div>Achat</div>
+                        <div>Free Fire Diamants</div>
+                        <div style="color: var(--color-error);">-1,650 HTG</div>
+                        <div><span class="pf-status pf-status-completed">Complet</span></div>
+                    </div>
+                    
+                    <div class="pf-table-row">
+                        <div>12 Déc, 10:45</div>
+                        <div>Retrait</div>
+                        <div>NatCash #TRX-7819</div>
+                        <div style="color: var(--color-error);">-3,000 HTG</div>
+                        <div><span class="pf-status pf-status-completed">Complet</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Deposit -->
+            <div class="pf-tab-content" id="depositTab">
+                <h2 style="margin-bottom: var(--spacing-lg); color: var(--color-gray-dark);">
+                    <i class="fas fa-arrow-down"></i> Dépôt de fonds
+                </h2>
+                
+                <div class="pf-deposit-methods">
+                    <!-- MonCash -->
+                    <div class="pf-method-card">
+                        <div class="pf-method-header">
+                            <div class="pf-method-icon">
+                                <img src="assets/logos/moncash-logo.png" alt="MonCash" style="width: 40px; height: 40px;">
+                            </div>
+                            <div>
+                                <h3 class="pf-method-title">MonCash</h3>
+                                <p class="pf-method-subtitle">Transfert mobile</p>
+                            </div>
+                        </div>
+                        
+                        <div class="pf-method-details">
+                            <div class="pf-detail-item">
+                                <span class="pf-detail-label">Numéro:</span>
+                                <span class="pf-detail-value">+509 3944 2808</span>
+                            </div>
+                            <div class="pf-detail-item">
+                                <span class="pf-detail-label">Nom:</span>
+                                <span class="pf-detail-value">Marco Bien-Aimé</span>
+                            </div>
+                            <div class="pf-detail-item">
+                                <span class="pf-detail-label">Minimum:</span>
+                                <span class="pf-detail-value">150 HTG</span>
+                            </div>
+                            <div class="pf-detail-item">
+                                <span class="pf-detail-label">Délai:</span>
+                                <span class="pf-detail-value">10-30 minutes</span>
+                            </div>
+                        </div>
+                        
+                        <form class="pf-method-form" id="moncashForm">
+                            <div class="pf-form-group">
+                                <label for="moncashAmount" class="pf-form-label">
+                                    <i class="fas fa-money-bill-wave"></i> Montant (HTG)
+                                </label>
+                                <input 
+                                    type="number" 
+                                    id="moncashAmount" 
+                                    class="pf-form-input" 
+                                    placeholder="150"
+                                    min="150"
+                                    step="1"
+                                    required
+                                >
+                                <div id="moncashAmountError" class="pf-error-message">
+                                    Minimum: 150 HTG
+                                </div>
+                            </div>
+                            
+                            <div class="pf-form-group">
+                                <label for="moncashProof" class="pf-form-label">
+                                    <i class="fas fa-image"></i> Preuve de paiement
+                                </label>
+                                <div class="pf-file-upload" onclick="document.getElementById('moncashFile').click()">
+                                    <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--color-gray-medium); margin-bottom: var(--spacing-sm);"></i>
+                                    <p>Cliquez pour téléverser une capture d'écran</p>
+                                    <p class="pf-form-note">Formats: JPG, PNG, PDF • Max 5MB</p>
+                                    <input type="file" id="moncashFile" class="pf-file-input" accept=".jpg,.jpeg,.png,.pdf" data-method="moncash">
+                                </div>
+                                
+                                <div class="pf-file-preview" id="moncashPreview">
+                                    <img id="moncashImage" class="pf-preview-image" alt="Aperçu">
+                                    <button type="button" class="pf-btn pf-btn-secondary pf-btn-sm" onclick="removeFile('moncash')" style="margin-top: var(--spacing-sm);">
+                                        <i class="fas fa-trash"></i> Supprimer
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="pf-form-group">
+                                <label for="moncashSender" class="pf-form-label">
+                                    <i class="fas fa-user"></i> Nom de l'expéditeur
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="moncashSender" 
+                                    class="pf-form-input" 
+                                    placeholder="Nom sur MonCash"
+                                    required
+                                >
+                            </div>
+                            
+                            <button type="submit" class="pf-btn pf-btn-primary" style="width: 100%;">
+                                <i class="fas fa-paper-plane"></i> Soumettre le dépôt
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- NatCash -->
+                    <div class="pf-method-card">
+                        <div class="pf-method-header">
+                            <div class="pf-method-icon">
+                                <img src="assets/logos/natcash-logo.png" alt="NatCash" style="width: 40px; height: 40px;">
+                            </div>
+                            <div>
+                                <h3 class="pf-method-title">NatCash</h3>
+                                <p class="pf-method-subtitle">Transfert mobile</p>
+                            </div>
+                        </div>
+                        
+                        <div class="pf-method-details">
+                            <div class="pf-detail-item">
+                                <span class="pf-detail-label">Numéro:</span>
+                                <span class="pf-detail-value">+509 3574 1778</span>
+                            </div>
+                            <div class="pf-detail-item">
+                                <span class="pf-detail-label">Nom:</span>
+                                <span class="pf-detail-value">Marco Bien-Aimé</span>
+                            </div>
+                            <div class="pf-detail-item">
+                                <span class="pf-detail-label">Minimum:</span>
+                                <span class="pf-detail-value">150 HTG</span>
+                            </div>
+                            <div class="pf-detail-item">
+                                <span class="pf-detail-label">Délai:</span>
+                                <span class="pf-detail-value">10-30 minutes</span>
+                            </div>
+                        </div>
+                        
+                        <form class="pf-method-form" id="natcashForm">
+                            <div class="pf-form-group">
+                                <label for="natcashAmount" class="pf-form-label">
+                                    <i class="fas fa-money-bill-wave"></i> Montant (HTG)
+                                </label>
+                                <input 
+                                    type="number" 
+                                    id="natcashAmount" 
+                                    class="pf-form-input" 
+                                    placeholder="150"
+                                    min="150"
+                                    step="1"
+                                    required
+                                >
+                                <div id="natcashAmountError" class="pf-error-message">
+                                    Minimum: 150 HTG
+                                </div>
+                            </div>
+                            
+                            <div class="pf-form-group">
+                                <label for="natcashProof" class="pf-form-label">
+                                    <i class="fas fa-image"></i> Preuve de paiement
+                                </label>
+                                <div class="pf-file-upload" onclick="document.getElementById('natcashFile').click()">
+                                    <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--color-gray-medium); margin-bottom: var(--spacing-sm);"></i>
+                                    <p>Cliquez pour téléverser une capture d'écran</p>
+                                    <p class="pf-form-note">Formats: JPG, PNG, PDF • Max 5MB</p>
+                                    <input type="file" id="natcashFile" class="pf-file-input" accept=".jpg,.jpeg,.png,.pdf" data-method="natcash">
+                                </div>
+                                
+                                <div class="pf-file-preview" id="natcashPreview">
+                                    <img id="natcashImage" class="pf-preview-image" alt="Aperçu">
+                                    <button type="button" class="pf-btn pf-btn-secondary pf-btn-sm" onclick="removeFile('natcash')" style="margin-top: var(--spacing-sm);">
+                                        <i class="fas fa-trash"></i> Supprimer
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="pf-form-group">
+                                <label for="natcashSender" class="pf-form-label">
+                                    <i class="fas fa-user"></i> Nom de l'expéditeur
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="natcashSender" 
+                                    class="pf-form-input" 
+                                    placeholder="Nom sur NatCash"
+                                    required
+                                >
+                            </div>
+                            
+                            <button type="submit" class="pf-btn pf-btn-primary" style="width: 100%;">
+                                <i class="fas fa-paper-plane"></i> Soumettre le dépôt
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- USDT -->
+                    <div class="pf-method-card">
+                        <div class="pf-method-header">
+                            <div class="pf-method-icon">
+                                <img src="assets/logos/usdt-logo.png" alt="USDT" style="width: 40px; height: 40px;">
+                            </div>
+                            <div>
+                                <h3 class="pf-method-title">USDT (TRC20)</h3>
+                                <p class="pf-method-subtitle">Crypto-monnaie</p>
+                            </div>
+                        </div>
+                        
+                        <div class="pf-method-details">
+                            <div class="pf-detail-item">
+                                <span class="pf-detail-label">Adresse:</span>
+                                <span class="pf-detail-value" style="font-size: 0.75rem; word-break: break-all;">
+                                    TJHVCbXMBQdtzurHngB1aXSFkR9TWYvZ94
+                                </span>
+                            </div>
+                            <div class="pf-detail-item">
+                                <span class="pf-detail-label">Réseau:</span>
+                                <span class="pf-detail-value">TRC20 (Tron)</span>
+                            </div>
+                            <div class="pf-detail-item">
+                                <span class="pf-detail-label">Minimum:</span>
+                                <span class="pf-detail-value">Équiv. 150 HTG</span>
+                            </div>
+                            <div class="pf-detail-item">
+                                <span class="pf-detail-label">Délai:</span>
+                                <span class="pf-detail-value">Confirmations blockchain</span>
+                            </div>
+                        </div>
+                        
+                        <form class="pf-method-form" id="usdtForm">
+                            <div class="pf-form-group">
+                                <label for="usdtAmount" class="pf-form-label">
+                                    <i class="fas fa-coins"></i> Montant (USDT)
+                                </label>
+                                <input 
+                                    type="number" 
+                                    id="usdtAmount" 
+                                    class="pf-form-input" 
+                                    placeholder="10"
+                                    min="1"
+                                    step="0.01"
+                                    required
+                                >
+                                <div class="pf-form-note">
+                                    Équivalent: <span id="usdtEquivalent">0 HTG</span> (1 USDT ≈ 150 HTG)
+                                </div>
+                                <div id="usdtAmountError" class="pf-error-message">
+                                    Minimum: équivalent 150 HTG
+                                </div>
+                            </div>
+                            
+                            <div class="pf-form-group">
+                                <label for="usdtProof" class="pf-form-label">
+                                    <i class="fas fa-image"></i> Preuve de transaction
+                                </label>
+                                <div class="pf-file-upload" onclick="document.getElementById('usdtFile').click()">
+                                    <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--color-gray-medium); margin-bottom: var(--spacing-sm);"></i>
+                                    <p>Cliquez pour téléverser une capture d'écran</p>
+                                    <p class="pf-form-note">Capture de la transaction blockchain</p>
+                                    <input type="file" id="usdtFile" class="pf-file-input" accept=".jpg,.jpeg,.png,.pdf" data-method="usdt">
+                                </div>
+                                
+                                <div class="pf-file-preview" id="usdtPreview">
+                                    <img id="usdtImage" class="pf-preview-image" alt="Aperçu">
+                                    <button type="button" class="pf-btn pf-btn-secondary pf-btn-sm" onclick="removeFile('usdt')" style="margin-top: var(--spacing-sm);">
+                                        <i class="fas fa-trash"></i> Supprimer
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="pf-form-group">
+                                <label for="usdtTxHash" class="pf-form-label">
+                                    <i class="fas fa-hashtag"></i> Hash de transaction (optionnel)
+                                </label>
+                                <input 
+                                    type="text" 
+                                    id="usdtTxHash" 
+                                    class="pf-form-input" 
+                                    placeholder="Transaction hash..."
+                                >
+                            </div>
+                            
+                            <button type="submit" class="pf-btn pf-btn-primary" style="width: 100%;">
+                                <i class="fas fa-paper-plane"></i> Soumettre le dépôt
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Withdrawal -->
+            <div class="pf-tab-content" id="withdrawalTab">
+                <h2 style="margin-bottom: var(--spacing-lg); color: var(--color-gray-dark);">
+                    <i class="fas fa-arrow-up"></i> Retrait de fonds
+                </h2>
+                
+                <!-- Limits Information -->
+                <div class="pf-limits-info">
+                    <h3 class="pf-limits-title">
+                        <i class="fas fa-chart-bar"></i> Limit Information
+                    </h3>
+                    
+                    <div class="pf-limits-grid">
+                        <div class="pf-limit-item">
+                            <div class="pf-limit-label">Retrait journalier</div>
+                            <div class="pf-limit-value">5,000 HTG</div>
+                            <div class="pf-limit-used">
+                                <div class="pf-limit-progress" style="width: 60%;"></div>
+                            </div>
+                            <div class="pf-form-note">Utilisé: 3,000 HTG</div>
+                        </div>
+                        
+                        <div class="pf-limit-item">
+                            <div class="pf-limit-label">Retrait mensuel</div>
+                            <div class="pf-limit-value">25,000 HTG</div>
+                            <div class="pf-limit-used">
+                                <div class="pf-limit-progress" style="width: 30%;"></div>
+                            </div>
+                            <div class="pf-form-note">Utilisé: 7,500 HTG</div>
+                        </div>
+                        
+                        <div class="pf-limit-item">
+                            <div class="pf-limit-label">Solde disponible</div>
+                            <div class="pf-limit-value">2,500 HTG</div>
+                            <div class="pf-form-note">Pour retrait immédiat</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Withdrawal Form -->
+                <div style="background: var(--color-white); border-radius: var(--border-radius-lg); padding: var(--spacing-xl); box-shadow: var(--shadow-sm); border: 1px solid var(--color-gray-light);">
+                    <form id="withdrawalForm">
+                        <div class="pf-form-group">
+                            <label for="withdrawalMethod" class="pf-form-label">
+                                <i class="fas fa-wallet"></i> Méthode de retrait
+                            </label>
+                            <select id="withdrawalMethod" class="pf-form-input" required>
+                                <option value="">Sélectionnez une méthode</option>
+                                <option value="moncash">MonCash</option>
+                                <option value="natcash">NatCash</option>
+                                <option value="bank">Transfert bancaire</option>
+                            </select>
+                        </div>
+                        
+                        <div class="pf-form-group">
+                            <label for="withdrawalAmount" class="pf-form-label">
+                                <i class="fas fa-money-bill-wave"></i> Montant (HTG)
+                            </label>
+                            <input 
+                                type="number" 
+                                id="withdrawalAmount" 
+                                class="pf-form-input" 
+                                placeholder="150"
+                                min="150"
+                                max="2500"
+                                step="1"
+                                required
+                            >
+                            <div class="pf-form-note">
+                                Solde disponible: 2,500 HTG • Minimum: 150 HTG
+                            </div>
+                            <div id="withdrawalAmountError" class="pf-error-message">
+                                Montant invalide
+                            </div>
+                        </div>
+                        
+                        <div class="pf-form-group">
+                            <label for="withdrawalAccount" class="pf-form-label">
+                                <i class="fas fa-user"></i> Informations du bénéficiaire
+                            </label>
+                            <input 
+                                type="text" 
+                                id="withdrawalAccount" 
+                                class="pf-form-input" 
+                                placeholder="Numéro de compte ou téléphone"
+                                required
+                            >
+                        </div>
+                        
+                        <div class="pf-form-group">
+                            <label for="withdrawalWhatsapp" class="pf-form-label">
+                                <i class="fab fa-whatsapp"></i> WhatsApp pour confirmation
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="withdrawalWhatsapp" 
+                                class="pf-form-input" 
+                                placeholder="+509XXXXXXXX"
+                                required
+                            >
+                        </div>
+                        
+                        <div class="pf-form-group">
+                            <label for="withdrawalNotes" class="pf-form-label">
+                                <i class="fas fa-sticky-note"></i> Notes (optionnel)
+                            </label>
+                            <textarea 
+                                id="withdrawalNotes" 
+                                class="pf-form-input" 
+                                rows="3"
+                                placeholder="Informations supplémentaires..."
+                            ></textarea>
+                        </div>
+                        
+                        <!-- Preview -->
+                        <div class="pf-limits-info" style="margin-top: var(--spacing-lg);">
+                            <h3 class="pf-limits-title">
+                                <i class="fas fa-eye"></i> Aperçu avant validation
+                            </h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                                <div>
+                                    <div class="pf-limit-label">Méthode:</div>
+                                    <div class="pf-limit-value" id="previewMethod">-</div>
+                                </div>
+                                <div>
+                                    <div class="pf-limit-label">Montant:</div>
+                                    <div class="pf-limit-value" id="previewAmount">0 HTG</div>
+                                </div>
+                                <div>
+                                    <div class="pf-limit-label">Frais:</div>
+                                    <div class="pf-limit-value" id="previewFees">0 HTG</div>
+                                </div>
+                                <div>
+                                    <div class="pf-limit-label">À recevoir:</div>
+                                    <div class="pf-limit-value" id="previewReceive">0 HTG</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="pf-btn pf-btn-success" style="width: 100%; margin-top: var(--spacing-lg);">
+                            <i class="fas fa-check-circle"></i> Demander le retrait
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Tab 4: History -->
+            <div class="pf-tab-content" id="historyTab">
+                <h2 style="margin-bottom: var(--spacing-lg); color: var(--color-gray-dark);">
+                    <i class="fas fa-history"></i> Historique des transactions
+                </h2>
+                
+                <!-- Filters -->
+                <div class="pf-history-filters">
+                    <select class="pf-filter-select" id="filterType">
+                        <option value="">Tous les types</option>
+                        <option value="deposit">Dépôts</option>
+                        <option value="withdrawal">Retraits</option>
+                        <option value="purchase">Achats</option>
+                    </select>
+                    
+                    <select class="pf-filter-select" id="filterStatus">
+                        <option value="">Tous les statuts</option>
+                        <option value="pending">En attente</option>
+                        <option value="completed">Complet</option>
+                        <option value="failed">Échoué</option>
+                    </select>
+                    
+                    <input type="date" class="pf-filter-select" id="filterDateFrom" placeholder="De">
+                    <input type="date" class="pf-filter-select" id="filterDateTo" placeholder="À">
+                    
+                    <input type="text" class="pf-filter-select pf-search-input" id="searchTransactions" placeholder="Rechercher...">
+                    
+                    <button class="pf-btn pf-btn-secondary" onclick="exportToCSV()">
+                        <i class="fas fa-download"></i> Export CSV
+                    </button>
+                </div>
+                
+                <!-- Transactions Table -->
+                <div class="pf-history-table">
+                    <div class="pf-table-header">
+                        <div>Date</div>
+                        <div>Type</div>
+                        <div>Description</div>
+                        <div>Montant</div>
+                        <div>Statut</div>
+                    </div>
+                    
+                    <div id="transactionsList">
+                        <!-- Transactions will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="pf-no-data" id="noDataMessage" style="display: none;">
+                    <i class="fas fa-database" style="font-size: 3rem; color: var(--color-gray-light); margin-bottom: var(--spacing-sm);"></i>
+                    <h3>No data found!</h3>
+                    <p>Aucune transaction ne correspond à vos critères de recherche.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-wallet-footer">
+        <div class="container">
+            <p>Pour toute question concernant les dépôts/retraits: <a href="https://wa.me/50939442808">WhatsApp +509 3944 2808</a></p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration
+        const exchangeRate = 150; // 1 USD = 150 HTG
+        const minDepositAmount = 150; // Minimum deposit in HTG
+        const withdrawalFees = {
+            'moncash': 0,
+            'natcash': 0,
+            'bank': 50
+        };
+        
+        // State
+        let currentBalance = 2500.00;
+        let uploadedFiles = {
+            'moncash': null,
+            'natcash': null,
+            'usdt': null
+        };
+        
+        // DOM Elements
+        const tabs = document.querySelectorAll('.pf-tab');
+        const tabContents = document.querySelectorAll('.pf-tab-content');
+        
+        // Switch tabs
+        function switchTab(tabName) {
+            // Update tabs
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Update content
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === tabName + 'Tab') {
+                    content.classList.add('active');
+                }
+            });
+            
+            // If switching to deposit tab, update USDT equivalent
+            if (tabName === 'deposit') {
+                updateUSDTEquivalent();
+            }
+            
+            // If switching to withdrawal tab, update preview
+            if (tabName === 'withdrawal') {
+                updateWithdrawalPreview();
+            }
+            
+            // If switching to history tab, load transactions
+            if (tabName === 'history') {
+                loadTransactions();
+            }
+        }
+        
+        // Update USDT equivalent
+        function updateUSDTEquivalent() {
+            const usdtAmount = document.getElementById('usdtAmount').value || 0;
+            const equivalent = usdtAmount * exchangeRate;
+            document.getElementById('usdtEquivalent').textContent = 
+                equivalent.toLocaleString('fr-HT') + ' HTG';
+        }
+        
+        // Handle file upload
+        function handleFileUpload(file, method) {
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
+            
+            // Validate file
+            if (file.size > maxSize) {
+                alert('Fichier trop volumineux. Maximum 5MB.');
+                return;
+            }
+            
+            if (!allowedTypes.includes(file.type)) {
+                alert('Format de fichier non supporté. Utilisez JPG, PNG ou PDF.');
+                return;
+            }
+            
+            // Store file
+            uploadedFiles[method] = file;
+            
+            // Update preview
+            const preview = document.getElementById(method + 'Preview');
+            const image = document.getElementById(method + 'Image');
+            
+            if (file.type.startsWith('image/')) {
+                const objectUrl = URL.createObjectURL(file);
+                image.src = objectUrl;
+                image.style.display = 'block';
+            } else {
+                image.style.display = 'none';
+            }
+            
+            preview.classList.add('show');
+        }
+        
+        // Remove file
+        function removeFile(method) {
+            uploadedFiles[method] = null;
+            document.getElementById(method + 'Preview').classList.remove('show');
+            document.getElementById(method + 'File').value = '';
+        }
+        
+        // Validate deposit
+        function validateDeposit(amount, method) {
+            const minAmounts = {
+                'moncash': 150,
+                'natcash': 150,
+                'usdt': 150 / exchangeRate // USDT equivalent
+            };
+            
+            if (method === 'usdt') {
+                const usdtAmount = amount;
+                const htgEquivalent = usdtAmount * exchangeRate;
+                if (htgEquivalent < minAmounts[method]) {
+                    return { valid: false, error: `Minimum: ${minAmounts[method]} USDT (équivalent ${minAmounts[method] * exchangeRate} HTG)` };
+                }
+            } else {
+                if (amount < minAmounts[method]) {
+                    return { valid: false, error: `Minimum: ${minAmounts[method]} HTG` };
+                }
+            }
+            
+            return { valid: true };
+        }
+        
+        // Update withdrawal preview
+        function updateWithdrawalPreview() {
+            const method = document.getElementById('withdrawalMethod').value;
+            const amount = parseFloat(document.getElementById('withdrawalAmount').value) || 0;
+            
+            if (method && amount >= 150) {
+                const fees = withdrawalFees[method] || 0;
+                const receive = amount - fees;
+                
+                document.getElementById('previewMethod').textContent = 
+                    method.charAt(0).toUpperCase() + method.slice(1);
+                document.getElementById('previewAmount').textContent = 
+                    amount.toLocaleString('fr-HT') + ' HTG';
+                document.getElementById('previewFees').textContent = 
+                    fees.toLocaleString('fr-HT') + ' HTG';
+                document.getElementById('previewReceive').textContent = 
+                    receive.toLocaleString('fr-HT') + ' HTG';
+            }
+        }
+        
+        // Load transactions
+        function loadTransactions() {
+            const transactions = [
+                {
+                    id: 1,
+                    date: '2024-12-15 14:30',
+                    type: 'deposit',
+                    description: 'MonCash #TRX-7842',
+                    amount: 1500,
+                    status: 'completed',
+                    method: 'moncash'
+                },
+                {
+                    id: 2,
+                    date: '2024-12-14 19:15',
+                    type: 'purchase',
+                    description: 'Free Fire Diamants',
+                    amount: -1650,
+                    status: 'completed',
+                    service: 'freefire'
+                },
+                {
+                    id: 3,
+                    date: '2024-12-12 10:45',
+                    type: 'withdrawal',
+                    description: 'NatCash #TRX-7819',
+                    amount: -3000,
+                    status: 'completed',
+                    method: 'natcash'
+                },
+                {
+                    id: 4,
+                    date: '2024-12-10 16:20',
+                    type: 'deposit',
+                    description: 'USDT Transfer',
+                    amount: 7500,
+                    status: 'completed',
+                    method: 'usdt'
+                },
+                {
+                    id: 5,
+                    date: '2024-12-08 21:30',
+                    type: 'purchase',
+                    description: 'Netflix 2 mois',
+                    amount: -900,
+                    status: 'completed',
+                    service: 'netflix'
+                },
+                {
+                    id: 6,
+                    date: '2024-12-05 11:15',
+                    type: 'deposit',
+                    description: 'MonCash #TRX-7791',
+                    amount: 2000,
+                    status: 'pending',
+                    method: 'moncash'
+                }
+            ];
+            
+            // Apply filters
+            const typeFilter = document.getElementById('filterType').value;
+            const statusFilter = document.getElementById('filterStatus').value;
+            const dateFrom = document.getElementById('filterDateFrom').value;
+            const dateTo = document.getElementById('filterDateTo').value;
+            const search = document.getElementById('searchTransactions').value.toLowerCase();
+            
+            let filteredTransactions = transactions.filter(t => {
+                // Type filter
+                if (typeFilter && t.type !== typeFilter) return false;
+                
+                // Status filter
+                if (statusFilter && t.status !== statusFilter) return false;
+                
+                // Date filter
+                const transactionDate = new Date(t.date.split(' ')[0]);
+                if (dateFrom && transactionDate < new Date(dateFrom)) return false;
+                if (dateTo && transactionDate > new Date(dateTo)) return false;
+                
+                // Search filter
+                if (search && !t.description.toLowerCase().includes(search)) return false;
+                
+                return true;
+            });
+            
+            // Display transactions
+            const transactionsList = document.getElementById('transactionsList');
+            const noDataMessage = document.getElementById('noDataMessage');
+            
+            if (filteredTransactions.length === 0) {
+                transactionsList.innerHTML = '';
+                noDataMessage.style.display = 'block';
+                return;
+            }
+            
+            noDataMessage.style.display = 'none';
+            
+            let html = '';
+            filteredTransactions.forEach(transaction => {
+                const dateObj = new Date(transaction.date);
+                const formattedDate = dateObj.toLocaleDateString('fr-FR', { 
+                    day: 'numeric', 
+                    month: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                const typeText = {
+                    'deposit': 'Dépôt',
+                    'withdrawal': 'Retrait',
+                    'purchase': 'Achat'
+                }[transaction.type];
+                
+                const statusClass = {
+                    'pending': 'pf-status-pending',
+                    'completed': 'pf-status-completed',
+                    'failed': 'pf-status-failed'
+                }[transaction.status];
+                
+                const statusText = {
+                    'pending': 'En attente',
+                    'completed': 'Complet',
+                    'failed': 'Échoué'
+                }[transaction.status];
+                
+                const amountColor = transaction.amount > 0 ? 'var(--color-success)' : 'var(--color-error)';
+                const amountSign = transaction.amount > 0 ? '+' : '';
+                
+                html += `
+                    <div class="pf-table-row">
+                        <div>${formattedDate}</div>
+                        <div>${typeText}</div>
+                        <div>${transaction.description}</div>
+                        <div style="color: ${amountColor}; font-weight: 600;">
+                            ${amountSign}${transaction.amount.toLocaleString('fr-HT')} HTG
+                        </div>
+                        <div><span class="pf-status ${statusClass}">${statusText}</span></div>
+                    </div>
+                `;
+            });
+            
+            transactionsList.innerHTML = html;
+        }
+        
+        // Export to CSV
+        function exportToCSV() {
+            // In a real app, this would generate actual CSV data
+            alert('Export CSV fonctionnel - Téléchargement commencé');
+            // window.location.href = '/api/export/transactions.csv';
+        }
+        
+        // Initialize
+        function init() {
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    switchTab(tab.dataset.tab);
+                });
+            });
+            
+            // File upload handlers
+            ['moncash', 'natcash', 'usdt'].forEach(method => {
+                const fileInput = document.getElementById(method + 'File');
+                fileInput.addEventListener('change', (e) => {
+                    if (e.target.files.length > 0) {
+                        handleFileUpload(e.target.files[0], method);
+                    }
+                });
+            });
+            
+            // USDT amount change
+            document.getElementById('usdtAmount').addEventListener('input', updateUSDTEquivalent);
+            
+            // Withdrawal form changes
+            document.getElementById('withdrawalMethod').addEventListener('change', updateWithdrawalPreview);
+            document.getElementById('withdrawalAmount').addEventListener('input', updateWithdrawalPreview);
+            
+            // Deposit form submissions
+            document.getElementById('moncashForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const amount = parseFloat(document.getElementById('moncashAmount').value);
+                const validation = validateDeposit(amount, 'moncash');
+                
+                if (!validation.valid) {
+                    document.getElementById('moncashAmountError').textContent = validation.error;
+                    document.getElementById('moncashAmountError').classList.add('show');
+                    return;
+                }
+                
+                if (!uploadedFiles.moncash) {
+                    alert('Veuillez téléverser une preuve de paiement');
+                    return;
+                }
+                
+                // Submit deposit
+                submitDeposit('moncash', amount);
+            });
+            
+            document.getElementById('natcashForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const amount = parseFloat(document.getElementById('natcashAmount').value);
+                const validation = validateDeposit(amount, 'natcash');
+                
+                if (!validation.valid) {
+                    document.getElementById('natcashAmountError').textContent = validation.error;
+                    document.getElementById('natcashAmountError').classList.add('show');
+                    return;
+                }
+                
+                if (!uploadedFiles.natcash) {
+                    alert('Veuillez téléverser une preuve de paiement');
+                    return;
+                }
+                
+                // Submit deposit
+                submitDeposit('natcash', amount);
+            });
+            
+            document.getElementById('usdtForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const amount = parseFloat(document.getElementById('usdtAmount').value);
+                const validation = validateDeposit(amount, 'usdt');
+                
+                if (!validation.valid) {
+                    document.getElementById('usdtAmountError').textContent = validation.error;
+                    document.getElementById('usdtAmountError').classList.add('show');
+                    return;
+                }
+                
+                if (!uploadedFiles.usdt) {
+                    alert('Veuillez téléverser une preuve de transaction');
+                    return;
+                }
+                
+                // Submit deposit
+                const htgAmount = amount * exchangeRate;
+                submitDeposit('usdt', htgAmount, amount);
+            });
+            
+            // Withdrawal form submission
+            document.getElementById('withdrawalForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const amount = parseFloat(document.getElementById('withdrawalAmount').value);
+                const method = document.getElementById('withdrawalMethod').value;
+                
+                if (amount < 150) {
+                    document.getElementById('withdrawalAmountError').textContent = 'Minimum: 150 HTG';
+                    document.getElementById('withdrawalAmountError').classList.add('show');
+                    return;
+                }
+                
+                if (amount > currentBalance) {
+                    document.getElementById('withdrawalAmountError').textContent = 'Solde insuffisant';
+                    document.getElementById('withdrawalAmountError').classList.add('show');
+                    return;
+                }
+                
+                if (!method) {
+                    alert('Veuillez sélectionner une méthode de retrait');
+                    return;
+                }
+                
+                // Submit withdrawal
+                submitWithdrawal(method, amount);
+            });
+            
+            // History filters
+            document.getElementById('filterType').addEventListener('change', loadTransactions);
+            document.getElementById('filterStatus').addEventListener('change', loadTransactions);
+            document.getElementById('filterDateFrom').addEventListener('change', loadTransactions);
+            document.getElementById('filterDateTo').addEventListener('change', loadTransactions);
+            document.getElementById('searchTransactions').addEventListener('input', loadTransactions);
+            
+            // Set today's date as max for date filters
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('filterDateFrom').max = today;
+            document.getElementById('filterDateTo').max = today;
+            
+            // Initial load
+            updateUSDTEquivalent();
+            loadTransactions();
+        }
+        
+        // Submit deposit (simulated)
+        function submitDeposit(method, amount, usdtAmount = null) {
+            const submitBtn = document.querySelector(`#${method}Form button[type="submit"]`);
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                // In real app, this would upload to Firebase
+                console.log(`Deposit submitted: ${method}, ${amount} HTG`);
+                
+                // Simulate success
+                alert(`Dépôt soumis avec succès !\n\nMéthode: ${method}\nMontant: ${amount} HTG${usdtAmount ? ` (${usdtAmount} USDT)` : ''}\n\nVérification en cours (10-30 minutes).`);
+                
+                // Reset form
+                document.getElementById(`${method}Form`).reset();
+                removeFile(method);
+                
+                // Update balance
+                currentBalance += amount;
+                document.getElementById('mainBalance').textContent = 
+                    currentBalance.toLocaleString('fr-HT', { minimumFractionDigits: 2 }) + ' HTG';
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Switch to overview tab
+                switchTab('overview');
+            }, 2000);
+        }
+        
+        // Submit withdrawal (simulated)
+        function submitWithdrawal(method, amount) {
+            const submitBtn = document.querySelector('#withdrawalForm button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                // In real app, this would create withdrawal request in Firebase
+                console.log(`Withdrawal submitted: ${method}, ${amount} HTG`);
+                
+                // Simulate success
+                alert(`Demande de retrait soumise !\n\nMéthode: ${method}\nMontant: ${amount} HTG\n\nTraitement sous 1-24 heures.`);
+                
+                // Reset form
+                document.getElementById('withdrawalForm').reset();
+                updateWithdrawalPreview();
+                
+                // Update balance (in real app, this would happen after admin approval)
+                // currentBalance -= amount;
+                // document.getElementById('mainBalance').textContent = 
+                //     currentBalance.toLocaleString('fr-HT', { minimumFractionDigits: 2 }) + ' HTG';
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Switch to overview tab
+                switchTab('overview');
+            }, 2000);
+        }
+        
+        // Convert USD to HTG (simulated)
+        function convertUSD() {
+            const usdAmount = parseFloat(prompt('Entrez le montant en USD à convertir:', '10'));
+            if (!usdAmount || isNaN(usdAmount)) return;
+            
+            const htgAmount = usdAmount * exchangeRate;
+            alert(`${usdAmount} USD = ${htgAmount.toLocaleString('fr-HT')} HTG\n\nTaux: 1 USD = ${exchangeRate} HTG`);
+        }
+        
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

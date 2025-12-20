@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Paiement</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --color-gaming: #f97316;
+            --color-streaming: #8b5cf6;
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER ===== */
+        .pf-payment-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-gray-light);
+            padding: var(--spacing-md) 0;
+        }
+
+        .pf-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pf-back-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .pf-back-btn:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-page-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+            text-align: center;
+        }
+
+        /* ===== PROGRESS STEPS ===== */
+        .pf-progress-steps {
+            padding: var(--spacing-lg) 0;
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+
+        .pf-steps-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-lg);
+            position: relative;
+        }
+
+        .pf-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pf-step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-gray-light);
+            color: var(--color-gray-medium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            transition: all 0.3s ease;
+        }
+
+        .pf-step-label {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+            font-weight: 500;
+        }
+
+        .pf-step.active .pf-step-number {
+            background: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-step.active .pf-step-label {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-step.completed .pf-step-number {
+            background: var(--color-success);
+            color: var(--color-white);
+        }
+
+        .pf-step.completed .pf-step-number::after {
+            content: "✓";
+        }
+
+        .pf-steps-line {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            right: 50px;
+            height: 2px;
+            background: var(--color-gray-light);
+            z-index: 0;
+        }
+
+        .pf-steps-fill {
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            height: 2px;
+            background: var(--color-blue-primary);
+            transition: width 0.3s ease;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-payment-main {
+            padding: var(--spacing-xl) 0;
+        }
+
+        /* ===== ORDER SUMMARY ===== */
+        .pf-order-summary {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-gray-light);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-summary-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--color-gray-very-light);
+        }
+
+        .pf-summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .pf-summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-md) 0;
+            border-top: 2px solid var(--color-gray-light);
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-balance-check {
+            background: var(--color-gray-very-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pf-balance-label {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-balance-amount {
+            font-weight: 600;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-balance-sufficient {
+            color: var(--color-success);
+            font-weight: 500;
+        }
+
+        .pf-balance-insufficient {
+            color: var(--color-error);
+            font-weight: 500;
+        }
+
+        /* ===== PAYMENT METHODS ===== */
+        .pf-payment-methods {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-gray-light);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-methods-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-method-option {
+            border: 2px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pf-method-option:hover {
+            border-color: var(--color-blue-light);
+            background: var(--color-blue-very-light);
+        }
+
+        .pf-method-option.selected {
+            border-color: var(--color-blue-primary);
+            background: var(--color-blue-very-light);
+        }
+
+        .pf-method-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-method-option.selected .pf-method-icon {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-method-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .pf-method-desc {
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+        }
+
+        .pf-method-checkbox {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-gray-medium);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pf-method-option.selected .pf-method-checkbox {
+            background: var(--color-blue-primary);
+            border-color: var(--color-blue-primary);
+        }
+
+        .pf-method-option.selected .pf-method-checkbox::after {
+            content: "✓";
+            color: var(--color-white);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* ===== PAYMENT FORM ===== */
+        .pf-payment-form {
+            display: none;
+        }
+
+        .pf-payment-form.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .pf-form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-form-label i {
+            margin-right: 0.5rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-dark);
+            background-color: var(--color-white);
+            transition: border-color 0.2s ease;
+        }
+
+        .pf-form-input:focus {
+            outline: none;
+            border-color: var(--color-blue-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .pf-form-note {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+            margin-top: 0.25rem;
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            flex: 1;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .pf-btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        .pf-btn-success {
+            background-color: var(--color-success);
+            color: var(--color-white);
+        }
+
+        .pf-btn-success:hover {
+            background-color: #0da271;
+        }
+
+        /* ===== ERROR MESSAGES ===== */
+        .pf-error-message {
+            color: var(--color-error);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-error-message.show {
+            display: block;
+        }
+
+        .pf-success-message {
+            color: var(--color-success);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-success-message.show {
+            display: block;
+        }
+
+        /* ===== PAYMENT SUCCESS ===== */
+        .pf-payment-success {
+            text-align: center;
+            padding: var(--spacing-xl) 0;
+            display: none;
+        }
+
+        .pf-payment-success.show {
+            display: block;
+        }
+
+        .pf-success-icon {
+            font-size: 4rem;
+            color: var(--color-success);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-success-title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-success-message-large {
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-xl);
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pf-order-number {
+            background: var(--color-gray-very-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            font-family: monospace;
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-payment-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-payment-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .pf-methods-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .pf-steps-container {
+                gap: var(--spacing-md);
+            }
+            
+            .pf-step-label {
+                font-size: 0.75rem;
+            }
+            
+            .pf-action-buttons {
+                flex-direction: column;
+            }
+            
+            .pf-order-summary,
+            .pf-payment-methods {
+                padding: var(--spacing-lg);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pf-methods-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pf-steps-container {
+                flex-direction: column;
+                gap: var(--spacing-lg);
+            }
+            
+            .pf-steps-line,
+            .pf-steps-fill {
+                display: none;
+            }
+            
+            .pf-step {
+                flex-direction: row;
+                gap: var(--spacing-sm);
+                width: 100%;
+            }
+            
+            .pf-step-label {
+                flex: 1;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-payment-header">
+        <div class="container">
+            <div class="pf-header-content">
+                <a href="home.html" class="pf-back-btn" id="backBtn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
+                
+                <h1 class="pf-page-title">Finaliser le paiement</h1>
+                
+                <div style="width: 80px;"></div> <!-- Spacer for alignment -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Steps -->
+    <section class="pf-progress-steps">
+        <div class="container">
+            <div class="pf-steps-container">
+                <div class="pf-step completed" data-step="1">
+                    <div class="pf-step-number">1</div>
+                    <div class="pf-step-label">Sélection</div>
+                </div>
+                <div class="pf-step active" data-step="2">
+                    <div class="pf-step-number">2</div>
+                    <div class="pf-step-label">Paiement</div>
+                </div>
+                <div class="pf-step" data-step="3">
+                    <div class="pf-step-number">3</div>
+                    <div class="pf-step-label">Confirmation</div>
+                </div>
+                <div class="pf-steps-line"></div>
+                <div class="pf-steps-fill" id="stepsFill" style="width: 0%;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="pf-payment-main">
+        <div class="container">
+            <!-- Step 1: Order Summary -->
+            <div id="step1" class="pf-order-summary">
+                <h2 class="pf-summary-title">
+                    <i class="fas fa-receipt"></i>
+                    <span>Résumé de votre commande</span>
+                </h2>
+                
+                <div id="orderDetails">
+                    <!-- Order details will be loaded here -->
+                </div>
+                
+                <div class="pf-summary-total">
+                    <span>Total à payer:</span>
+                    <span id="orderTotal">0 HTG</span>
+                </div>
+                
+                <div class="pf-balance-check" id="balanceCheck">
+                    <div class="pf-balance-label">
+                        <i class="fas fa-wallet"></i>
+                        <span>Solde disponible:</span>
+                        <span class="pf-balance-amount" id="availableBalance">2,500 HTG</span>
+                    </div>
+                    <div class="pf-balance-sufficient" id="balanceStatus">
+                        Solde suffisant
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Payment Methods -->
+            <div id="step2" class="pf-payment-methods">
+                <h2 class="pf-methods-title">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Choisissez votre méthode de paiement</span>
+                </h2>
+                
+                <div class="pf-methods-grid">
+                    <div class="pf-method-option selected" data-method="balance" id="balanceMethod">
+                        <div class="pf-method-checkbox"></div>
+                        <div class="pf-method-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="pf-method-name">Solde PayFusion</div>
+                        <div class="pf-method-desc">Paiement instantané</div>
+                    </div>
+                    
+                    <div class="pf-method-option" data-method="moncash" id="moncashMethod">
+                        <div class="pf-method-checkbox"></div>
+                        <div class="pf-method-icon">
+                            <img src="assets/logos/moncash-logo.png" alt="MonCash" style="width: 40px; height: 40px;">
+                        </div>
+                        <div class="pf-method-name">MonCash</div>
+                        <div class="pf-method-desc">Transfert mobile</div>
+                    </div>
+                    
+                    <div class="pf-method-option" data-method="natcash" id="natcashMethod">
+                        <div class="pf-method-checkbox"></div>
+                        <div class="pf-method-icon">
+                            <img src="assets/logos/natcash-logo.png" alt="NatCash" style="width: 40px; height: 40px;">
+                        </div>
+                        <div class="pf-method-name">NatCash</div>
+                        <div class="pf-method-desc">Transfert mobile</div>
+                    </div>
+                    
+                    <div class="pf-method-option" data-method="usdt" id="usdtMethod">
+                        <div class="pf-method-checkbox"></div>
+                        <div class="pf-method-icon">
+                            <img src="assets/logos/usdt-logo.png" alt="USDT" style="width: 40px; height: 40px;">
+                        </div>
+                        <div class="pf-method-name">USDT</div>
+                        <div class="pf-method-desc">Crypto-monnaie</div>
+                    </div>
+                </div>
+                
+                <!-- Payment Forms -->
+                <div class="pf-payment-form" id="balanceForm">
+                    <div class="pf-form-group">
+                        <div style="text-align: center; padding: var(--spacing-md); background: var(--color-gray-very-light); border-radius: var(--border-radius);">
+                            <i class="fas fa-check-circle" style="color: var(--color-success); font-size: 2rem; margin-bottom: var(--spacing-sm);"></i>
+                            <p>Votre solde est suffisant pour effectuer ce paiement.</p>
+                            <p class="pf-form-note">Le montant sera débité de votre solde PayFusion.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pf-payment-form" id="moncashForm">
+                    <div class="pf-form-group">
+                        <label class="pf-form-label">
+                            <i class="fas fa-info-circle"></i> Instructions de paiement
+                        </label>
+                        <div style="background: var(--color-blue-very-light); border-radius: var(--border-radius); padding: var(--spacing-md);">
+                            <p><strong>Numéro MonCash:</strong> +509 3944 2808</p>
+                            <p><strong>Nom:</strong> Marco Bien-Aimé</p>
+                            <p><strong>Montant:</strong> <span id="moncashAmount">0 HTG</span></p>
+                            <p class="pf-form-note">Après le transfert, téléversez la preuve de paiement ci-dessous.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-form-group">
+                        <label for="moncashProof" class="pf-form-label">
+                            <i class="fas fa-image"></i> Preuve de paiement
+                        </label>
+                        <div style="border: 2px dashed var(--color-gray-light); border-radius: var(--border-radius); padding: var(--spacing-lg); text-align: center; cursor: pointer;" onclick="document.getElementById('moncashFile').click()">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--color-gray-medium); margin-bottom: var(--spacing-sm);"></i>
+                            <p>Cliquez pour téléverser une capture d'écran</p>
+                            <p class="pf-form-note">Formats: JPG, PNG, PDF • Max 5MB</p>
+                            <input type="file" id="moncashFile" style="display: none;" accept=".jpg,.jpeg,.png,.pdf">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pf-payment-form" id="natcashForm">
+                    <div class="pf-form-group">
+                        <label class="pf-form-label">
+                            <i class="fas fa-info-circle"></i> Instructions de paiement
+                        </label>
+                        <div style="background: var(--color-blue-very-light); border-radius: var(--border-radius); padding: var(--spacing-md);">
+                            <p><strong>Numéro NatCash:</strong> +509 3574 1778</p>
+                            <p><strong>Nom:</strong> Marco Bien-Aimé</p>
+                            <p><strong>Montant:</strong> <span id="natcashAmount">0 HTG</span></p>
+                            <p class="pf-form-note">Après le transfert, téléversez la preuve de paiement ci-dessous.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-form-group">
+                        <label for="natcashProof" class="pf-form-label">
+                            <i class="fas fa-image"></i> Preuve de paiement
+                        </label>
+                        <div style="border: 2px dashed var(--color-gray-light); border-radius: var(--border-radius); padding: var(--spacing-lg); text-align: center; cursor: pointer;" onclick="document.getElementById('natcashFile').click()">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--color-gray-medium); margin-bottom: var(--spacing-sm);"></i>
+                            <p>Cliquez pour téléverser une capture d'écran</p>
+                            <p class="pf-form-note">Formats: JPG, PNG, PDF • Max 5MB</p>
+                            <input type="file" id="natcashFile" style="display: none;" accept=".jpg,.jpeg,.png,.pdf">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pf-payment-form" id="usdtForm">
+                    <div class="pf-form-group">
+                        <label class="pf-form-label">
+                            <i class="fas fa-info-circle"></i> Instructions de paiement
+                        </label>
+                        <div style="background: var(--color-blue-very-light); border-radius: var(--border-radius); padding: var(--spacing-md);">
+                            <p><strong>Adresse USDT (TRC20):</strong></p>
+                            <p style="word-break: break-all; font-family: monospace; font-size: 0.875rem; background: var(--color-white); padding: var(--spacing-sm); border-radius: var(--border-radius); border: 1px solid var(--color-gray-light);">
+                                TJHVCbXMBQdtzurHngB1aXSFkR9TWYvZ94
+                            </p>
+                            <p><strong>Montant:</strong> <span id="usdtAmount">0 USDT</span> (≈ <span id="usdtHTG">0 HTG</span>)</p>
+                            <p class="pf-form-note">Utilisez le réseau TRC20. Attendez les confirmations blockchain.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-form-group">
+                        <label for="usdtTxHash" class="pf-form-label">
+                            <i class="fas fa-hashtag"></i> Hash de transaction (optionnel)
+                        </label>
+                        <input type="text" id="usdtTxHash" class="pf-form-input" placeholder="Transaction hash...">
+                    </div>
+                </div>
+                
+                <div class="pf-action-buttons">
+                    <button class="pf-btn pf-btn-secondary" id="cancelBtn">
+                        <i class="fas fa-times"></i> Annuler
+                    </button>
+                    <button class="pf-btn pf-btn-primary" id="payNowBtn">
+                        <i class="fas fa-lock"></i> Payer maintenant
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Payment Success -->
+            <div id="step3" class="pf-payment-success">
+                <div class="pf-success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                
+                <h2 class="pf-success-title">Paiement réussi !</h2>
+                
+                <p class="pf-success-message-large">
+                    Votre commande a été traitée avec succès. Les détails ont été envoyés à votre email.
+                </p>
+                
+                <div class="pf-order-number" id="orderNumber">
+                    CMD-000000
+                </div>
+                
+                <div class="pf-action-buttons">
+                    <button class="pf-btn pf-btn-secondary" onclick="viewOrderHistory()">
+                        <i class="fas fa-history"></i> Voir l'historique
+                    </button>
+                    <button class="pf-btn pf-btn-primary" onclick="goHome()">
+                        <i class="fas fa-home"></i> Retour à l'accueil
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-payment-footer">
+        <div class="container">
+            <p>Paiements 100% sécurisés • Support 24/7</p>
+            <p>Problème avec votre paiement ? <a href="https://wa.me/50939442808">WhatsApp +509 3944 2808</a></p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration
+        const exchangeRate = 150; // 1 USD = 150 HTG
+        const adminEmail = 'payfusion@admin.com';
+        
+        // State
+        let currentStep = 1;
+        let selectedMethod = 'balance';
+        let orderData = null;
+        let userBalance = 2500.00;
+        let orderTotal = 0;
+        
+        // DOM Elements
+        const steps = document.querySelectorAll('.pf-step');
+        const stepsFill = document.getElementById('stepsFill');
+        const backBtn = document.getElementById('backBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const payNowBtn = document.getElementById('payNowBtn');
+        const paymentForms = document.querySelectorAll('.pf-payment-form');
+        const methodOptions = document.querySelectorAll('.pf-method-option');
+        
+        // Load order data from URL parameters
+        function loadOrderData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const service = urlParams.get('service');
+            const amount = parseFloat(urlParams.get('amount')) || 0;
+            
+            // If no data in URL, use sample data
+            if (!service || !amount) {
+                orderData = {
+                    service: 'freefire',
+                    amount: 1650,
+                    items: [
+                        { name: '100+10 diamants Free Fire', price: 165 },
+                        { name: '200+20 diamants Free Fire', price: 340 },
+                        { name: 'Abonnement Semaine', price: 325 }
+                    ],
+                    total: 830
+                };
+            } else {
+                orderData = {
+                    service: service,
+                    amount: amount,
+                    items: JSON.parse(urlParams.get('items') || '[]'),
+                    total: amount
+                };
+            }
+            
+            orderTotal = orderData.total;
+            updateOrderSummary();
+            checkBalance();
+        }
+        
+        // Update order summary display
+        function updateOrderSummary() {
+            const orderDetails = document.getElementById('orderDetails');
+            const orderTotalElement = document.getElementById('orderTotal');
+            
+            let html = '';
+            
+            // Add service type
+            let serviceName = '';
+            switch(orderData.service) {
+                case 'freefire':
+                    serviceName = 'Free Fire';
+                    break;
+                case 'netflix':
+                    serviceName = 'Netflix';
+                    break;
+                case 'wise':
+                    serviceName = 'Wise';
+                    break;
+                case 'paypal':
+                    serviceName = 'PayPal';
+                    break;
+                case 'usdt':
+                    serviceName = 'USDT';
+                    break;
+                default:
+                    serviceName = orderData.service;
+            }
+            
+            html += `
+                <div class="pf-summary-item">
+                    <span>Service:</span>
+                    <span>${serviceName}</span>
+                </div>
+            `;
+            
+            // Add items if available
+            if (orderData.items && orderData.items.length > 0) {
+                orderData.items.forEach(item => {
+                    html += `
+                        <div class="pf-summary-item">
+                            <span>${item.name}</span>
+                            <span>${item.price.toLocaleString('fr-HT')} HTG</span>
+                        </div>
+                    `;
+                });
+            } else {
+                html += `
+                    <div class="pf-summary-item">
+                        <span>Montant:</span>
+                        <span>${orderData.amount.toLocaleString('fr-HT')} HTG</span>
+                    </div>
+                `;
+            }
+            
+            orderDetails.innerHTML = html;
+            orderTotalElement.textContent = `${orderTotal.toLocaleString('fr-HT')} HTG`;
+            
+            // Update payment method amounts
+            document.getElementById('moncashAmount').textContent = `${orderTotal.toLocaleString('fr-HT')} HTG`;
+            document.getElementById('natcashAmount').textContent = `${orderTotal.toLocaleString('fr-HT')} HTG`;
+            
+            const usdtAmount = (orderTotal / exchangeRate).toFixed(4);
+            document.getElementById('usdtAmount').textContent = `${usdtAmount} USDT`;
+            document.getElementById('usdtHTG').textContent = `${orderTotal.toLocaleString('fr-HT')} HTG`;
+        }
+        
+        // Check if balance is sufficient
+        function checkBalance() {
+            const balanceCheck = document.getElementById('balanceCheck');
+            const balanceStatus = document.getElementById('balanceStatus');
+            const availableBalance = document.getElementById('availableBalance');
+            
+            availableBalance.textContent = `${userBalance.toLocaleString('fr-HT', { minimumFractionDigits: 2 })} HTG`;
+            
+            if (userBalance >= orderTotal) {
+                balanceStatus.textContent = 'Solde suffisant';
+                balanceStatus.className = 'pf-balance-sufficient';
+                payNowBtn.disabled = false;
+            } else {
+                balanceStatus.textContent = 'Solde insuffisant';
+                balanceStatus.className = 'pf-balance-insufficient';
+                payNowBtn.disabled = true;
+                
+                // Update back button to redirect to wallet
+                backBtn.href = 'wallet.html?insufficient_balance=true';
+                backBtn.innerHTML = '<i class="fas fa-wallet"></i><span>Recharger le solde</span>';
+            }
+        }
+        
+        // Update progress steps
+        function updateProgress() {
+            const progressWidth = ((currentStep - 1) / 2) * 100;
+            stepsFill.style.width = `${progressWidth}%`;
+            
+            steps.forEach(step => {
+                const stepNum = parseInt(step.dataset.step);
+                step.classList.remove('active', 'completed');
+                
+                if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                } else if (stepNum === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+            
+            // Show/hide sections
+            document.getElementById('step1').style.display = currentStep === 1 ? 'block' : 'none';
+            document.getElementById('step2').style.display = currentStep === 2 ? 'block' : 'none';
+            document.getElementById('step3').style.display = currentStep === 3 ? 'block' : 'none';
+            
+            // Update buttons
+            if (currentStep === 2) {
+                cancelBtn.style.display = 'flex';
+                payNowBtn.style.display = 'flex';
+                payNowBtn.innerHTML = '<i class="fas fa-lock"></i> Payer maintenant';
+            } else if (currentStep === 3) {
+                cancelBtn.style.display = 'none';
+                payNowBtn.style.display = 'none';
+            }
+        }
+        
+        // Select payment method
+        function selectPaymentMethod(method) {
+            selectedMethod = method;
+            
+            // Update UI
+            methodOptions.forEach(option => {
+                option.classList.remove('selected');
+                if (option.dataset.method === method) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            // Show corresponding form
+            paymentForms.forEach(form => {
+                form.classList.remove('show');
+                if (form.id === `${method}Form`) {
+                    form.classList.add('show');
+                }
+            });
+            
+            // Update pay button text
+            if (method === 'balance') {
+                payNowBtn.innerHTML = '<i class="fas fa-lock"></i> Payer avec le solde';
+            } else {
+                payNowBtn.innerHTML = '<i class="fas fa-lock"></i> Confirmer le paiement';
+            }
+        }
+        
+        // Generate order number
+        function generateOrderNumber() {
+            const timestamp = Date.now().toString();
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return `CMD-${timestamp.slice(-6)}${random}`;
+        }
+        
+        // Process payment
+        async function processPayment() {
+            // Show loading
+            payNowBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
+            payNowBtn.disabled = true;
+            
+            try {
+                // Simulate API call delay
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                if (selectedMethod === 'balance') {
+                    // Check balance again
+                    if (userBalance < orderTotal) {
+                        throw new Error('Solde insuffisant');
+                    }
+                    
+                    // Deduct from balance
+                    userBalance -= orderTotal;
+                }
+                
+                // Generate order number
+                const orderNumber = generateOrderNumber();
+                
+                // Record transaction
+                const transaction = {
+                    orderNumber: orderNumber,
+                    service: orderData.service,
+                    amount: orderTotal,
+                    method: selectedMethod,
+                    status: 'completed',
+                    timestamp: new Date().toISOString(),
+                    userId: 'current-user-id' // In real app, get from auth
+                };
+                
+                // In real app, save to Firebase
+                console.log('Transaction completed:', transaction);
+                
+                // Send notification to admin (simulated)
+                if (selectedMethod !== 'balance') {
+                    console.log(`Notification sent to admin: ${adminEmail}`);
+                }
+                
+                // Move to success step
+                currentStep = 3;
+                updateProgress();
+                
+                // Show order number
+                document.getElementById('orderNumber').textContent = orderNumber;
+                
+                // Update balance display
+                checkBalance();
+                
+            } catch (error) {
+                alert(`Erreur de paiement: ${error.message}`);
+                payNowBtn.innerHTML = '<i class="fas fa-lock"></i> Payer maintenant';
+                payNowBtn.disabled = false;
+            }
+        }
+        
+        // Navigation functions
+        function goToStep2() {
+            if (userBalance >= orderTotal || selectedMethod !== 'balance') {
+                currentStep = 2;
+                updateProgress();
+            } else {
+                alert('Solde insuffisant. Veuillez recharger votre portefeuille ou choisir une autre méthode de paiement.');
+                window.location.href = 'wallet.html?insufficient_balance=true';
+            }
+        }
+        
+        function cancelPayment() {
+            if (confirm('Êtes-vous sûr de vouloir annuler ce paiement ?')) {
+                window.location.href = 'home.html';
+            }
+        }
+        
+        function viewOrderHistory() {
+            window.location.href = 'wallet.html#history';
+        }
+        
+        function goHome() {
+            window.location.href = 'home.html';
+        }
+        
+        // Initialize
+        function init() {
+            loadOrderData();
+            updateProgress();
+            
+            // Event listeners for method selection
+            methodOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    selectPaymentMethod(option.dataset.method);
+                });
+            });
+            
+            // Step 1: Continue to payment
+            document.querySelector('.pf-order-summary').addEventListener('click', (e) => {
+                if (e.target.closest('.pf-balance-check') || e.target.closest('#payNowBtn')) {
+                    goToStep2();
+                }
+            });
+            
+            // Payment button
+            payNowBtn.addEventListener('click', processPayment);
+            
+            // Cancel button
+            cancelBtn.addEventListener('click', cancelPayment);
+            
+            // File upload handlers
+            document.getElementById('moncashFile').addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    alert('Fichier téléversé: ' + e.target.files[0].name);
+                }
+            });
+            
+            document.getElementById('natcashFile').addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    alert('Fichier téléversé: ' + e.target.files[0].name);
+                }
+            });
+            
+            // Auto-select balance method if sufficient
+            if (userBalance >= orderTotal) {
+                selectPaymentMethod('balance');
+            } else {
+                selectPaymentMethod('moncash');
+            }
+            
+            // Handle insufficient balance from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('insufficient_balance') === 'true') {
+                alert('Votre solde est insuffisant pour cette commande. Veuillez recharger votre portefeuille.');
+            }
+        }
+        
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

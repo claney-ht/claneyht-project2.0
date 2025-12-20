@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Netflix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --color-streaming: #8b5cf6;
+            --color-streaming-light: rgba(139, 92, 246, 0.1);
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --font-size-xxl: 2rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER ===== */
+        .pf-netflix-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-gray-light);
+            padding: var(--spacing-md) 0;
+        }
+
+        .pf-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pf-back-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .pf-back-btn:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-page-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+            text-align: center;
+        }
+
+        .pf-user-menu {
+            position: relative;
+        }
+
+        .pf-menu-button {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .pf-menu-button:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-menu-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-blue-primary);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-netflix-main {
+            padding: var(--spacing-xl) 0;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .pf-netflix-hero {
+            background: linear-gradient(135deg, #e50914 0%, #b81d24 100%);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            color: var(--color-white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pf-netflix-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://cdn-icons-png.flaticon.com/512/732/732228.png') no-repeat center right;
+            background-size: contain;
+            opacity: 0.1;
+        }
+
+        .pf-hero-title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            z-index: 1;
+        }
+
+        .pf-hero-subtitle {
+            font-size: var(--font-size-base);
+            opacity: 0.9;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pf-hero-features {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-xl);
+            flex-wrap: wrap;
+            margin-top: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .pf-hero-feature {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-hero-feature i {
+            font-size: 1.5rem;
+        }
+
+        /* ===== SUBSCRIPTIONS SECTION ===== */
+        .pf-subscriptions-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+            text-align: center;
+        }
+
+        .pf-subscriptions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-subscription-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--color-gray-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .pf-subscription-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pf-subscription-card.selected {
+            border-color: var(--color-streaming);
+            background: var(--color-streaming-light);
+        }
+
+        .pf-subscription-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-streaming);
+            color: var(--color-white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .pf-subscription-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--color-streaming-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            font-size: 2rem;
+            color: var(--color-streaming);
+        }
+
+        .pf-subscription-title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-subscription-price {
+            font-size: var(--font-size-xxl);
+            font-weight: 800;
+            color: var(--color-streaming);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-subscription-period {
+            color: var(--color-gray-medium);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-subscription-monthly {
+            background: var(--color-gray-very-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            font-size: 0.875rem;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-subscription-monthly strong {
+            color: var(--color-streaming);
+        }
+
+        .pf-subscription-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: var(--spacing-lg);
+            flex-grow: 1;
+        }
+
+        .pf-subscription-features li {
+            margin-bottom: var(--spacing-sm);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .pf-subscription-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-success);
+            font-weight: bold;
+        }
+
+        .pf-subscription-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--color-gray-medium);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: var(--spacing-md) auto 0;
+            transition: all 0.2s ease;
+        }
+
+        .pf-subscription-card.selected .pf-subscription-checkbox {
+            background: var(--color-streaming);
+            border-color: var(--color-streaming);
+        }
+
+        .pf-subscription-card.selected .pf-subscription-checkbox::after {
+            content: "✓";
+            color: var(--color-white);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* ===== ORDER SUMMARY ===== */
+        .pf-order-summary {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-gray-light);
+            margin-bottom: var(--spacing-xl);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pf-summary-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            justify-content: center;
+        }
+
+        .pf-summary-details {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--color-gray-very-light);
+        }
+
+        .pf-summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .pf-summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-md) 0;
+            border-top: 2px solid var(--color-gray-light);
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--color-gray-dark);
+        }
+
+        /* ===== ORDER FORM ===== */
+        .pf-order-form {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-gray-light);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pf-form-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            justify-content: center;
+        }
+
+        .pf-form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-form-label i {
+            margin-right: 0.5rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-dark);
+            background-color: var(--color-white);
+            transition: border-color 0.2s ease;
+        }
+
+        .pf-form-input:focus {
+            outline: none;
+            border-color: var(--color-blue-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .pf-form-note {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+            margin-top: 0.25rem;
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            flex: 1;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-streaming);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #7c3aed;
+        }
+
+        .pf-btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        /* ===== ERROR MESSAGES ===== */
+        .pf-error-message {
+            color: var(--color-error);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-error-message.show {
+            display: block;
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-netflix-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-netflix-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .pf-subscriptions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pf-header-content {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+            
+            .pf-back-btn {
+                align-self: flex-start;
+            }
+            
+            .pf-hero-features {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+            
+            .pf-action-buttons {
+                flex-direction: column;
+            }
+            
+            .pf-subscription-card {
+                padding: var(--spacing-lg);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pf-netflix-hero {
+                padding: var(--spacing-lg);
+            }
+            
+            .pf-hero-title {
+                font-size: var(--font-size-lg);
+            }
+            
+            .pf-hero-subtitle {
+                font-size: var(--font-size-sm);
+            }
+            
+            .pf-order-summary,
+            .pf-order-form {
+                padding: var(--spacing-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-netflix-header">
+        <div class="container">
+            <div class="pf-header-content">
+                <a href="home.html" class="pf-back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
+                
+                <h1 class="pf-page-title">Netflix Premium</h1>
+                
+                <div class="pf-user-menu">
+                    <button class="pf-menu-button" onclick="window.location.href='home.html'">
+                        <div class="pf-menu-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pf-netflix-main">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="pf-netflix-hero">
+                <h1 class="pf-hero-title">Netflix Premium 4K</h1>
+                <p class="pf-hero-subtitle">
+                    Profitez du meilleur de Netflix avec un compte Premium 4K. Qualité Ultra HD, écrans simultanés, téléchargements illimités.
+                </p>
+                
+                <div class="pf-hero-features">
+                    <div class="pf-hero-feature">
+                        <i class="fas fa-tv"></i>
+                        <span>4K Ultra HD</span>
+                    </div>
+                    <div class="pf-hero-feature">
+                        <i class="fas fa-users"></i>
+                        <span>4 écrans simultanés</span>
+                    </div>
+                    <div class="pf-hero-feature">
+                        <i class="fas fa-download"></i>
+                        <span>Téléchargements</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subscriptions -->
+            <h2 class="pf-subscriptions-title">Choisissez votre abonnement</h2>
+            
+            <div class="pf-subscriptions-grid">
+                <!-- 1 Month -->
+                <div class="pf-subscription-card" data-duration="1" data-price="450">
+                    <div class="pf-subscription-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <h3 class="pf-subscription-title">1 Mois</h3>
+                    <div class="pf-subscription-price">450 HTG</div>
+                    <div class="pf-subscription-period">30 jours d'accès</div>
+                    
+                    <div class="pf-subscription-monthly">
+                        <strong>450 HTG/mois</strong>
+                    </div>
+                    
+                    <ul class="pf-subscription-features">
+                        <li>Qualité 4K Ultra HD</li>
+                        <li>4 écrans simultanés</li>
+                        <li>Téléchargements illimités</li>
+                        <li>Accès à tout le catalogue</li>
+                        <li>Support 24/7</li>
+                    </ul>
+                    
+                    <div class="pf-subscription-checkbox"></div>
+                </div>
+
+                <!-- 2 Months -->
+                <div class="pf-subscription-card" data-duration="2" data-price="900">
+                    <div class="pf-subscription-icon">
+                        <i class="fas fa-calendar-week"></i>
+                    </div>
+                    <h3 class="pf-subscription-title">2 Mois</h3>
+                    <div class="pf-subscription-price">900 HTG</div>
+                    <div class="pf-subscription-period">60 jours d'accès</div>
+                    
+                    <div class="pf-subscription-monthly">
+                        <strong>450 HTG/mois</strong>
+                    </div>
+                    
+                    <ul class="pf-subscription-features">
+                        <li>Qualité 4K Ultra HD</li>
+                        <li>4 écrans simultanés</li>
+                        <li>Téléchargements illimités</li>
+                        <li>Accès à tout le catalogue</li>
+                        <li>Support 24/7</li>
+                        <li>Économie: 0 HTG</li>
+                    </ul>
+                    
+                    <div class="pf-subscription-checkbox"></div>
+                </div>
+
+                <!-- 3 Months (Best Offer) -->
+                <div class="pf-subscription-card selected" data-duration="3" data-price="1400">
+                    <div class="pf-subscription-badge">Meilleure offre</div>
+                    <div class="pf-subscription-icon">
+                        <i class="fas fa-calendar-month"></i>
+                    </div>
+                    <h3 class="pf-subscription-title">3 Mois</h3>
+                    <div class="pf-subscription-price">1,400 HTG</div>
+                    <div class="pf-subscription-period">90 jours d'accès</div>
+                    
+                    <div class="pf-subscription-monthly">
+                        <strong>467 HTG/mois</strong> (économisez 100 HTG)
+                    </div>
+                    
+                    <ul class="pf-subscription-features">
+                        <li>Qualité 4K Ultra HD</li>
+                        <li>4 écrans simultanés</li>
+                        <li>Téléchargements illimités</li>
+                        <li>Accès à tout le catalogue</li>
+                        <li>Support 24/7</li>
+                        <li>Économie: 100 HTG</li>
+                        <li>Meilleur prix/mois</li>
+                    </ul>
+                    
+                    <div class="pf-subscription-checkbox"></div>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="pf-order-summary">
+                <h3 class="pf-summary-title">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Résumé de commande</span>
+                </h3>
+                
+                <div class="pf-summary-details" id="summaryDetails">
+                    <div class="pf-summary-item">
+                        <span>Abonnement:</span>
+                        <span id="summaryDuration">3 Mois</span>
+                    </div>
+                    <div class="pf-summary-item">
+                        <span>Prix total:</span>
+                        <span id="summaryPrice">1,400 HTG</span>
+                    </div>
+                    <div class="pf-summary-item">
+                        <span>Prix/mois:</span>
+                        <span id="summaryMonthly">~467 HTG/mois</span>
+                    </div>
+                </div>
+                
+                <div class="pf-summary-total">
+                    <span>Total à payer:</span>
+                    <span id="summaryTotal">1,400 HTG</span>
+                </div>
+            </div>
+
+            <!-- Order Form -->
+            <div class="pf-order-form">
+                <h3 class="pf-form-title">
+                    <i class="fas fa-user-circle"></i>
+                    <span>Informations de livraison</span>
+                </h3>
+                
+                <form id="netflixOrderForm">
+                    <div class="pf-form-group">
+                        <label for="netflixEmail" class="pf-form-label">
+                            <i class="fas fa-envelope"></i> Email Netflix
+                        </label>
+                        <input 
+                            type="email" 
+                            id="netflixEmail" 
+                            class="pf-form-input" 
+                            placeholder="votre@email.com"
+                            required
+                        >
+                        <div class="pf-form-note">
+                            L'email associé à votre compte Netflix
+                        </div>
+                        <div id="netflixEmailError" class="pf-error-message">
+                            Veuillez entrer un email valide
+                        </div>
+                    </div>
+
+                    <div class="pf-form-group">
+                        <label for="netflixWhatsapp" class="pf-form-label">
+                            <i class="fab fa-whatsapp"></i> Numéro WhatsApp
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="netflixWhatsapp" 
+                            class="pf-form-input" 
+                            placeholder="+509XXXXXXXX"
+                            required
+                        >
+                        <div class="pf-form-note">
+                            Pour vous contacter concernant l'activation
+                        </div>
+                        <div id="netflixWhatsappError" class="pf-error-message">
+                            Format: +509 suivi de 8 chiffres
+                        </div>
+                    </div>
+
+                    <div class="pf-action-buttons">
+                        <button type="button" class="pf-btn pf-btn-secondary" onclick="clearSelection()">
+                            <i class="fas fa-times"></i> Annuler
+                        </button>
+                        <button type="submit" class="pf-btn pf-btn-primary" id="submitOrderBtn">
+                            <i class="fas fa-check-circle"></i> Ajouter au panier
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-netflix-footer">
+        <div class="container">
+            <p>Activation instantanée • Support 24/7 • Garantie de fonctionnement</p>
+            <p>Problème avec votre compte ? <a href="https://wa.me/50939442808">WhatsApp +509 3944 2808</a></p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Netflix Subscriptions Data
+        const netflixSubscriptions = [
+            {
+                duration: 1,
+                months: 1,
+                price: 450,
+                label: "1 Mois",
+                monthlyPrice: 450,
+                features: [
+                    "Qualité 4K Ultra HD",
+                    "4 écrans simultanés",
+                    "Téléchargements illimités",
+                    "Accès à tout le catalogue",
+                    "Support 24/7"
+                ]
+            },
+            {
+                duration: 2,
+                months: 2,
+                price: 900,
+                label: "2 Mois",
+                monthlyPrice: 450,
+                features: [
+                    "Qualité 4K Ultra HD",
+                    "4 écrans simultanés",
+                    "Téléchargements illimités",
+                    "Accès à tout le catalogue",
+                    "Support 24/7",
+                    "Économie: 0 HTG"
+                ]
+            },
+            {
+                duration: 3,
+                months: 3,
+                price: 1400,
+                label: "3 Mois",
+                monthlyPrice: 467,
+                features: [
+                    "Qualité 4K Ultra HD",
+                    "4 écrans simultanés",
+                    "Téléchargements illimités",
+                    "Accès à tout le catalogue",
+                    "Support 24/7",
+                    "Économie: 100 HTG",
+                    "Meilleur prix/mois"
+                ]
+            }
+        ];
+        
+        // State
+        let selectedSubscription = 3; // Default to 3 months
+        
+        // DOM Elements
+        const subscriptionCards = document.querySelectorAll('.pf-subscription-card');
+        const submitOrderBtn = document.getElementById('submitOrderBtn');
+        
+        // Initialize subscription selection
+        function initSubscriptionSelection() {
+            subscriptionCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const duration = parseInt(card.dataset.duration);
+                    selectSubscription(duration);
+                });
+            });
+            
+            // Select default subscription
+            selectSubscription(selectedSubscription);
+        }
+        
+        // Select subscription
+        function selectSubscription(duration) {
+            selectedSubscription = duration;
+            
+            // Update UI
+            subscriptionCards.forEach(card => {
+                const cardDuration = parseInt(card.dataset.duration);
+                if (cardDuration === duration) {
+                    card.classList.add('selected');
+                } else {
+                    card.classList.remove('selected');
+                }
+            });
+            
+            updateOrderSummary();
+        }
+        
+        // Clear selection
+        function clearSelection() {
+            selectSubscription(3); // Reset to 3 months
+            document.getElementById('netflixOrderForm').reset();
+            document.getElementById('netflixEmailError').classList.remove('show');
+            document.getElementById('netflixWhatsappError').classList.remove('show');
+        }
+        
+        // Update order summary
+        function updateOrderSummary() {
+            const subscription = netflixSubscriptions.find(sub => sub.duration === selectedSubscription);
+            if (!subscription) return;
+            
+            document.getElementById('summaryDuration').textContent = subscription.label;
+            document.getElementById('summaryPrice').textContent = `${subscription.price.toLocaleString('fr-HT')} HTG`;
+            document.getElementById('summaryMonthly').textContent = `~${subscription.monthlyPrice.toLocaleString('fr-HT')} HTG/mois`;
+            document.getElementById('summaryTotal').textContent = `${subscription.price.toLocaleString('fr-HT')} HTG`;
+        }
+        
+        // Validation functions
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        function isValidWhatsApp(whatsapp) {
+            const re = /^\+509[0-9]{8}$/;
+            return re.test(whatsapp.replace(/\s/g, ''));
+        }
+        
+        // Handle form submission
+        function submitOrder(e) {
+            e.preventDefault();
+            
+            const netflixEmail = document.getElementById('netflixEmail').value.trim();
+            const netflixWhatsapp = document.getElementById('netflixWhatsapp').value.trim();
+            
+            // Reset errors
+            document.getElementById('netflixEmailError').classList.remove('show');
+            document.getElementById('netflixWhatsappError').classList.remove('show');
+            
+            // Validate
+            let isValid = true;
+            
+            if (!isValidEmail(netflixEmail)) {
+                document.getElementById('netflixEmailError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (!isValidWhatsApp(netflixWhatsapp)) {
+                document.getElementById('netflixWhatsappError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Prepare order data
+            const subscription = netflixSubscriptions.find(sub => sub.duration === selectedSubscription);
+            const orderData = {
+                service: 'netflix',
+                duration: subscription.duration,
+                durationLabel: subscription.label,
+                price: subscription.price,
+                email: netflixEmail,
+                whatsapp: netflixWhatsapp,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Show loading
+            submitOrderBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
+            submitOrderBtn.disabled = true;
+            
+            // Simulate order processing
+            setTimeout(() => {
+                console.log('Netflix Order:', orderData);
+                
+                // In real app, create order in Firebase
+                alert(`Commande créée avec succès !\n\nAbonnement: ${subscription.label}\nPrix: ${subscription.price.toLocaleString('fr-HT')} HTG\nEmail: ${netflixEmail}\n\nVous serez redirigé vers la page de paiement.`);
+                
+                // Redirect to payment page with order data
+                const queryParams = new URLSearchParams({
+                    service: 'netflix',
+                    duration: subscription.duration,
+                    amount: subscription.price,
+                    email: netflixEmail
+                }).toString();
+                
+                window.location.href = `payment.html?${queryParams}`;
+                
+                // Reset button
+                submitOrderBtn.innerHTML = '<i class="fas fa-check-circle"></i> Ajouter au panier';
+                submitOrderBtn.disabled = false;
+            }, 2000);
+        }
+        
+        // Initialize
+        function init() {
+            initSubscriptionSelection();
+            updateOrderSummary();
+            
+            // Form submission
+            document.getElementById('netflixOrderForm').addEventListener('submit', submitOrder);
+            
+            // Real-time validation
+            document.getElementById('netflixEmail').addEventListener('input', function() {
+                if (isValidEmail(this.value)) {
+                    document.getElementById('netflixEmailError').classList.remove('show');
+                }
+            });
+            
+            document.getElementById('netflixWhatsapp').addEventListener('input', function() {
+                // Auto-format
+                let value = this.value.replace(/\D/g, '');
+                if (value.startsWith('509')) {
+                    value = '+509' + value.slice(3);
+                } else if (value.startsWith('0')) {
+                    value = '+509' + value.slice(1);
+                } else if (value.length === 8) {
+                    value = '+509' + value;
+                }
+                this.value = value;
+                
+                if (isValidWhatsApp(value)) {
+                    document.getElementById('netflixWhatsappError').classList.remove('show');
+                }
+            });
+            
+            // Calculate monthly price for display
+            subscriptionCards.forEach(card => {
+                const duration = parseInt(card.dataset.duration);
+                const price = parseInt(card.dataset.price);
+                const monthlyPrice = Math.round(price / duration);
+                
+                const monthlyElement = card.querySelector('.pf-subscription-monthly strong');
+                if (monthlyElement) {
+                    monthlyElement.textContent = `${monthlyPrice.toLocaleString('fr-HT')} HTG/mois`;
+                }
+                
+                // Add savings note for 3 months
+                if (duration === 3) {
+                    const monthlyDiv = card.querySelector('.pf-subscription-monthly');
+                    if (monthlyDiv) {
+                        monthlyDiv.innerHTML = `<strong>${monthlyPrice.toLocaleString('fr-HT')} HTG/mois</strong> (économisez 100 HTG)`;
+                    }
+                }
+            });
+        }
+        
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

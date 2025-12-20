@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Communauté</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --color-gaming: #f97316;
+            --color-streaming: #8b5cf6;
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER ===== */
+        .pf-community-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-gray-light);
+            padding: var(--spacing-md) 0;
+        }
+
+        .pf-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pf-back-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .pf-back-btn:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-page-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+            text-align: center;
+        }
+
+        .pf-user-menu {
+            position: relative;
+        }
+
+        .pf-menu-button {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .pf-menu-button:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-menu-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-blue-primary);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-community-main {
+            padding: var(--spacing-xl) 0;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .pf-community-hero {
+            background: linear-gradient(135deg, var(--color-blue-primary) 0%, var(--color-blue-light) 100%);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            color: var(--color-white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pf-community-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><path d="M0,0 L1000,100 L1000,0 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .pf-hero-title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            z-index: 1;
+        }
+
+        .pf-hero-subtitle {
+            font-size: var(--font-size-base);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== STATS SECTION ===== */
+        .pf-community-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-stat-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pf-stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pf-stat-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-md);
+            font-size: 1.5rem;
+            color: var(--color-blue-primary);
+        }
+
+        .pf-stat-value {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--color-gray-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .pf-stat-label {
+            color: var(--color-gray-medium);
+            font-size: 0.875rem;
+        }
+
+        /* ===== TABS ===== */
+        .pf-community-tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xl);
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .pf-community-tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            color: var(--color-gray-medium);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .pf-community-tab:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-community-tab.active {
+            color: var(--color-blue-primary);
+            border-bottom-color: var(--color-blue-primary);
+        }
+
+        /* ===== TAB CONTENT ===== */
+        .pf-tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .pf-tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ===== REVIEWS SECTION ===== */
+        .pf-reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-section-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-reviews-filters {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-filter-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            background: var(--color-white);
+            color: var(--color-gray-dark);
+            font-size: var(--font-size-sm);
+        }
+
+        .pf-reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        @media (max-width: 768px) {
+            .pf-reviews-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pf-review-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            transition: all 0.3s ease;
+        }
+
+        .pf-review-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pf-review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-reviewer-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-blue-primary);
+            font-weight: 600;
+        }
+
+        .pf-reviewer-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .pf-reviewer-name {
+            font-weight: 600;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-review-date {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-review-rating {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .pf-star {
+            color: var(--color-warning);
+            font-size: 1rem;
+        }
+
+        .pf-star.empty {
+            color: var(--color-gray-light);
+        }
+
+        .pf-review-service {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: var(--spacing-sm);
+            background: var(--color-gray-very-light);
+            color: var(--color-gray-medium);
+        }
+
+        .pf-review-content {
+            color: var(--color-gray-dark);
+            margin-bottom: var(--spacing-md);
+            line-height: 1.6;
+        }
+
+        .pf-review-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: var(--spacing-sm);
+            border-top: 1px solid var(--color-gray-very-light);
+        }
+
+        .pf-review-actions {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        .pf-review-action {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-gray-medium);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .pf-review-action:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-review-action.liked {
+            color: var(--color-error);
+        }
+
+        /* ===== NEW REVIEW FORM ===== */
+        .pf-new-review {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-form-label i {
+            margin-right: 0.5rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-form-input, .pf-form-select, .pf-form-textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-dark);
+            background-color: var(--color-white);
+            transition: border-color 0.2s ease;
+        }
+
+        .pf-form-input:focus,
+        .pf-form-select:focus,
+        .pf-form-textarea:focus {
+            outline: none;
+            border-color: var(--color-blue-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .pf-form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .pf-form-note {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+            margin-top: 0.25rem;
+        }
+
+        .pf-rating-input {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-rating-star {
+            font-size: 2rem;
+            color: var(--color-gray-light);
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .pf-rating-star:hover,
+        .pf-rating-star.active {
+            color: var(--color-warning);
+        }
+
+        /* ===== FORUM SECTION ===== */
+        .pf-forum-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-forum-search {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-search-input {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            background: var(--color-white);
+            color: var(--color-gray-dark);
+            font-size: var(--font-size-sm);
+            min-width: 250px;
+        }
+
+        .pf-forum-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-forum-category {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            transition: all 0.3s ease;
+        }
+
+        .pf-forum-category:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pf-category-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-category-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--color-blue-primary);
+        }
+
+        .pf-category-info {
+            flex: 1;
+        }
+
+        .pf-category-title {
+            font-weight: 600;
+            color: var(--color-gray-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .pf-category-desc {
+            color: var(--color-gray-medium);
+            font-size: 0.875rem;
+        }
+
+        .pf-category-stats {
+            display: flex;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-md);
+            padding-top: var(--spacing-md);
+            border-top: 1px solid var(--color-gray-very-light);
+        }
+
+        .pf-category-stat {
+            text-align: center;
+        }
+
+        .pf-stat-number {
+            font-weight: 700;
+            color: var(--color-gray-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .pf-stat-text {
+            font-size: 0.75rem;
+            color: var(--color-gray-medium);
+        }
+
+        /* ===== LEADERBOARD SECTION ===== */
+        .pf-leaderboard {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-leaderboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-leaderboard-tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-leaderboard-tab {
+            padding: 0.5rem 1rem;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            color: var(--color-gray-medium);
+            cursor: pointer;
+        }
+
+        .pf-leaderboard-tab.active {
+            color: var(--color-blue-primary);
+            border-bottom-color: var(--color-blue-primary);
+        }
+
+        .pf-leaderboard-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            transition: background 0.2s ease;
+        }
+
+        .pf-leaderboard-item:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-leaderboard-item.top-3 {
+            background: var(--color-blue-very-light);
+            border: 1px solid var(--color-blue-light);
+        }
+
+        .pf-leaderboard-rank {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--color-white);
+            border-radius: 50%;
+            font-size: var(--font-size-base);
+        }
+
+        .pf-leaderboard-rank.rank-1 {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+        }
+
+        .pf-leaderboard-rank.rank-2 {
+            background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%);
+        }
+
+        .pf-leaderboard-rank.rank-3 {
+            background: linear-gradient(135deg, #92400e 0%, #b45309 100%);
+        }
+
+        .pf-leaderboard-rank.other {
+            background: var(--color-gray-light);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-leaderboard-user {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            flex: 1;
+        }
+
+        .pf-leaderboard-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-blue-primary);
+            font-weight: 600;
+        }
+
+        .pf-leaderboard-name {
+            font-weight: 600;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-leaderboard-score {
+            font-weight: 700;
+            color: var(--color-gray-dark);
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .pf-btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        .pf-btn-success {
+            background-color: var(--color-success);
+            color: var(--color-white);
+        }
+
+        .pf-btn-success:hover {
+            background-color: #0da271;
+        }
+
+        .pf-btn-lg {
+            padding: 1rem 2rem;
+            font-size: var(--font-size-base);
+        }
+
+        .pf-btn-block {
+            width: 100%;
+        }
+
+        /* ===== ERROR MESSAGES ===== */
+        .pf-error-message {
+            color: var(--color-error);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-error-message.show {
+            display: block;
+        }
+
+        .pf-success-message {
+            color: var(--color-success);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-success-message.show {
+            display: block;
+        }
+
+        /* ===== NO DATA ===== */
+        .pf-no-data {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--color-gray-medium);
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-community-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-community-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .pf-community-tabs {
+                flex-direction: column;
+            }
+            
+            .pf-community-tab {
+                text-align: left;
+                border-bottom: none;
+                border-left: 2px solid transparent;
+            }
+            
+            .pf-community-tab.active {
+                border-left-color: var(--color-blue-primary);
+                border-bottom-color: transparent;
+            }
+            
+            .pf-reviews-header,
+            .pf-forum-header,
+            .pf-leaderboard-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .pf-reviews-filters,
+            .pf-forum-search {
+                flex-direction: column;
+            }
+            
+            .pf-search-input {
+                min-width: 100%;
+            }
+            
+            .pf-action-buttons {
+                flex-direction: column;
+            }
+            
+            .pf-btn {
+                width: 100%;
+            }
+            
+            .pf-header-content {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+            
+            .pf-back-btn {
+                align-self: flex-start;
+            }
+            
+            .pf-new-review {
+                padding: var(--spacing-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-community-header">
+        <div class="container">
+            <div class="pf-header-content">
+                <a href="home.html" class="pf-back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
+                
+                <h1 class="pf-page-title">Communauté</h1>
+                
+                <div class="pf-user-menu">
+                    <button class="pf-menu-button" onclick="window.location.href='account.html'">
+                        <div class="pf-menu-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pf-community-main">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="pf-community-hero">
+                <h1 class="pf-hero-title">Rejoignez notre communauté</h1>
+                <p class="pf-hero-subtitle">
+                    Partagez vos expériences, lisez les avis d'autres utilisateurs et participez aux discussions pour améliorer ensemble PayFusion.
+                </p>
+            </div>
+
+            <!-- Community Stats -->
+            <div class="pf-community-stats">
+                <div class="pf-stat-card">
+                    <div class="pf-stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="pf-stat-value">2,500+</div>
+                    <div class="pf-stat-label">Membres actifs</div>
+                </div>
+                
+                <div class="pf-stat-card">
+                    <div class="pf-stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="pf-stat-value">4.8/5</div>
+                    <div class="pf-stat-label">Note moyenne</div>
+                </div>
+                
+                <div class="pf-stat-card">
+                    <div class="pf-stat-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="pf-stat-value">1,200+</div>
+                    <div class="pf-stat-label">Avis vérifiés</div>
+                </div>
+                
+                <div class="pf-stat-card">
+                    <div class="pf-stat-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="pf-stat-value">50+</div>
+                    <div class="pf-stat-label">Top contributeurs</div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="pf-community-tabs">
+                <button class="pf-community-tab active" data-tab="reviews">
+                    <i class="fas fa-star"></i> Avis & Notes
+                </button>
+                <button class="pf-community-tab" data-tab="forum">
+                    <i class="fas fa-comments"></i> Forum
+                </button>
+                <button class="pf-community-tab" data-tab="leaderboard">
+                    <i class="fas fa-trophy"></i> Classement
+                </button>
+                <button class="pf-community-tab" data-tab="share">
+                    <i class="fas fa-share-alt"></i> Partage
+                </button>
+            </div>
+
+            <!-- Tab 1: Reviews -->
+            <div id="reviewsTab" class="pf-tab-content active">
+                <!-- New Review Form -->
+                <div class="pf-new-review">
+                    <h2 class="pf-section-title">
+                        <i class="fas fa-pen"></i>
+                        <span>Partagez votre expérience</span>
+                    </h2>
+                    
+                    <form id="reviewForm">
+                        <div class="pf-form-group">
+                            <label for="reviewService" class="pf-form-label">
+                                <i class="fas fa-concierge-bell"></i> Service utilisé
+                            </label>
+                            <select id="reviewService" class="pf-form-select" required>
+                                <option value="">Sélectionnez un service</option>
+                                <option value="freefire">Free Fire</option>
+                                <option value="netflix">Netflix</option>
+                                <option value="wise">Wise</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="usdt">USDT</option>
+                                <option value="wallet">Portefeuille</option>
+                                <option value="general">Service général</option>
+                            </select>
+                            <div id="serviceError" class="pf-error-message">
+                                Veuillez sélectionner un service
+                            </div>
+                        </div>
+                        
+                        <div class="pf-form-group">
+                            <label class="pf-form-label">
+                                <i class="fas fa-star"></i> Note
+                            </label>
+                            <div class="pf-rating-input" id="ratingInput">
+                                <i class="fas fa-star pf-rating-star" data-rating="1"></i>
+                                <i class="fas fa-star pf-rating-star" data-rating="2"></i>
+                                <i class="fas fa-star pf-rating-star" data-rating="3"></i>
+                                <i class="fas fa-star pf-rating-star" data-rating="4"></i>
+                                <i class="fas fa-star pf-rating-star" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" id="reviewRating" value="0" required>
+                            <div id="ratingError" class="pf-error-message">
+                                Veuillez donner une note
+                            </div>
+                        </div>
+                        
+                        <div class="pf-form-group">
+                            <label for="reviewTitle" class="pf-form-label">
+                                <i class="fas fa-heading"></i> Titre de votre avis
+                            </label>
+                            <input 
+                                type="text" 
+                                id="reviewTitle" 
+                                class="pf-form-input" 
+                                placeholder="Ex: Excellent service, livraison rapide !"
+                                required
+                                maxlength="100"
+                            >
+                            <div id="titleError" class="pf-error-message">
+                                Le titre est requis (max 100 caractères)
+                            </div>
+                        </div>
+                        
+                        <div class="pf-form-group">
+                            <label for="reviewContent" class="pf-form-label">
+                                <i class="fas fa-align-left"></i> Votre avis détaillé
+                            </label>
+                            <textarea 
+                                id="reviewContent" 
+                                class="pf-form-textarea" 
+                                placeholder="Partagez votre expérience avec ce service. Qu'avez-vous aimé ? Qu'est-ce qui pourrait être amélioré ?"
+                                required
+                                minlength="20"
+                                maxlength="1000"
+                            ></textarea>
+                            <div class="pf-form-note">
+                                Minimum 20 caractères. Soyez constructif et précis.
+                            </div>
+                            <div id="contentError" class="pf-error-message">
+                                L'avis doit contenir au moins 20 caractères
+                            </div>
+                        </div>
+                        
+                        <div class="pf-action-buttons">
+                            <button type="reset" class="pf-btn pf-btn-secondary">
+                                <i class="fas fa-eraser"></i> Effacer
+                            </button>
+                            <button type="submit" class="pf-btn pf-btn-primary">
+                                <i class="fas fa-paper-plane"></i> Publier l'avis
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Reviews List -->
+                <div class="pf-reviews-header">
+                    <h2 class="pf-section-title">
+                        <i class="fas fa-star"></i>
+                        <span>Avis récents</span>
+                    </h2>
+                    
+                    <div class="pf-reviews-filters">
+                        <select class="pf-filter-select" id="reviewFilterService">
+                            <option value="">Tous les services</option>
+                            <option value="freefire">Free Fire</option>
+                            <option value="netflix">Netflix</option>
+                            <option value="wise">Wise</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="usdt">USDT</option>
+                        </select>
+                        
+                        <select class="pf-filter-select" id="reviewFilterRating">
+                            <option value="">Toutes les notes</option>
+                            <option value="5">5 étoiles</option>
+                            <option value="4">4 étoiles</option>
+                            <option value="3">3 étoiles</option>
+                            <option value="2">2 étoiles</option>
+                            <option value="1">1 étoile</option>
+                        </select>
+                        
+                        <select class="pf-filter-select" id="reviewFilterSort">
+                            <option value="recent">Plus récents</option>
+                            <option value="helpful">Plus utiles</option>
+                            <option value="rating">Meilleures notes</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="pf-reviews-grid" id="reviewsList">
+                    <!-- Reviews will be loaded here -->
+                </div>
+                
+                <div class="pf-no-data" id="noReviewsMessage" style="display: none;">
+                    <i class="fas fa-star" style="font-size: 3rem; color: var(--color-gray-light); margin-bottom: var(--spacing-sm);"></i>
+                    <h3>Aucun avis disponible</h3>
+                    <p>Soyez le premier à partager votre expérience !</p>
+                </div>
+            </div>
+
+            <!-- Tab 2: Forum -->
+            <div id="forumTab" class="pf-tab-content">
+                <div class="pf-forum-header">
+                    <h2 class="pf-section-title">
+                        <i class="fas fa-comments"></i>
+                        <span>Forum Communautaire</span>
+                    </h2>
+                    
+                    <div class="pf-forum-search">
+                        <input type="text" class="pf-search-input" id="forumSearch" placeholder="Rechercher dans le forum...">
+                        <button class="pf-btn pf-btn-primary" onclick="searchForum()">
+                            <i class="fas fa-search"></i> Rechercher
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="pf-forum-categories">
+                    <div class="pf-forum-category" onclick="viewForumCategory('general')">
+                        <div class="pf-category-header">
+                            <div class="pf-category-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <div class="pf-category-info">
+                                <h3 class="pf-category-title">Discussion Générale</h3>
+                                <p class="pf-category-desc">Discutez de tout ce qui concerne PayFusion</p>
+                            </div>
+                        </div>
+                        <div class="pf-category-stats">
+                            <div class="pf-category-stat">
+                                <div class="pf-stat-number">150</div>
+                                <div class="pf-stat-text">Sujets</div>
+                            </div>
+                            <div class="pf-category-stat">
+                                <div class="pf-stat-number">850</div>
+                                <div class="pf-stat-text">Messages</div>
+                            </div>
+                            <div class="pf-category-stat">
+                                <div class="pf-stat-number">2h</div>
+                                <div class="pf-stat-text">Dernier</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-forum-category" onclick="viewForumCategory('help')">
+                        <div class="pf-category-header">
+                            <div class="pf-category-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="pf-category-info">
+                                <h3 class="pf-category-title">Aide & Support</h3>
+                                <p class="pf-category-desc">Aidez et obtenez de l'aide de la communauté</p>
+                            </div>
+                        </div>
+                        <div class="pf-category-stats">
+                            <div class="pf-category-stat">
+                                <div class="pf-stat-number">85</div>
+                                <div class="pf-stat-text">Sujets</div>
+                            </div>
+                            <div class="pf-category-stat">
+                                <div class="pf-stat-number">420</div>
+                                <div class="pf-stat-text">Messages</div>
+                            </div>
+                            <div class="pf-category-stat">
+                                <div class="pf-stat-number">30m</div>
+                                <div class="pf-stat-text">Dernier</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-forum-category" onclick="viewForumCategory('feedback')">
+                        <div class="pf-category-header">
+                            <div class="pf-category-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="pf-category-info">
+                                <h3 class="pf-category-title">Suggestions & Feedback</h3>
+                                <p class="pf-category-desc">Proposez des améliorations pour PayFusion</p>
+                            </div>
+                        </div>
+                        <div class="pf-category-stats">
+                            <div class="pf-category-stat">
+                                <div class="pf-stat-number">45</div>
+                                <div class="pf-stat-text">Sujets</div>
+                            </div>
+                            <div class="pf-category-stat">
+                                <div class="pf-stat-number">210</div>
+                                <div class="pf-stat-text">Messages</div>
+                            </div>
+                            <div class="pf-category-stat">
+                                <div class="pf-stat-number">1j</div>
+                                <div class="pf-stat-text">Dernier</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-forum-category" onclick="viewForumCategory('gaming')">
+                        <div class="pf-category-header">
+                            <div class="pf-category-icon">
+                                <i class="fas fa-gamepad"></i>
+                            </div>
+                            <div class="pf-category-info">
+                                <h3 class="pf-category-title">Gaming</h3>
+                                <p class="pf-category-desc">Discutez de Free Fire et autres jeux</p>
+                            </div>
+                        </div>
+                        <div class="pf-category-stats">
+                            <div class="pf-category-stat">
+                                <div class="pf-stat-number">120</div>
+                                <div class="pf-stat-text">Sujets</div>
+                            </div>
+                            <div class="pf-category-stat">
+                                <div class="pf-stat-number">650</div>
+                                <div class="pf-stat-text">Messages</div>
+                            </div>
+                            <div class="pf-category-stat">
+                                <div class="pf-stat-number">15m</div>
+                                <div class="pf-stat-text">Dernier</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pf-action-buttons">
+                    <button class="pf-btn pf-btn-secondary" onclick="viewAllCategories()">
+                        <i class="fas fa-list"></i> Voir toutes les catégories
+                    </button>
+                    <button class="pf-btn pf-btn-primary" onclick="createNewTopic()">
+                        <i class="fas fa-plus"></i> Créer un nouveau sujet
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab 3: Leaderboard -->
+            <div id="leaderboardTab" class="pf-tab-content">
+                <div class="pf-leaderboard">
+                    <div class="pf-leaderboard-header">
+                        <h2 class="pf-section-title">
+                            <i class="fas fa-trophy"></i>
+                            <span>Classement des Top Contributeurs</span>
+                        </h2>
+                        
+                        <div class="pf-leaderboard-tabs">
+                            <button class="pf-leaderboard-tab active" data-period="monthly">
+                                Ce mois
+                            </button>
+                            <button class="pf-leaderboard-tab" data-period="alltime">
+                                Tous les temps
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-leaderboard-list" id="leaderboardList">
+                        <!-- Leaderboard items will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="pf-action-buttons">
+                    <button class="pf-btn pf-btn-secondary" onclick="viewMyRank()">
+                        <i class="fas fa-user"></i> Voir mon classement
+                    </button>
+                    <button class="pf-btn pf-btn-primary" onclick="howToEarnPoints()">
+                        <i class="fas fa-info-circle"></i> Comment gagner des points ?
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab 4: Share -->
+            <div id="shareTab" class="pf-tab-content">
+                <div class="pf-new-review" style="text-align: center;">
+                    <div class="pf-stat-icon" style="margin-bottom: var(--spacing-lg);">
+                        <i class="fas fa-share-alt" style="font-size: 2rem;"></i>
+                    </div>
+                    
+                    <h2 style="font-size: var(--font-size-lg); font-weight: 600; margin-bottom: var(--spacing-sm); color: var(--color-gray-dark);">
+                        Partagez PayFusion
+                    </h2>
+                    
+                    <p style="color: var(--color-gray-medium); margin-bottom: var(--spacing-xl); max-width: 600px; margin-left: auto; margin-right: auto;">
+                        Aidez-nous à faire connaître PayFusion à vos amis et gagnez des récompenses pour chaque personne qui s'inscrit avec votre lien.
+                    </p>
+                    
+                    <div style="background: var(--color-gray-very-light); border-radius: var(--border-radius); padding: var(--spacing-lg); margin-bottom: var(--spacing-xl);">
+                        <div style="font-weight: 600; color: var(--color-gray-dark); margin-bottom: var(--spacing-sm);">
+                            Votre lien de parrainage
+                        </div>
+                        <div style="background: var(--color-white); border-radius: var(--border-radius); padding: var(--spacing-md); border: 1px solid var(--color-gray-light); margin-bottom: var(--spacing-md); font-family: monospace; word-break: break-all;">
+                            https://payfusion.com/register?ref=JD789XYZ
+                        </div>
+                        <button class="pf-btn pf-btn-secondary pf-btn-block" onclick="copyReferralLink()">
+                            <i class="fas fa-copy"></i> Copier le lien
+                        </button>
+                    </div>
+                    
+                    <h3 style="font-size: var(--font-size-base); font-weight: 600; margin-bottom: var(--spacing-lg); color: var(--color-gray-dark);">
+                        <i class="fas fa-gift"></i> Récompenses de parrainage
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--spacing-lg); margin-bottom: var(--spacing-xl);">
+                        <div style="background: var(--color-white); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--color-gray-light); text-align: center;">
+                            <div style="font-size: 2rem; color: var(--color-success); margin-bottom: var(--spacing-sm);">5%</div>
+                            <div style="font-weight: 600; color: var(--color-gray-dark);">Commission</div>
+                            <div style="font-size: 0.875rem; color: var(--color-gray-medium);">Sur leur 1ère transaction</div>
+                        </div>
+                        
+                        <div style="background: var(--color-white); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--color-gray-light); text-align: center;">
+                            <div style="font-size: 2rem; color: var(--color-success); margin-bottom: var(--spacing-sm);">100</div>
+                            <div style="font-weight: 600; color: var(--color-gray-dark);">Points</div>
+                            <div style="font-size: 0.875rem; color: var(--color-gray-medium);">Par parrainage validé</div>
+                        </div>
+                        
+                        <div style="background: var(--color-white); border-radius: var(--border-radius); padding: var(--spacing-lg); border: 1px solid var(--color-gray-light); text-align: center;">
+                            <div style="font-size: 2rem; color: var(--color-success); margin-bottom: var(--spacing-sm);">10</div>
+                            <div style="font-weight: 600; color: var(--color-gray-dark);">Places</div>
+                            <div style="font-size: 0.875rem; color: var(--color-gray-medium);">Limite mensuelle</div>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-action-buttons">
+                        <button class="pf-btn pf-btn-secondary" onclick="shareOnWhatsApp()">
+                            <i class="fab fa-whatsapp"></i> Partager sur WhatsApp
+                        </button>
+                        <button class="pf-btn pf-btn-primary" onclick="shareOnSocialMedia()">
+                            <i class="fas fa-share-alt"></i> Partager sur les réseaux
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-community-footer">
+        <div class="container">
+            <p>La communauté PayFusion - Ensemble pour un meilleur service</p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // State
+        let currentTab = 'reviews';
+        let selectedRating = 0;
+        let reviews = [];
+        let leaderboard = [];
+
+        // DOM Elements
+        const tabs = document.querySelectorAll('.pf-community-tab');
+        const tabContents = document.querySelectorAll('.pf-tab-content');
+        const ratingStars = document.querySelectorAll('.pf-rating-star');
+        const leaderboardTabs = document.querySelectorAll('.pf-leaderboard-tab');
+
+        // Sample Reviews Data
+        const sampleReviews = [
+            {
+                id: 1,
+                user: {
+                    name: 'Marie L.',
+                    initials: 'ML',
+                    isVerified: true
+                },
+                service: 'freefire',
+                rating: 5,
+                title: 'Livraison ultra rapide !',
+                content: 'J\'ai commandé des diamants Free Fire et je les ai reçus en moins de 3 minutes ! Service impressionnant, je recommande à 100%.',
+                date: 'Il y a 2 heures',
+                likes: 24,
+                comments: 3,
+                isLiked: false,
+                isHelpful: true
+            },
+            {
+                id: 2,
+                user: {
+                    name: 'Jean P.',
+                    initials: 'JP',
+                    isVerified: true
+                },
+                service: 'netflix',
+                rating: 5,
+                title: 'Netflix Premium parfait',
+                content: 'Abonnement Netflix Premium activé en 15 minutes. Qualité 4K impeccable, aucun problème depuis un mois. Meilleur prix du marché !',
+                date: 'Il y a 1 jour',
+                likes: 18,
+                comments: 5,
+                isLiked: true,
+                isHelpful: true
+            },
+            {
+                id: 3,
+                user: {
+                    name: 'Sophie B.',
+                    initials: 'SB',
+                    isVerified: true
+                },
+                service: 'wise',
+                rating: 4,
+                title: 'Service Wise efficace',
+                content: 'Recharge Wise effectuée rapidement. Taux de change correct. Petit délai de 20 minutes mais dans les normes. Support réactif.',
+                date: 'Il y a 2 jours',
+                likes: 12,
+                comments: 2,
+                isLiked: false,
+                isHelpful: false
+            },
+            {
+                id: 4,
+                user: {
+                    name: 'Marc A.',
+                    initials: 'MA',
+                    isVerified: true
+                },
+                service: 'paypal',
+                rating: 5,
+                title: 'PayPal instantané',
+                content: 'Transaction PayPal traitée en moins d\'une minute. Interface simple et intuitive. Frais transparents. Excellent service !',
+                date: 'Il y a 3 jours',
+                likes: 31,
+                comments: 7,
+                isLiked: false,
+                isHelpful: true
+            },
+            {
+                id: 5,
+                user: {
+                    name: 'Thomas D.',
+                    initials: 'TD',
+                    isVerified: false
+                },
+                service: 'usdt',
+                rating: 3,
+                title: 'USDT avec délai',
+                content: 'Transaction USDT réussie mais avec un délai de 45 minutes pour les confirmations blockchain. Le support était disponible par WhatsApp.',
+                date: 'Il y a 4 jours',
+                likes: 8,
+                comments: 1,
+                isLiked: false,
+                isHelpful: false
+            },
+            {
+                id: 6,
+                user: {
+                    name: 'Lisa M.',
+                    initials: 'LM',
+                    isVerified: true
+                },
+                service: 'wallet',
+                rating: 5,
+                title: 'Portefeuille sécurisé',
+                content: 'Gestion du portefeuille intuitive. Dépôts MonCash traités en 15 minutes. Interface moderne et sécurisée. Je me sens en sécurité.',
+                date: 'Il y a 5 jours',
+                likes: 22,
+                comments: 4,
+                isLiked: true,
+                isHelpful: true
+            }
+        ];
+
+        // Sample Leaderboard Data
+        const sampleLeaderboard = [
+            { rank: 1, name: 'Marie L.', points: 1250, reviews: 42, initials: 'ML' },
+            { rank: 2, name: 'Jean P.', points: 980, reviews: 35, initials: 'JP' },
+            { rank: 3, name: 'Sophie B.', points: 850, reviews: 28, initials: 'SB' },
+            { rank: 4, name: 'Marc A.', points: 720, reviews: 24, initials: 'MA' },
+            { rank: 5, name: 'Thomas D.', points: 650, reviews: 21, initials: 'TD' },
+            { rank: 6, name: 'Lisa M.', points: 580, reviews: 19, initials: 'LM' },
+            { rank: 7, name: 'Paul R.', points: 520, reviews: 17, initials: 'PR' },
+            { rank: 8, name: 'Julie S.', points: 480, reviews: 16, initials: 'JS' },
+            { rank: 9, name: 'David C.', points: 430, reviews: 14, initials: 'DC' },
+            { rank: 10, name: 'Sarah K.', points: 390, reviews: 13, initials: 'SK' }
+        ];
+
+        // Switch tab
+        function switchTab(tabName) {
+            currentTab = tabName;
+            
+            // Update tabs
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Update content
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === tabName + 'Tab') {
+                    content.classList.add('active');
+                }
+            });
+            
+            // Load tab data
+            switch(tabName) {
+                case 'reviews':
+                    loadReviews();
+                    break;
+                case 'forum':
+                    // Already loaded
+                    break;
+                case 'leaderboard':
+                    loadLeaderboard('monthly');
+                    break;
+                case 'share':
+                    // Already loaded
+                    break;
+            }
+        }
+
+        // Set rating
+        function setRating(rating) {
+            selectedRating = rating;
+            document.getElementById('reviewRating').value = rating;
+            
+            // Update stars
+            ratingStars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+            
+            // Clear error
+            document.getElementById('ratingError').classList.remove('show');
+        }
+
+        // Load reviews
+        function loadReviews() {
+            const serviceFilter = document.getElementById('reviewFilterService').value;
+            const ratingFilter = document.getElementById('reviewFilterRating').value;
+            const sortFilter = document.getElementById('reviewFilterSort').value;
+            
+            let filteredReviews = sampleReviews.filter(review => {
+                // Service filter
+                if (serviceFilter && review.service !== serviceFilter) return false;
+                
+                // Rating filter
+                if (ratingFilter && review.rating !== parseInt(ratingFilter)) return false;
+                
+                return true;
+            });
+            
+            // Sort reviews
+            switch(sortFilter) {
+                case 'recent':
+                    // Already sorted by date (newest first in sample)
+                    break;
+                case 'helpful':
+                    filteredReviews.sort((a, b) => b.likes - a.likes);
+                    break;
+                case 'rating':
+                    filteredReviews.sort((a, b) => b.rating - a.rating);
+                    break;
+            }
+            
+            // Display reviews
+            const reviewsList = document.getElementById('reviewsList');
+            const noReviewsMessage = document.getElementById('noReviewsMessage');
+            
+            if (filteredReviews.length === 0) {
+                reviewsList.innerHTML = '';
+                noReviewsMessage.style.display = 'block';
+                return;
+            }
+            
+            noReviewsMessage.style.display = 'none';
+            
+            let html = '';
+            filteredReviews.forEach(review => {
+                // Service badge
+                let serviceName = '';
+                let serviceIcon = '';
+                
+                switch(review.service) {
+                    case 'freefire':
+                        serviceName = 'Free Fire';
+                        serviceIcon = 'fas fa-gamepad';
+                        break;
+                    case 'netflix':
+                        serviceName = 'Netflix';
+                        serviceIcon = 'fas fa-tv';
+                        break;
+                    case 'wise':
+                        serviceName = 'Wise';
+                        serviceIcon = 'fas fa-money-check-alt';
+                        break;
+                    case 'paypal':
+                        serviceName = 'PayPal';
+                        serviceIcon = 'fab fa-paypal';
+                        break;
+                    case 'usdt':
+                        serviceName = 'USDT';
+                        serviceIcon = 'fas fa-coins';
+                        break;
+                    case 'wallet':
+                        serviceName = 'Portefeuille';
+                        serviceIcon = 'fas fa-wallet';
+                        break;
+                    default:
+                        serviceName = 'Service';
+                        serviceIcon = 'fas fa-concierge-bell';
+                }
+                
+                // Stars
+                let starsHtml = '';
+                for (let i = 1; i <= 5; i++) {
+                    starsHtml += `<i class="fas fa-star pf-star ${i <= review.rating ? '' : 'empty'}"></i>`;
+                }
+                
+                html += `
+                    <div class="pf-review-card">
+                        <div class="pf-review-header">
+                            <div class="pf-reviewer-info">
+                                <div class="pf-reviewer-avatar">${review.user.initials}</div>
+                                <div class="pf-reviewer-details">
+                                    <div class="pf-reviewer-name">${review.user.name}</div>
+                                    <div class="pf-review-date">${review.date}</div>
+                                </div>
+                            </div>
+                            <div class="pf-review-rating">
+                                ${starsHtml}
+                            </div>
+                        </div>
+                        
+                        <div class="pf-review-service">
+                            <i class="${serviceIcon}"></i>
+                            <span>${serviceName}</span>
+                        </div>
+                        
+                        <h3 style="font-weight: 600; margin-bottom: var(--spacing-sm); color: var(--color-gray-dark);">
+                            ${review.title}
+                        </h3>
+                        
+                        <div class="pf-review-content">
+                            ${review.content}
+                        </div>
+                        
+                        <div class="pf-review-footer">
+                            <div class="pf-review-actions">
+                                <div class="pf-review-action ${review.isLiked ? 'liked' : ''}" onclick="likeReview(${review.id})">
+                                    <i class="fas fa-thumbs-up"></i>
+                                    <span>${review.likes}</span>
+                                </div>
+                                <div class="pf-review-action" onclick="commentOnReview(${review.id})">
+                                    <i class="fas fa-comment"></i>
+                                    <span>${review.comments}</span>
+                                </div>
+                                <div class="pf-review-action ${review.isHelpful ? 'liked' : ''}" onclick="markHelpful(${review.id})">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Utile</span>
+                                </div>
+                            </div>
+                            <div class="pf-review-action" onclick="shareReview(${review.id})">
+                                <i class="fas fa-share"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            reviewsList.innerHTML = html;
+        }
+
+        // Load leaderboard
+        function loadLeaderboard(period) {
+            const leaderboardList = document.getElementById('leaderboardList');
+            
+            let html = '';
+            sampleLeaderboard.forEach(user => {
+                let rankClass = 'other';
+                if (user.rank === 1) rankClass = 'rank-1';
+                else if (user.rank === 2) rankClass = 'rank-2';
+                else if (user.rank === 3) rankClass = 'rank-3';
+                
+                html += `
+                    <div class="pf-leaderboard-item ${user.rank <= 3 ? 'top-3' : ''}">
+                        <div class="pf-leaderboard-rank ${rankClass}">
+                            ${user.rank}
+                        </div>
+                        <div class="pf-leaderboard-user">
+                            <div class="pf-leaderboard-avatar">${user.initials}</div>
+                            <div>
+                                <div class="pf-leaderboard-name">${user.name}</div>
+                                <div style="font-size: 0.75rem; color: var(--color-gray-medium);">
+                                    ${user.reviews} avis • ${user.points} points
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pf-leaderboard-score">
+                            ${user.points.toLocaleString()} pts
+                        </div>
+                    </div>
+                `;
+            });
+            
+            leaderboardList.innerHTML = html;
+        }
+
+        // Validate review form
+        function validateReviewForm() {
+            const service = document.getElementById('reviewService').value;
+            const rating = parseInt(document.getElementById('reviewRating').value);
+            const title = document.getElementById('reviewTitle').value.trim();
+            const content = document.getElementById('reviewContent').value.trim();
+            
+            let isValid = true;
+            
+            // Reset errors
+            document.getElementById('serviceError').classList.remove('show');
+            document.getElementById('ratingError').classList.remove('show');
+            document.getElementById('titleError').classList.remove('show');
+            document.getElementById('contentError').classList.remove('show');
+            
+            // Validate service
+            if (!service) {
+                document.getElementById('serviceError').classList.add('show');
+                isValid = false;
+            }
+            
+            // Validate rating
+            if (!rating || rating < 1) {
+                document.getElementById('ratingError').classList.add('show');
+                isValid = false;
+            }
+            
+            // Validate title
+            if (!title || title.length > 100) {
+                document.getElementById('titleError').classList.add('show');
+                isValid = false;
+            }
+            
+            // Validate content
+            if (!content || content.length < 20) {
+                document.getElementById('contentError').classList.add('show');
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        // Submit review
+        function submitReview(e) {
+            e.preventDefault();
+            
+            if (!validateReviewForm()) {
+                return;
+            }
+            
+            const service = document.getElementById('reviewService').value;
+            const rating = parseInt(document.getElementById('reviewRating').value);
+            const title = document.getElementById('reviewTitle').value.trim();
+            const content = document.getElementById('reviewContent').value.trim();
+            
+            // Prepare review data
+            const reviewData = {
+                id: Date.now(),
+                user: {
+                    name: 'Vous',
+                    initials: 'VO',
+                    isVerified: true
+                },
+                service: service,
+                rating: rating,
+                title: title,
+                content: content,
+                date: 'À l\'instant',
+                likes: 0,
+                comments: 0,
+                isLiked: false,
+                isHelpful: false
+            };
+            
+            // Show loading
+            const submitBtn = document.querySelector('#reviewForm button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publication...';
+            submitBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // In real app, save to Firebase
+                console.log('Review submitted:', reviewData);
+                
+                // Add to sample reviews (at beginning)
+                sampleReviews.unshift(reviewData);
+                
+                // Reset form
+                document.getElementById('reviewForm').reset();
+                selectedRating = 0;
+                ratingStars.forEach(star => star.classList.remove('active'));
+                
+                // Show success message
+                showSuccess('Votre avis a été publié avec succès !');
+                
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Reload reviews
+                loadReviews();
+                
+            }, 1500);
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'pf-success-message show';
+            successDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            successDiv.style.position = 'fixed';
+            successDiv.style.top = '20px';
+            successDiv.style.right = '20px';
+            successDiv.style.background = 'var(--color-success)';
+            successDiv.style.color = 'white';
+            successDiv.style.padding = 'var(--spacing-md) var(--spacing-lg)';
+            successDiv.style.borderRadius = 'var(--border-radius)';
+            successDiv.style.zIndex = '9999';
+            successDiv.style.boxShadow = 'var(--shadow-lg)';
+            
+            document.body.appendChild(successDiv);
+            
+            setTimeout(() => {
+                successDiv.remove();
+            }, 3000);
+        }
+
+        // Review actions
+        function likeReview(reviewId) {
+            const review = sampleReviews.find(r => r.id === reviewId);
+            if (review) {
+                review.isLiked = !review.isLiked;
+                review.likes += review.isLiked ? 1 : -1;
+                loadReviews();
+            }
+        }
+
+        function commentOnReview(reviewId) {
+            const comment = prompt('Votre commentaire :');
+            if (comment && comment.trim()) {
+                const review = sampleReviews.find(r => r.id === reviewId);
+                if (review) {
+                    review.comments += 1;
+                    loadReviews();
+                    showSuccess('Commentaire ajouté !');
+                }
+            }
+        }
+
+        function markHelpful(reviewId) {
+            const review = sampleReviews.find(r => r.id === reviewId);
+            if (review) {
+                review.isHelpful = !review.isHelpful;
+                loadReviews();
+            }
+        }
+
+        function shareReview(reviewId) {
+            const review = sampleReviews.find(r => r.id === reviewId);
+            if (review) {
+                const shareText = `J'ai trouvé cet avis sur PayFusion: "${review.title}" - ${review.rating}/5 étoiles`;
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Avis PayFusion',
+                        text: shareText,
+                        url: window.location.href
+                    });
+                } else {
+                    alert('Fonction de partage - À implémenter');
+                }
+            }
+        }
+
+        // Forum functions
+        function viewForumCategory(category) {
+            alert(`Ouverture de la catégorie ${category} - À implémenter avec navigation vers les sujets`);
+        }
+
+        function searchForum() {
+            const query = document.getElementById('forumSearch').value;
+            if (query.trim()) {
+                alert(`Recherche dans le forum: "${query}" - À implémenter`);
+            }
+        }
+
+        function viewAllCategories() {
+            alert('Affichage de toutes les catégories du forum - À implémenter');
+        }
+
+        function createNewTopic() {
+            const title = prompt('Titre du nouveau sujet:');
+            if (title && title.trim()) {
+                const content = prompt('Contenu du sujet:');
+                if (content && content.trim()) {
+                    alert('Nouveau sujet créé !');
+                }
+            }
+        }
+
+        // Leaderboard functions
+        function viewMyRank() {
+            alert('Votre classement : 15ème avec 280 points - Continuez à participer !');
+        }
+
+        function howToEarnPoints() {
+            alert('Gagnez des points en:\n• Publiez des avis (+10 pts)\n• Avis utile (+5 pts)\n• Répondez aux questions (+5 pts)\n• Parrainez des amis (+100 pts)\n• Soyez actif quotidiennement (+1 pt/jour)');
+        }
+
+        // Share functions
+        function copyReferralLink() {
+            const referralLink = 'https://payfusion.com/register?ref=JD789XYZ';
+            navigator.clipboard.writeText(referralLink)
+                .then(() => {
+                    showSuccess('Lien copié !');
+                })
+                .catch(err => {
+                    console.error('Erreur de copie:', err);
+                    alert('Erreur lors de la copie du lien');
+                });
+        }
+
+        function shareOnWhatsApp() {
+            const message = encodeURIComponent('Rejoins PayFusion, la meilleure plateforme pour les services financiers, gaming et streaming en Haïti ! Utilise mon lien: https://payfusion.com/register?ref=JD789XYZ');
+            window.open(`https://wa.me/?text=${message}`, '_blank');
+        }
+
+        function shareOnSocialMedia() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'PayFusion - Plateforme Tout-en-Un',
+                    text: 'Rejoins PayFusion pour les meilleurs services en Haïti !',
+                    url: 'https://payfusion.com'
+                });
+            } else {
+                alert('Partage sur les réseaux sociaux - Choisissez votre plateforme');
+            }
+        }
+
+        // Initialize
+        function init() {
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    switchTab(tab.dataset.tab);
+                });
+            });
+            
+            // Rating stars
+            ratingStars.forEach(star => {
+                star.addEventListener('click', () => {
+                    setRating(parseInt(star.dataset.rating));
+                });
+                
+                star.addEventListener('mouseover', () => {
+                    const rating = parseInt(star.dataset.rating);
+                    ratingStars.forEach((s, index) => {
+                        if (index < rating) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+                
+                star.addEventListener('mouseout', () => {
+                    ratingStars.forEach((s, index) => {
+                        if (index < selectedRating) {
+                            s.classList.add('active');
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            
+            // Leaderboard tabs
+            leaderboardTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    leaderboardTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    loadLeaderboard(tab.dataset.period);
+                });
+            });
+            
+            // Review filters
+            document.getElementById('reviewFilterService').addEventListener('change', loadReviews);
+            document.getElementById('reviewFilterRating').addEventListener('change', loadReviews);
+            document.getElementById('reviewFilterSort').addEventListener('change', loadReviews);
+            
+            // Form submission
+            document.getElementById('reviewForm').addEventListener('submit', submitReview);
+            
+            // Real-time form validation
+            document.getElementById('reviewService').addEventListener('change', function() {
+                if (this.value) {
+                    document.getElementById('serviceError').classList.remove('show');
+                }
+            });
+            
+            document.getElementById('reviewTitle').addEventListener('input', function() {
+                if (this.value.trim() && this.value.length <= 100) {
+                    document.getElementById('titleError').classList.remove('show');
+                }
+            });
+            
+            document.getElementById('reviewContent').addEventListener('input', function() {
+                if (this.value.trim().length >= 20) {
+                    document.getElementById('contentError').classList.remove('show');
+                }
+            });
+            
+            // Load initial data
+            loadReviews();
+            loadLeaderboard('monthly');
+        }
+        
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

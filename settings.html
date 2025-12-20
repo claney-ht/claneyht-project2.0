@@ -1,0 +1,1723 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Paramètres</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER ===== */
+        .pf-settings-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-gray-light);
+            padding: var(--spacing-md) 0;
+        }
+
+        .pf-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pf-back-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .pf-back-btn:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-page-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+            text-align: center;
+        }
+
+        .pf-user-menu {
+            position: relative;
+        }
+
+        .pf-menu-button {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .pf-menu-button:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-menu-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-blue-primary);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-settings-main {
+            padding: var(--spacing-xl) 0;
+        }
+
+        /* ===== SETTINGS SIDEBAR ===== */
+        .pf-settings-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        @media (max-width: 768px) {
+            .pf-settings-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .pf-settings-sidebar {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            height: fit-content;
+            position: sticky;
+            top: var(--spacing-lg);
+        }
+
+        .pf-settings-nav {
+            list-style: none;
+        }
+
+        .pf-settings-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .pf-settings-nav a {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.75rem 1rem;
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: all 0.2s ease;
+        }
+
+        .pf-settings-nav a:hover {
+            background: var(--color-gray-very-light);
+            color: var(--color-blue-primary);
+        }
+
+        .pf-settings-nav a.active {
+            background: var(--color-blue-very-light);
+            color: var(--color-blue-primary);
+            font-weight: 500;
+        }
+
+        .pf-settings-nav i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ===== SETTINGS CONTENT ===== */
+        .pf-settings-content {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-settings-section {
+            margin-bottom: var(--spacing-xl);
+            display: none;
+        }
+
+        .pf-settings-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .pf-settings-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--color-gray-very-light);
+        }
+
+        .pf-settings-subtitle {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-gray-dark);
+        }
+
+        /* ===== FORM STYLES ===== */
+        .pf-form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-form-label i {
+            margin-right: 0.5rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-dark);
+            background-color: var(--color-white);
+            transition: border-color 0.2s ease;
+        }
+
+        .pf-form-input:focus {
+            outline: none;
+            border-color: var(--color-blue-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .pf-form-note {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+            margin-top: 0.25rem;
+        }
+
+        /* ===== SWITCH TOGGLE ===== */
+        .pf-switch {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-switch-input {
+            display: none;
+        }
+
+        .pf-switch-slider {
+            width: 50px;
+            height: 26px;
+            background: var(--color-gray-light);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .pf-switch-slider::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--color-white);
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .pf-switch-input:checked + .pf-switch-slider {
+            background: var(--color-success);
+        }
+
+        .pf-switch-input:checked + .pf-switch-slider::before {
+            transform: translateX(24px);
+        }
+
+        .pf-switch-label {
+            font-weight: 500;
+            color: var(--color-gray-dark);
+        }
+
+        /* ===== NOTIFICATION SETTINGS ===== */
+        .pf-notifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .pf-notification-category {
+            background: var(--color-gray-very-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-category-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-md);
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-notification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+
+        .pf-notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .pf-notification-label {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .pf-notification-name {
+            font-weight: 500;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-notification-desc {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+        }
+
+        /* ===== SECURITY SETTINGS ===== */
+        .pf-security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .pf-security-item {
+            background: var(--color-gray-very-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            border: 1px solid var(--color-gray-light);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .pf-security-header {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-security-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-blue-primary);
+        }
+
+        .pf-security-info {
+            flex: 1;
+        }
+
+        .pf-security-title {
+            font-weight: 600;
+            color: var(--color-gray-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .pf-security-status {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-security-status.active {
+            color: var(--color-success);
+            font-weight: 500;
+        }
+
+        .pf-security-status.inactive {
+            color: var(--color-error);
+        }
+
+        /* ===== LANGUAGE SELECTION ===== */
+        .pf-language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .pf-language-option {
+            border: 2px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pf-language-option:hover {
+            border-color: var(--color-blue-light);
+            background: var(--color-blue-very-light);
+        }
+
+        .pf-language-option.selected {
+            border-color: var(--color-blue-primary);
+            background: var(--color-blue-very-light);
+        }
+
+        .pf-language-flag {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .pf-language-name {
+            font-weight: 500;
+            color: var(--color-gray-dark);
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-xl);
+            padding-top: var(--spacing-lg);
+            border-top: 2px solid var(--color-gray-very-light);
+        }
+
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .pf-btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        .pf-btn-success {
+            background-color: var(--color-success);
+            color: var(--color-white);
+        }
+
+        .pf-btn-success:hover {
+            background-color: #0da271;
+        }
+
+        .pf-btn-danger {
+            background-color: var(--color-error);
+            color: var(--color-white);
+        }
+
+        .pf-btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        /* ===== ERROR MESSAGES ===== */
+        .pf-error-message {
+            color: var(--color-error);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-error-message.show {
+            display: block;
+        }
+
+        .pf-success-message {
+            color: var(--color-success);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-success-message.show {
+            display: block;
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-settings-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-settings-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .pf-settings-content {
+                padding: var(--spacing-lg);
+            }
+            
+            .pf-notifications-grid,
+            .pf-security-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pf-action-buttons {
+                flex-direction: column;
+            }
+            
+            .pf-btn {
+                width: 100%;
+            }
+            
+            .pf-header-content {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+            
+            .pf-back-btn {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-settings-header">
+        <div class="container">
+            <div class="pf-header-content">
+                <a href="home.html" class="pf-back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
+                
+                <h1 class="pf-page-title">Paramètres</h1>
+                
+                <div class="pf-user-menu">
+                    <button class="pf-menu-button" onclick="window.location.href='home.html'">
+                        <div class="pf-menu-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pf-settings-main">
+        <div class="container">
+            <div class="pf-settings-container">
+                <!-- Sidebar Navigation -->
+                <aside class="pf-settings-sidebar">
+                    <nav>
+                        <ul class="pf-settings-nav">
+                            <li>
+                                <a href="#profile" class="active" data-section="profile">
+                                    <i class="fas fa-user"></i>
+                                    <span>Profil</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#security" data-section="security">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Sécurité</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#notifications" data-section="notifications">
+                                    <i class="fas fa-bell"></i>
+                                    <span>Notifications</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#preferences" data-section="preferences">
+                                    <i class="fas fa-cog"></i>
+                                    <span>Préférences</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#privacy" data-section="privacy">
+                                    <i class="fas fa-lock"></i>
+                                    <span>Confidentialité</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#limits" data-section="limits">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <span>Limites</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </aside>
+
+                <!-- Settings Content -->
+                <div class="pf-settings-content">
+                    <!-- Profile Section -->
+                    <section id="profileSection" class="pf-settings-section active">
+                        <h2 class="pf-settings-title">
+                            <i class="fas fa-user"></i>
+                            <span>Profil Utilisateur</span>
+                        </h2>
+
+                        <form id="profileForm">
+                            <div class="pf-form-group">
+                                <label for="profileName" class="pf-form-label">
+                                    <i class="fas fa-user-circle"></i> Nom complet
+                                </label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-sm);">
+                                    <input type="text" id="profileFirstName" class="pf-form-input" placeholder="Prénom" value="Jean" required>
+                                    <input type="text" id="profileLastName" class="pf-form-input" placeholder="Nom" value="Dupont" required>
+                                </div>
+                            </div>
+
+                            <div class="pf-form-group">
+                                <label for="profileEmail" class="pf-form-label">
+                                    <i class="fas fa-envelope"></i> Adresse email
+                                </label>
+                                <input type="email" id="profileEmail" class="pf-form-input" placeholder="email@exemple.com" value="jean.dupont@exemple.com" required>
+                                <div class="pf-form-note">
+                                    <i class="fas fa-check-circle" style="color: var(--color-success);"></i>
+                                    Email vérifié
+                                </div>
+                            </div>
+
+                            <div class="pf-form-group">
+                                <label for="profilePhone" class="pf-form-label">
+                                    <i class="fas fa-phone"></i> Numéro de téléphone
+                                </label>
+                                <input type="tel" id="profilePhone" class="pf-form-input" placeholder="+509XXXXXXXX" value="+50939442808" required>
+                                <div class="pf-form-note">
+                                    <i class="fas fa-check-circle" style="color: var(--color-success);"></i>
+                                    Numéro vérifié
+                                </div>
+                            </div>
+
+                            <div class="pf-form-group">
+                                <label for="profileBirthDate" class="pf-form-label">
+                                    <i class="fas fa-birthday-cake"></i> Date de naissance
+                                </label>
+                                <input type="date" id="profileBirthDate" class="pf-form-input" value="1990-01-15" required>
+                            </div>
+
+                            <div class="pf-form-group">
+                                <label for="profileCountry" class="pf-form-label">
+                                    <i class="fas fa-globe"></i> Pays
+                                </label>
+                                <select id="profileCountry" class="pf-form-input" required>
+                                    <option value="HT" selected>Haïti</option>
+                                    <option value="FR">France</option>
+                                    <option value="US">États-Unis</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="DO">République Dominicaine</option>
+                                </select>
+                            </div>
+
+                            <div class="pf-form-group">
+                                <label for="profileCity" class="pf-form-label">
+                                    <i class="fas fa-city"></i> Ville
+                                </label>
+                                <input type="text" id="profileCity" class="pf-form-input" placeholder="Port-au-Prince" value="Port-au-Prince">
+                            </div>
+
+                            <div class="pf-form-group">
+                                <label for="profileAddress" class="pf-form-label">
+                                    <i class="fas fa-map-marker-alt"></i> Adresse
+                                </label>
+                                <textarea id="profileAddress" class="pf-form-input" rows="3" placeholder="Votre adresse complète"></textarea>
+                            </div>
+
+                            <div class="pf-action-buttons">
+                                <button type="reset" class="pf-btn pf-btn-secondary">
+                                    <i class="fas fa-undo"></i> Réinitialiser
+                                </button>
+                                <button type="submit" class="pf-btn pf-btn-primary">
+                                    <i class="fas fa-save"></i> Enregistrer les modifications
+                                </button>
+                            </div>
+                        </form>
+                    </section>
+
+                    <!-- Security Section -->
+                    <section id="securitySection" class="pf-settings-section">
+                        <h2 class="pf-settings-title">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Sécurité du compte</span>
+                        </h2>
+
+                        <div class="pf-security-grid">
+                            <div class="pf-security-item">
+                                <div class="pf-security-header">
+                                    <div class="pf-security-icon">
+                                        <i class="fas fa-key"></i>
+                                    </div>
+                                    <div class="pf-security-info">
+                                        <div class="pf-security-title">Mot de passe</div>
+                                        <div class="pf-security-status active">Dernière modification: 15 Déc 2024</div>
+                                    </div>
+                                </div>
+                                <button class="pf-btn pf-btn-secondary" onclick="changePassword()">
+                                    <i class="fas fa-edit"></i> Changer le mot de passe
+                                </button>
+                            </div>
+
+                            <div class="pf-security-item">
+                                <div class="pf-security-header">
+                                    <div class="pf-security-icon">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                    <div class="pf-security-info">
+                                        <div class="pf-security-title">Authentification à deux facteurs</div>
+                                        <div class="pf-security-status inactive">Non activée</div>
+                                    </div>
+                                </div>
+                                <div class="pf-switch">
+                                    <input type="checkbox" id="twoFactorAuth" class="pf-switch-input">
+                                    <label for="twoFactorAuth" class="pf-switch-slider"></label>
+                                    <label for="twoFactorAuth" class="pf-switch-label">Activer 2FA</label>
+                                </div>
+                            </div>
+
+                            <div class="pf-security-item">
+                                <div class="pf-security-header">
+                                    <div class="pf-security-icon">
+                                        <i class="fas fa-history"></i>
+                                    </div>
+                                    <div class="pf-security-info">
+                                        <div class="pf-security-title">Sessions actives</div>
+                                        <div class="pf-security-status active">1 session active</div>
+                                    </div>
+                                </div>
+                                <button class="pf-btn pf-btn-secondary" onclick="viewSessions()">
+                                    <i class="fas fa-desktop"></i> Gérer les sessions
+                                </button>
+                            </div>
+
+                            <div class="pf-security-item">
+                                <div class="pf-security-header">
+                                    <div class="pf-security-icon">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="pf-security-info">
+                                        <div class="pf-security-title">Alertes de connexion</div>
+                                        <div class="pf-security-status active">Activées</div>
+                                    </div>
+                                </div>
+                                <div class="pf-switch">
+                                    <input type="checkbox" id="loginAlerts" class="pf-switch-input" checked>
+                                    <label for="loginAlerts" class="pf-switch-slider"></label>
+                                    <label for="loginAlerts" class="pf-switch-label">Recevoir des alertes</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="pf-settings-subtitle" style="margin-top: var(--spacing-xl);">
+                            <i class="fas fa-clock"></i> Délai d'expiration de session
+                        </h3>
+                        
+                        <div class="pf-form-group">
+                            <select id="sessionTimeout" class="pf-form-input">
+                                <option value="15">15 minutes</option>
+                                <option value="30" selected>30 minutes</option>
+                                <option value="60">1 heure</option>
+                                <option value="120">2 heures</option>
+                                <option value="0">Jamais (déconseillé)</option>
+                            </select>
+                            <div class="pf-form-note">
+                                Temps d'inactivité avant déconnexion automatique
+                            </div>
+                        </div>
+
+                        <div class="pf-action-buttons">
+                            <button class="pf-btn pf-btn-danger" onclick="deleteAccount()">
+                                <i class="fas fa-trash-alt"></i> Supprimer le compte
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Notifications Section -->
+                    <section id="notificationsSection" class="pf-settings-section">
+                        <h2 class="pf-settings-title">
+                            <i class="fas fa-bell"></i>
+                            <span>Préférences de notifications</span>
+                        </h2>
+
+                        <div class="pf-notifications-grid">
+                            <div class="pf-notification-category">
+                                <h3 class="pf-category-title">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>Notifications Email</span>
+                                </h3>
+                                
+                                <div class="pf-notification-item">
+                                    <div class="pf-notification-label">
+                                        <div class="pf-notification-name">Transactions</div>
+                                        <div class="pf-notification-desc">Dépôts, retraits, achats</div>
+                                    </div>
+                                    <div class="pf-switch">
+                                        <input type="checkbox" id="emailTransactions" class="pf-switch-input" checked>
+                                        <label for="emailTransactions" class="pf-switch-slider"></label>
+                                    </div>
+                                </div>
+
+                                <div class="pf-notification-item">
+                                    <div class="pf-notification-label">
+                                        <div class="pf-notification-name">Sécurité</div>
+                                        <div class="pf-notification-desc">Connexions, changements de mot de passe</div>
+                                    </div>
+                                    <div class="pf-switch">
+                                        <input type="checkbox" id="emailSecurity" class="pf-switch-input" checked>
+                                        <label for="emailSecurity" class="pf-switch-slider"></label>
+                                    </div>
+                                </div>
+
+                                <div class="pf-notification-item">
+                                    <div class="pf-notification-label">
+                                        <div class="pf-notification-name">Promotions</div>
+                                        <div class="pf-notification-desc">Offres spéciales et nouveautés</div>
+                                    </div>
+                                    <div class="pf-switch">
+                                        <input type="checkbox" id="emailPromotions" class="pf-switch-input">
+                                        <label for="emailPromotions" class="pf-switch-slider"></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pf-notification-category">
+                                <h3 class="pf-category-title">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>Notifications WhatsApp</span>
+                                </h3>
+                                
+                                <div class="pf-notification-item">
+                                    <div class="pf-notification-label">
+                                        <div class="pf-notification-name">Livraisons</div>
+                                        <div class="pf-notification-desc">Statut des commandes</div>
+                                    </div>
+                                    <div class="pf-switch">
+                                        <input type="checkbox" id="whatsappDelivery" class="pf-switch-input" checked>
+                                        <label for="whatsappDelivery" class="pf-switch-slider"></label>
+                                    </div>
+                                </div>
+
+                                <div class="pf-notification-item">
+                                    <div class="pf-notification-label">
+                                        <div class="pf-notification-name">Support</div>
+                                        <div class="pf-notification-desc">Réponses du support technique</div>
+                                    </div>
+                                    <div class="pf-switch">
+                                        <input type="checkbox" id="whatsappSupport" class="pf-switch-input" checked>
+                                        <label for="whatsappSupport" class="pf-switch-slider"></label>
+                                    </div>
+                                </div>
+
+                                <div class="pf-notification-item">
+                                    <div class="pf-notification-label">
+                                        <div class="pf-notification-name">Alertes transactionnelles</div>
+                                        <div class="pf-notification-desc">Notifications urgentes</div>
+                                    </div>
+                                    <div class="pf-switch">
+                                        <input type="checkbox" id="whatsappAlerts" class="pf-switch-input" checked>
+                                        <label for="whatsappAlerts" class="pf-switch-slider"></label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pf-notification-category">
+                                <h3 class="pf-category-title">
+                                    <i class="fas fa-bullhorn"></i>
+                                    <span>Notifications Push</span>
+                                </h3>
+                                
+                                <div class="pf-notification-item">
+                                    <div class="pf-notification-label">
+                                        <div class="pf-notification-name">Messages système</div>
+                                        <div class="pf-notification-desc">Maintenance, mises à jour</div>
+                                    </div>
+                                    <div class="pf-switch">
+                                        <input type="checkbox" id="pushSystem" class="pf-switch-input" checked>
+                                        <label for="pushSystem" class="pf-switch-slider"></label>
+                                    </div>
+                                </div>
+
+                                <div class="pf-notification-item">
+                                    <div class="pf-notification-label">
+                                        <div class="pf-notification-name">Transactions en temps réel</div>
+                                        <div class="pf-notification-desc">Confirmation de transactions</div>
+                                    </div>
+                                    <div class="pf-switch">
+                                        <input type="checkbox" id="pushTransactions" class="pf-switch-input" checked>
+                                        <label for="pushTransactions" class="pf-switch-slider"></label>
+                                    </div>
+                                </div>
+
+                                <div class="pf-notification-item">
+                                    <div class="pf-notification-label">
+                                        <div class="pf-notification-name">Rappels</div>
+                                        <div class="pf-notification-desc">Échéances, renouvellements</div>
+                                    </div>
+                                    <div class="pf-switch">
+                                        <input type="checkbox" id="pushReminders" class="pf-switch-input">
+                                        <label for="pushReminders" class="pf-switch-slider"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pf-action-buttons">
+                            <button class="pf-btn pf-btn-secondary" onclick="resetNotifications()">
+                                <i class="fas fa-undo"></i> Réinitialiser aux valeurs par défaut
+                            </button>
+                            <button class="pf-btn pf-btn-primary" onclick="saveNotifications()">
+                                <i class="fas fa-save"></i> Enregistrer les préférences
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Preferences Section -->
+                    <section id="preferencesSection" class="pf-settings-section">
+                        <h2 class="pf-settings-title">
+                            <i class="fas fa-cog"></i>
+                            <span>Préférences générales</span>
+                        </h2>
+
+                        <h3 class="pf-settings-subtitle">
+                            <i class="fas fa-globe"></i> Langue et région
+                        </h3>
+                        
+                        <div class="pf-language-grid">
+                            <div class="pf-language-option selected" data-lang="fr">
+                                <div class="pf-language-flag">🇫🇷</div>
+                                <div class="pf-language-name">Français</div>
+                            </div>
+                            
+                            <div class="pf-language-option" data-lang="en">
+                                <div class="pf-language-flag">🇺🇸</div>
+                                <div class="pf-language-name">English</div>
+                            </div>
+                            
+                            <div class="pf-language-option" data-lang="es">
+                                <div class="pf-language-flag">🇪🇸</div>
+                                <div class="pf-language-name">Español</div>
+                            </div>
+                            
+                            <div class="pf-language-option" data-lang="ht">
+                                <div class="pf-language-flag">🇭🇹</div>
+                                <div class="pf-language-name">Kreyòl</div>
+                            </div>
+                        </div>
+
+                        <h3 class="pf-settings-subtitle" style="margin-top: var(--spacing-xl);">
+                            <i class="fas fa-money-bill-wave"></i> Devise par défaut
+                        </h3>
+                        
+                        <div class="pf-form-group">
+                            <select id="defaultCurrency" class="pf-form-input">
+                                <option value="HTG" selected>Gourde haïtienne (HTG)</option>
+                                <option value="USD">Dollar américain (USD)</option>
+                                <option value="EUR">Euro (EUR)</option>
+                            </select>
+                            <div class="pf-form-note">
+                                Devise utilisée pour afficher les montants
+                            </div>
+                        </div>
+
+                        <h3 class="pf-settings-subtitle">
+                            <i class="fas fa-palette"></i> Thème d'affichage
+                        </h3>
+                        
+                        <div class="pf-form-group">
+                            <select id="theme" class="pf-form-input">
+                                <option value="light" selected>Clair</option>
+                                <option value="dark">Sombre</option>
+                                <option value="auto">Auto (suivre le système)</option>
+                            </select>
+                            <div class="pf-form-note">
+                                Apparence visuelle de l'application
+                            </div>
+                        </div>
+
+                        <h3 class="pf-settings-subtitle">
+                            <i class="fas fa-chart-line"></i> Affichage des données
+                        </h3>
+                        
+                        <div class="pf-form-group">
+                            <div class="pf-switch">
+                                <input type="checkbox" id="showAnalytics" class="pf-switch-input" checked>
+                                <label for="showAnalytics" class="pf-switch-slider"></label>
+                                <label for="showAnalytics" class="pf-switch-label">Afficher les statistiques</label>
+                            </div>
+                            <div class="pf-form-note">
+                                Montrer les graphiques et statistiques dans le tableau de bord
+                            </div>
+                        </div>
+
+                        <div class="pf-form-group">
+                            <div class="pf-switch">
+                                <input type="checkbox" id="compactView" class="pf-switch-input">
+                                <label for="compactView" class="pf-switch-slider"></label>
+                                <label for="compactView" class="pf-switch-label">Vue compacte</label>
+                            </div>
+                            <div class="pf-form-note">
+                                Afficher plus d'éléments par page
+                            </div>
+                        </div>
+
+                        <div class="pf-action-buttons">
+                            <button class="pf-btn pf-btn-primary" onclick="savePreferences()">
+                                <i class="fas fa-save"></i> Enregistrer les préférences
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Privacy Section -->
+                    <section id="privacySection" class="pf-settings-section">
+                        <h2 class="pf-settings-title">
+                            <i class="fas fa-lock"></i>
+                            <span>Confidentialité</span>
+                        </h2>
+
+                        <h3 class="pf-settings-subtitle">
+                            <i class="fas fa-user-friends"></i> Visibilité du profil
+                        </h3>
+                        
+                        <div class="pf-form-group">
+                            <div class="pf-switch">
+                                <input type="checkbox" id="profilePublic" class="pf-switch-input">
+                                <label for="profilePublic" class="pf-switch-slider"></label>
+                                <label for="profilePublic" class="pf-switch-label">Profil public</label>
+                            </div>
+                            <div class="pf-form-note">
+                                Permettre aux autres utilisateurs de voir votre profil
+                            </div>
+                        </div>
+
+                        <div class="pf-form-group">
+                            <div class="pf-switch">
+                                <input type="checkbox" id="showActivity" class="pf-switch-input" checked>
+                                <label for="showActivity" class="pf-switch-slider"></label>
+                                <label for="showActivity" class="pf-switch-label">Afficher l'activité récente</label>
+                            </div>
+                            <div class="pf-form-note">
+                                Montrer vos dernières transactions publiques
+                            </div>
+                        </div>
+
+                        <h3 class="pf-settings-subtitle">
+                            <i class="fas fa-search"></i> Recherche
+                        </h3>
+                        
+                        <div class="pf-form-group">
+                            <div class="pf-switch">
+                                <input type="checkbox" id="searchable" class="pf-switch-input" checked>
+                                <label for="searchable" class="pf-switch-slider"></label>
+                                <label for="searchable" class="pf-switch-label">Apparaître dans les recherches</label>
+                            </div>
+                            <div class="pf-form-note">
+                                Permettre aux autres utilisateurs de vous trouver
+                            </div>
+                        </div>
+
+                        <h3 class="pf-settings-subtitle">
+                            <i class="fas fa-envelope-open"></i> Communications
+                        </h3>
+                        
+                        <div class="pf-form-group">
+                            <div class="pf-switch">
+                                <input type="checkbox" id="allowMessages" class="pf-switch-input" checked>
+                                <label for="allowMessages" class="pf-switch-slider"></label>
+                                <label for="allowMessages" class="pf-switch-label">Accepter les messages directs</label>
+                            </div>
+                            <div class="pf-form-note">
+                                Permettre aux autres utilisateurs de vous envoyer des messages
+                            </div>
+                        </div>
+
+                        <h3 class="pf-settings-subtitle">
+                            <i class="fas fa-database"></i> Données personnelles
+                        </h3>
+                        
+                        <div class="pf-form-group">
+                            <div class="pf-switch">
+                                <input type="checkbox" id="dataAnalytics" class="pf-switch-input" checked>
+                                <label for="dataAnalytics" class="pf-switch-slider"></label>
+                                <label for="dataAnalytics" class="pf-switch-label">Partager des données d'analyse</label>
+                            </div>
+                            <div class="pf-form-note">
+                                Contribuer à l'amélioration du service via des données anonymisées
+                            </div>
+                        </div>
+
+                        <div class="pf-action-buttons">
+                            <button class="pf-btn pf-btn-secondary" onclick="downloadData()">
+                                <i class="fas fa-download"></i> Télécharger mes données
+                            </button>
+                            <button class="pf-btn pf-btn-danger" onclick="clearData()">
+                                <i class="fas fa-eraser"></i> Effacer les données
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Limits Section -->
+                    <section id="limitsSection" class="pf-settings-section">
+                        <h2 class="pf-settings-title">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Limites de transaction</span>
+                        </h2>
+
+                        <div class="pf-form-group">
+                            <label for="dailyDepositLimit" class="pf-form-label">
+                                <i class="fas fa-arrow-down"></i> Limite de dépôt quotidienne
+                            </label>
+                            <input type="number" id="dailyDepositLimit" class="pf-form-input" value="10000" min="150" step="100">
+                            <div class="pf-form-note">
+                                Maximum: 10,000 HTG par jour
+                            </div>
+                        </div>
+
+                        <div class="pf-form-group">
+                            <label for="dailyWithdrawalLimit" class="pf-form-label">
+                                <i class="fas fa-arrow-up"></i> Limite de retrait quotidienne
+                            </label>
+                            <input type="number" id="dailyWithdrawalLimit" class="pf-form-input" value="5000" min="150" step="100">
+                            <div class="pf-form-note">
+                                Maximum: 5,000 HTG par jour
+                            </div>
+                        </div>
+
+                        <div class="pf-form-group">
+                            <label for="monthlyDepositLimit" class="pf-form-label">
+                                <i class="fas fa-calendar-alt"></i> Limite de dépôt mensuelle
+                            </label>
+                            <input type="number" id="monthlyDepositLimit" class="pf-form-input" value="50000" min="150" step="100">
+                            <div class="pf-form-note">
+                                Maximum: 50,000 HTG par mois
+                            </div>
+                        </div>
+
+                        <div class="pf-form-group">
+                            <label for="monthlyWithdrawalLimit" class="pf-form-label">
+                                <i class="fas fa-calendar-alt"></i> Limite de retrait mensuelle
+                            </label>
+                            <input type="number" id="monthlyWithdrawalLimit" class="pf-form-input" value="25000" min="150" step="100">
+                            <div class="pf-form-note">
+                                Maximum: 25,000 HTG par mois
+                            </div>
+                        </div>
+
+                        <div class="pf-form-group">
+                            <div class="pf-switch">
+                                <input type="checkbox" id="transactionAlerts" class="pf-switch-input" checked>
+                                <label for="transactionAlerts" class="pf-switch-slider"></label>
+                                <label for="transactionAlerts" class="pf-switch-label">Alertes de limite</label>
+                            </div>
+                            <div class="pf-form-note">
+                                Recevoir une alerte lorsque vous approchez vos limites
+                            </div>
+                        </div>
+
+                        <div class="pf-form-group">
+                            <div class="pf-switch">
+                                <input type="checkbox" id="autoBlock" class="pf-switch-input">
+                                <label for="autoBlock" class="pf-switch-slider"></label>
+                                <label for="autoBlock" class="pf-switch-label">Blocage automatique</label>
+                            </div>
+                            <div class="pf-form-note">
+                                Bloquer automatiquement les transactions dépassant les limites
+                            </div>
+                        </div>
+
+                        <div class="pf-action-buttons">
+                            <button class="pf-btn pf-btn-secondary" onclick="resetLimits()">
+                                <i class="fas fa-undo"></i> Réinitialiser aux valeurs par défaut
+                            </button>
+                            <button class="pf-btn pf-btn-primary" onclick="saveLimits()">
+                                <i class="fas fa-save"></i> Enregistrer les limites
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-settings-footer">
+        <div class="container">
+            <p>Pour modifier des limites supérieures, contactez le support</p>
+            <p>Questions de confidentialité ? <a href="support.html">Consultez notre politique</a></p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // State
+        let currentSection = 'profile';
+        let settingsData = {
+            profile: {
+                firstName: 'Jean',
+                lastName: 'Dupont',
+                email: 'jean.dupont@exemple.com',
+                phone: '+50939442808',
+                birthDate: '1990-01-15',
+                country: 'HT',
+                city: 'Port-au-Prince',
+                address: ''
+            },
+            security: {
+                twoFactorAuth: false,
+                loginAlerts: true,
+                sessionTimeout: '30'
+            },
+            notifications: {
+                email: {
+                    transactions: true,
+                    security: true,
+                    promotions: false
+                },
+                whatsapp: {
+                    delivery: true,
+                    support: true,
+                    alerts: true
+                },
+                push: {
+                    system: true,
+                    transactions: true,
+                    reminders: false
+                }
+            },
+            preferences: {
+                language: 'fr',
+                currency: 'HTG',
+                theme: 'light',
+                showAnalytics: true,
+                compactView: false
+            },
+            privacy: {
+                profilePublic: false,
+                showActivity: true,
+                searchable: true,
+                allowMessages: true,
+                dataAnalytics: true
+            },
+            limits: {
+                dailyDeposit: 10000,
+                dailyWithdrawal: 5000,
+                monthlyDeposit: 50000,
+                monthlyWithdrawal: 25000,
+                transactionAlerts: true,
+                autoBlock: false
+            }
+        };
+
+        // DOM Elements
+        const navLinks = document.querySelectorAll('.pf-settings-nav a');
+        const sections = document.querySelectorAll('.pf-settings-section');
+        const languageOptions = document.querySelectorAll('.pf-language-option');
+
+        // Switch section
+        function switchSection(sectionId) {
+            currentSection = sectionId;
+            
+            // Update navigation
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.section === sectionId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update sections
+            sections.forEach(section => {
+                section.classList.remove('active');
+                if (section.id === sectionId + 'Section') {
+                    section.classList.add('active');
+                }
+            });
+            
+            // Load section data
+            loadSectionData(sectionId);
+        }
+
+        // Load section data
+        function loadSectionData(sectionId) {
+            const data = settingsData[sectionId];
+            if (!data) return;
+            
+            switch(sectionId) {
+                case 'profile':
+                    document.getElementById('profileFirstName').value = data.firstName;
+                    document.getElementById('profileLastName').value = data.lastName;
+                    document.getElementById('profileEmail').value = data.email;
+                    document.getElementById('profilePhone').value = data.phone;
+                    document.getElementById('profileBirthDate').value = data.birthDate;
+                    document.getElementById('profileCountry').value = data.country;
+                    document.getElementById('profileCity').value = data.city;
+                    document.getElementById('profileAddress').value = data.address;
+                    break;
+                    
+                case 'security':
+                    document.getElementById('twoFactorAuth').checked = data.twoFactorAuth;
+                    document.getElementById('loginAlerts').checked = data.loginAlerts;
+                    document.getElementById('sessionTimeout').value = data.sessionTimeout;
+                    break;
+                    
+                case 'notifications':
+                    document.getElementById('emailTransactions').checked = data.email.transactions;
+                    document.getElementById('emailSecurity').checked = data.email.security;
+                    document.getElementById('emailPromotions').checked = data.email.promotions;
+                    document.getElementById('whatsappDelivery').checked = data.whatsapp.delivery;
+                    document.getElementById('whatsappSupport').checked = data.whatsapp.support;
+                    document.getElementById('whatsappAlerts').checked = data.whatsapp.alerts;
+                    document.getElementById('pushSystem').checked = data.push.system;
+                    document.getElementById('pushTransactions').checked = data.push.transactions;
+                    document.getElementById('pushReminders').checked = data.push.reminders;
+                    break;
+                    
+                case 'preferences':
+                    // Update language selection
+                    languageOptions.forEach(option => {
+                        option.classList.remove('selected');
+                        if (option.dataset.lang === data.language) {
+                            option.classList.add('selected');
+                        }
+                    });
+                    
+                    document.getElementById('defaultCurrency').value = data.currency;
+                    document.getElementById('theme').value = data.theme;
+                    document.getElementById('showAnalytics').checked = data.showAnalytics;
+                    document.getElementById('compactView').checked = data.compactView;
+                    break;
+                    
+                case 'privacy':
+                    document.getElementById('profilePublic').checked = data.profilePublic;
+                    document.getElementById('showActivity').checked = data.showActivity;
+                    document.getElementById('searchable').checked = data.searchable;
+                    document.getElementById('allowMessages').checked = data.allowMessages;
+                    document.getElementById('dataAnalytics').checked = data.dataAnalytics;
+                    break;
+                    
+                case 'limits':
+                    document.getElementById('dailyDepositLimit').value = data.dailyDeposit;
+                    document.getElementById('dailyWithdrawalLimit').value = data.dailyWithdrawal;
+                    document.getElementById('monthlyDepositLimit').value = data.monthlyDeposit;
+                    document.getElementById('monthlyWithdrawalLimit').value = data.monthlyWithdrawal;
+                    document.getElementById('transactionAlerts').checked = data.transactionAlerts;
+                    document.getElementById('autoBlock').checked = data.autoBlock;
+                    break;
+            }
+        }
+
+        // Save profile
+        function saveProfile() {
+            settingsData.profile = {
+                firstName: document.getElementById('profileFirstName').value,
+                lastName: document.getElementById('profileLastName').value,
+                email: document.getElementById('profileEmail').value,
+                phone: document.getElementById('profilePhone').value,
+                birthDate: document.getElementById('profileBirthDate').value,
+                country: document.getElementById('profileCountry').value,
+                city: document.getElementById('profileCity').value,
+                address: document.getElementById('profileAddress').value
+            };
+            
+            showSuccess('Profil mis à jour avec succès !');
+            console.log('Profile saved:', settingsData.profile);
+        }
+
+        // Save security
+        function saveSecurity() {
+            settingsData.security = {
+                twoFactorAuth: document.getElementById('twoFactorAuth').checked,
+                loginAlerts: document.getElementById('loginAlerts').checked,
+                sessionTimeout: document.getElementById('sessionTimeout').value
+            };
+            
+            showSuccess('Paramètres de sécurité mis à jour !');
+            console.log('Security saved:', settingsData.security);
+        }
+
+        // Save notifications
+        function saveNotifications() {
+            settingsData.notifications = {
+                email: {
+                    transactions: document.getElementById('emailTransactions').checked,
+                    security: document.getElementById('emailSecurity').checked,
+                    promotions: document.getElementById('emailPromotions').checked
+                },
+                whatsapp: {
+                    delivery: document.getElementById('whatsappDelivery').checked,
+                    support: document.getElementById('whatsappSupport').checked,
+                    alerts: document.getElementById('whatsappAlerts').checked
+                },
+                push: {
+                    system: document.getElementById('pushSystem').checked,
+                    transactions: document.getElementById('pushTransactions').checked,
+                    reminders: document.getElementById('pushReminders').checked
+                }
+            };
+            
+            showSuccess('Préférences de notifications enregistrées !');
+            console.log('Notifications saved:', settingsData.notifications);
+        }
+
+        // Save preferences
+        function savePreferences() {
+            const selectedLang = document.querySelector('.pf-language-option.selected').dataset.lang;
+            
+            settingsData.preferences = {
+                language: selectedLang,
+                currency: document.getElementById('defaultCurrency').value,
+                theme: document.getElementById('theme').value,
+                showAnalytics: document.getElementById('showAnalytics').checked,
+                compactView: document.getElementById('compactView').checked
+            };
+            
+            // Apply theme
+            applyTheme(settingsData.preferences.theme);
+            
+            showSuccess('Préférences enregistrées !');
+            console.log('Preferences saved:', settingsData.preferences);
+        }
+
+        // Save privacy
+        function savePrivacy() {
+            settingsData.privacy = {
+                profilePublic: document.getElementById('profilePublic').checked,
+                showActivity: document.getElementById('showActivity').checked,
+                searchable: document.getElementById('searchable').checked,
+                allowMessages: document.getElementById('allowMessages').checked,
+                dataAnalytics: document.getElementById('dataAnalytics').checked
+            };
+            
+            showSuccess('Paramètres de confidentialité mis à jour !');
+            console.log('Privacy saved:', settingsData.privacy);
+        }
+
+        // Save limits
+        function saveLimits() {
+            settingsData.limits = {
+                dailyDeposit: parseInt(document.getElementById('dailyDepositLimit').value) || 10000,
+                dailyWithdrawal: parseInt(document.getElementById('dailyWithdrawalLimit').value) || 5000,
+                monthlyDeposit: parseInt(document.getElementById('monthlyDepositLimit').value) || 50000,
+                monthlyWithdrawal: parseInt(document.getElementById('monthlyWithdrawalLimit').value) || 25000,
+                transactionAlerts: document.getElementById('transactionAlerts').checked,
+                autoBlock: document.getElementById('autoBlock').checked
+            };
+            
+            // Validate limits
+            if (settingsData.limits.dailyDeposit > 10000) {
+                alert('La limite de dépôt quotidienne ne peut pas dépasser 10,000 HTG');
+                document.getElementById('dailyDepositLimit').value = 10000;
+                settingsData.limits.dailyDeposit = 10000;
+            }
+            
+            if (settingsData.limits.dailyWithdrawal > 5000) {
+                alert('La limite de retrait quotidienne ne peut pas dépasser 5,000 HTG');
+                document.getElementById('dailyWithdrawalLimit').value = 5000;
+                settingsData.limits.dailyWithdrawal = 5000;
+            }
+            
+            showSuccess('Limites de transaction mises à jour !');
+            console.log('Limits saved:', settingsData.limits);
+        }
+
+        // Reset notifications to defaults
+        function resetNotifications() {
+            if (confirm('Réinitialiser toutes les notifications aux valeurs par défaut ?')) {
+                settingsData.notifications = {
+                    email: {
+                        transactions: true,
+                        security: true,
+                        promotions: false
+                    },
+                    whatsapp: {
+                        delivery: true,
+                        support: true,
+                        alerts: true
+                    },
+                    push: {
+                        system: true,
+                        transactions: true,
+                        reminders: false
+                    }
+                };
+                
+                loadSectionData('notifications');
+                showSuccess('Notifications réinitialisées !');
+            }
+        }
+
+        // Reset limits to defaults
+        function resetLimits() {
+            if (confirm('Réinitialiser toutes les limites aux valeurs par défaut ?')) {
+                settingsData.limits = {
+                    dailyDeposit: 10000,
+                    dailyWithdrawal: 5000,
+                    monthlyDeposit: 50000,
+                    monthlyWithdrawal: 25000,
+                    transactionAlerts: true,
+                    autoBlock: false
+                };
+                
+                loadSectionData('limits');
+                showSuccess('Limites réinitialisées !');
+            }
+        }
+
+        // Apply theme
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.style.setProperty('--color-white', '#1e293b');
+                document.documentElement.style.setProperty('--color-gray-very-light', '#0f172a');
+                document.documentElement.style.setProperty('--color-gray-light', '#334155');
+                document.documentElement.style.setProperty('--color-gray-dark', '#f1f5f9');
+            } else {
+                document.documentElement.style.setProperty('--color-white', '#ffffff');
+                document.documentElement.style.setProperty('--color-gray-very-light', '#f8fafc');
+                document.documentElement.style.setProperty('--color-gray-light', '#e2e8f0');
+                document.documentElement.style.setProperty('--color-gray-dark', '#334155');
+            }
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'pf-success-message show';
+            successDiv.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            successDiv.style.position = 'fixed';
+            successDiv.style.top = '20px';
+            successDiv.style.right = '20px';
+            successDiv.style.background = 'var(--color-success)';
+            successDiv.style.color = 'white';
+            successDiv.style.padding = 'var(--spacing-md) var(--spacing-lg)';
+            successDiv.style.borderRadius = 'var(--border-radius)';
+            successDiv.style.zIndex = '9999';
+            successDiv.style.boxShadow = 'var(--shadow-lg)';
+            
+            document.body.appendChild(successDiv);
+            
+            setTimeout(() => {
+                successDiv.remove();
+            }, 3000);
+        }
+
+        // Security functions
+        function changePassword() {
+            const newPassword = prompt('Entrez votre nouveau mot de passe:');
+            if (newPassword && newPassword.length >= 6) {
+                const confirmPassword = prompt('Confirmez votre nouveau mot de passe:');
+                if (newPassword === confirmPassword) {
+                    showSuccess('Mot de passe changé avec succès !');
+                    console.log('Password changed');
+                } else {
+                    alert('Les mots de passe ne correspondent pas.');
+                }
+            } else if (newPassword) {
+                alert('Le mot de passe doit contenir au moins 6 caractères.');
+            }
+        }
+
+        function viewSessions() {
+            alert('Fonctionnalité de gestion des sessions - À implémenter avec Firebase');
+            // In real app, show list of active sessions and allow logout from specific devices
+        }
+
+        function deleteAccount() {
+            if (confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')) {
+                const confirmation = prompt('Tapez "SUPPRIMER" pour confirmer:');
+                if (confirmation === 'SUPPRIMER') {
+                    alert('Compte marqué pour suppression. Vous recevrez un email de confirmation.');
+                    console.log('Account deletion requested');
+                }
+            }
+        }
+
+        // Privacy functions
+        function downloadData() {
+            alert('Préparation de votre archive de données...\n\nVous recevrez un email avec le lien de téléchargement.');
+            console.log('Data download requested');
+        }
+
+        function clearData() {
+            if (confirm('Effacer toutes vos données personnelles ? Cette action supprimera votre historique et préférences.')) {
+                const confirmation = prompt('Tapez "EFFACER" pour confirmer:');
+                if (confirmation === 'EFFACER') {
+                    alert('Vos données seront effacées dans les 24 heures.');
+                    console.log('Data clear requested');
+                }
+            }
+        }
+
+        // Initialize
+        function init() {
+            // Navigation
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    switchSection(link.dataset.section);
+                });
+            });
+            
+            // Language selection
+            languageOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    languageOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                });
+            });
+            
+            // Form submissions
+            document.getElementById('profileForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                saveProfile();
+            });
+            
+            // Auto-save security
+            document.getElementById('twoFactorAuth').addEventListener('change', saveSecurity);
+            document.getElementById('loginAlerts').addEventListener('change', saveSecurity);
+            document.getElementById('sessionTimeout').addEventListener('change', saveSecurity);
+            
+            // Auto-save preferences
+            document.getElementById('defaultCurrency').addEventListener('change', savePreferences);
+            document.getElementById('theme').addEventListener('change', savePreferences);
+            document.getElementById('showAnalytics').addEventListener('change', savePreferences);
+            document.getElementById('compactView').addEventListener('change', savePreferences);
+            
+            // Auto-save privacy
+            document.getElementById('profilePublic').addEventListener('change', savePrivacy);
+            document.getElementById('showActivity').addEventListener('change', savePrivacy);
+            document.getElementById('searchable').addEventListener('change', savePrivacy);
+            document.getElementById('allowMessages').addEventListener('change', savePrivacy);
+            document.getElementById('dataAnalytics').addEventListener('change', savePrivacy);
+            
+            // Auto-save limits
+            document.getElementById('transactionAlerts').addEventListener('change', saveLimits);
+            document.getElementById('autoBlock').addEventListener('change', saveLimits);
+            
+            // Load initial data
+            loadSectionData(currentSection);
+        }
+        
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

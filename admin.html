@@ -1,0 +1,2672 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Administration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES ===== */
+        :root {
+            --primary-blue: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-blue: #3b82f6;
+            --light-blue: #dbeafe;
+            --white: #ffffff;
+            --light-gray: #f8fafc;
+            --medium-gray: #94a3b8;
+            --dark-gray: #334155;
+            --success: #10b981;
+            --success-dark: #0da271;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --purple: #8b5cf6;
+            --orange: #f97316;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --radius: 8px;
+            --radius-lg: 12px;
+        }
+
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--dark-gray);
+            background: var(--light-gray);
+            min-height: 100vh;
+        }
+
+        /* ===== LAYOUT ===== */
+        .admin-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            background: var(--white);
+            border-right: 1px solid #e2e8f0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 280px;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary-blue);
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .admin-logo i {
+            background: var(--light-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-section {
+            padding: 24px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .nav-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--medium-gray);
+            letter-spacing: 0.5px;
+            padding: 0 24px 16px;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin: 4px 16px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--dark-gray);
+            text-decoration: none;
+            border-radius: var(--radius);
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: var(--light-gray);
+            color: var(--primary-blue);
+        }
+
+        .nav-link.active {
+            background: var(--primary-blue);
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .nav-link i {
+            width: 20px;
+            font-size: 16px;
+        }
+
+        .badge {
+            margin-left: auto;
+            background: var(--warning);
+            color: var(--white);
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+
+        .main-header {
+            background: var(--white);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0 32px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .header-left h1 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 500;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: var(--medium-gray);
+        }
+
+        .logout-btn {
+            background: var(--danger);
+            color: var(--white);
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        /* ===== CONTENT AREA ===== */
+        .content-area {
+            padding: 32px;
+        }
+
+        /* ===== STATS CARDS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .stat-title {
+            font-size: 14px;
+            color: var(--medium-gray);
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .stat-users .stat-icon { background: rgba(37, 99, 235, 0.1); color: var(--primary-blue); }
+        .stat-transactions .stat-icon { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .stat-revenue .stat-icon { background: rgba(139, 92, 246, 0.1); color: var(--purple); }
+        .stat-orders .stat-icon { background: rgba(249, 115, 22, 0.1); color: var(--orange); }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--dark-gray);
+            margin-bottom: 4px;
+        }
+
+        .stat-change {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .stat-change.up { color: var(--success); }
+        .stat-change.down { color: var(--danger); }
+
+        /* ===== TABLES ===== */
+        .table-section {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 8px 16px 8px 40px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius);
+            font-size: 14px;
+            width: 240px;
+            background: var(--light-gray);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--medium-gray);
+        }
+
+        .filter-select {
+            padding: 8px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius);
+            font-size: 14px;
+            background: var(--white);
+            min-width: 160px;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .admin-table thead {
+            background: var(--light-gray);
+        }
+
+        .admin-table th {
+            padding: 16px 24px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--dark-gray);
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+
+        .admin-table tbody tr {
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.2s;
+        }
+
+        .admin-table tbody tr:hover {
+            background: var(--light-gray);
+        }
+
+        .admin-table td {
+            padding: 16px 24px;
+            vertical-align: middle;
+        }
+
+        /* ===== STATUS BADGES ===== */
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .status-pending { background: #fef3c7; color: #d97706; }
+        .status-approved { background: #d1fae5; color: #059669; }
+        .status-rejected { background: #fee2e2; color: #dc2626; }
+        .status-completed { background: #d1fae5; color: #059669; }
+        .status-processing { background: #dbeafe; color: #2563eb; }
+        .status-cancelled { background: #fee2e2; color: #dc2626; }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 8px 16px;
+            border-radius: var(--radius);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+        .btn-primary { background: var(--primary-blue); color: var(--white); }
+        .btn-primary:hover { background: var(--primary-dark); }
+
+        .btn-success { background: var(--success); color: var(--white); }
+        .btn-success:hover { background: var(--success-dark); }
+
+        .btn-danger { background: var(--danger); color: var(--white); }
+        .btn-danger:hover { background: #dc2626; }
+
+        .btn-secondary { background: var(--white); color: var(--dark-gray); border: 1px solid #e2e8f0; }
+        .btn-secondary:hover { background: var(--light-gray); }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* ===== MODALS ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--medium-gray);
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .modal-close:hover {
+            background: var(--light-gray);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-footer {
+            padding: 24px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        /* ===== FORMS ===== */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--dark-gray);
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius);
+            font-size: 14px;
+            background: var(--white);
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* ===== DOCUMENTS VIEWER ===== */
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .document-card {
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            background: var(--light-gray);
+        }
+
+        .document-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            color: var(--primary-blue);
+            font-size: 24px;
+        }
+
+        .document-label {
+            font-size: 13px;
+            color: var(--dark-gray);
+            margin-bottom: 8px;
+        }
+
+        .document-action {
+            background: var(--primary-blue);
+            color: var(--white);
+            border: none;
+            padding: 6px 12px;
+            border-radius: var(--radius);
+            font-size: 12px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .document-action:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ===== LOADING ===== */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            color: var(--medium-gray);
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--light-gray);
+            border-radius: 50%;
+            border-top-color: var(--primary-blue);
+            animation: spin 1s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== PAGINATION ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .page-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius);
+            background: var(--white);
+            color: var(--dark-gray);
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .page-btn:hover {
+            background: var(--light-gray);
+        }
+
+        .page-btn.active {
+            background: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue);
+        }
+
+        .page-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .admin-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 20px;
+                color: var(--dark-gray);
+                cursor: pointer;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .section-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+            
+            .section-actions {
+                flex-direction: column;
+            }
+            
+            .search-input, .filter-select {
+                width: 100%;
+            }
+            
+            .documents-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .documents-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="modal-overlay" id="loadingOverlay">
+        <div style="text-align: center; color: white;">
+            <div class="loading-spinner"></div>
+            <p>Chargement...</p>
+        </div>
+    </div>
+
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="admin-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>PayFusion Admin</span>
+                </div>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="nav-title">Tableau de bord</h3>
+                <ul class="nav-links">
+                    <li class="nav-item">
+                        <a href="#dashboard" class="nav-link active" data-section="dashboard">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Vue d'ensemble</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="nav-title">Gestion utilisateurs</h3>
+                <ul class="nav-links">
+                    <li class="nav-item">
+                        <a href="#kyc" class="nav-link" data-section="kyc">
+                            <i class="fas fa-id-card"></i>
+                            <span>Vérification KYC</span>
+                            <span class="badge" id="kycBadge">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#users" class="nav-link" data-section="users">
+                            <i class="fas fa-users"></i>
+                            <span>Utilisateurs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#balance" class="nav-link" data-section="balance">
+                            <i class="fas fa-wallet"></i>
+                            <span>Gestion des soldes</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="nav-title">Gestion services</h3>
+                <ul class="nav-links">
+                    <li class="nav-item">
+                        <a href="#orders" class="nav-link" data-section="orders">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>Commandes</span>
+                            <span class="badge" id="ordersBadge">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#deposits" class="nav-link" data-section="deposits">
+                            <i class="fas fa-arrow-down"></i>
+                            <span>Dépôts en attente</span>
+                            <span class="badge" id="depositsBadge">0</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#withdrawals" class="nav-link" data-section="withdrawals">
+                            <i class="fas fa-arrow-up"></i>
+                            <span>Retraits en attente</span>
+                            <span class="badge" id="withdrawalsBadge">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav-section">
+                <h3 class="nav-title">Configuration</h3>
+                <ul class="nav-links">
+                    <li class="nav-item">
+                        <a href="#settings" class="nav-link" data-section="settings">
+                            <i class="fas fa-cog"></i>
+                            <span>Paramètres</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#logs" class="nav-link" data-section="logs">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>Logs système</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" style="display: none;">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="header-left">
+                    <h1 id="pageTitle">Tableau de bord</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-profile">
+                        <div class="user-avatar">MB</div>
+                        <div class="user-info">
+                            <span class="user-name">Marco Bien-Aimé</span>
+                            <span class="user-role">Administrateur</span>
+                        </div>
+                    </div>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Quitter
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content-area">
+                <!-- Dashboard Section -->
+                <section id="dashboardSection" class="section active">
+                    <div class="stats-grid">
+                        <div class="stat-card stat-users">
+                            <div class="stat-header">
+                                <div class="stat-title">Utilisateurs actifs</div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="usersCount">0</div>
+                            <div class="stat-change up">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>Chargement...</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-transactions">
+                            <div class="stat-header">
+                                <div class="stat-title">Transactions aujourd'hui</div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="transactionsCount">0</div>
+                            <div class="stat-change up">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>Chargement...</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-revenue">
+                            <div class="stat-header">
+                                <div class="stat-title">Revenus du jour</div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="revenueCount">0 HTG</div>
+                            <div class="stat-change up">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>Chargement...</span>
+                            </div>
+                        </div>
+
+                        <div class="stat-card stat-orders">
+                            <div class="stat-header">
+                                <div class="stat-title">Commandes en attente</div>
+                                <div class="stat-icon">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                            </div>
+                            <div class="stat-value" id="pendingOrders">0</div>
+                            <div class="stat-change down">
+                                <i class="fas fa-arrow-down"></i>
+                                <span>Chargement...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="table-section">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-history"></i>
+                                <span>Activité récente</span>
+                            </h3>
+                            <div class="section-actions">
+                                <button class="btn btn-secondary" onclick="refreshDashboard()">
+                                    <i class="fas fa-sync-alt"></i> Actualiser
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="loading" id="activityLoading">
+                            <div class="loading-spinner"></div>
+                            <p>Chargement de l'activité...</p>
+                        </div>
+
+                        <table class="admin-table" id="activityTable" style="display: none;">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Utilisateur</th>
+                                    <th>Action</th>
+                                    <th>Détails</th>
+                                    <th>Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="activityBody">
+                                <!-- Activity data loaded by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- KYC Section -->
+                <section id="kycSection" class="section" style="display: none;">
+                    <div class="table-section">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-id-card"></i>
+                                <span>Vérification KYC en attente</span>
+                            </h3>
+                            <div class="section-actions">
+                                <div class="search-box">
+                                    <i class="fas fa-search search-icon"></i>
+                                    <input type="text" class="search-input" id="kycSearch" placeholder="Rechercher...">
+                                </div>
+                                <select class="filter-select" id="kycFilter">
+                                    <option value="">Tous les statuts</option>
+                                    <option value="pending">En attente</option>
+                                    <option value="approved">Approuvé</option>
+                                    <option value="rejected">Rejeté</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="loading" id="kycLoading">
+                            <div class="loading-spinner"></div>
+                            <p>Chargement des vérifications KYC...</p>
+                        </div>
+
+                        <table class="admin-table" id="kycTable" style="display: none;">
+                            <thead>
+                                <tr>
+                                    <th>Utilisateur</th>
+                                    <th>Date soumission</th>
+                                    <th>Documents</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="kycBody">
+                                <!-- KYC data loaded by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Orders Section -->
+                <section id="ordersSection" class="section" style="display: none;">
+                    <div class="table-section">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Gestion des commandes</span>
+                            </h3>
+                            <div class="section-actions">
+                                <div class="search-box">
+                                    <i class="fas fa-search search-icon"></i>
+                                    <input type="text" class="search-input" id="ordersSearch" placeholder="Rechercher...">
+                                </div>
+                                <select class="filter-select" id="ordersFilter">
+                                    <option value="">Tous les statuts</option>
+                                    <option value="pending">En attente</option>
+                                    <option value="processing">En traitement</option>
+                                    <option value="completed">Complet</option>
+                                </select>
+                                <select class="filter-select" id="serviceFilter">
+                                    <option value="">Tous les services</option>
+                                    <option value="freefire">Free Fire</option>
+                                    <option value="netflix">Netflix</option>
+                                    <option value="wise">Wise</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="loading" id="ordersLoading">
+                            <div class="loading-spinner"></div>
+                            <p>Chargement des commandes...</p>
+                        </div>
+
+                        <table class="admin-table" id="ordersTable" style="display: none;">
+                            <thead>
+                                <tr>
+                                    <th>N° Commande</th>
+                                    <th>Utilisateur</th>
+                                    <th>Service</th>
+                                    <th>Montant</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersBody">
+                                <!-- Orders data loaded by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Users Section -->
+                <section id="usersSection" class="section" style="display: none;">
+                    <div class="table-section">
+                        <div class="section-header">
+                            <h3 class="section-title">
+                                <i class="fas fa-users"></i>
+                                <span>Gestion des utilisateurs</span>
+                            </h3>
+                            <div class="section-actions">
+                                <div class="search-box">
+                                    <i class="fas fa-search search-icon"></i>
+                                    <input type="text" class="search-input" id="usersSearch" placeholder="Rechercher...">
+                                </div>
+                                <select class="filter-select" id="usersFilter">
+                                    <option value="">Tous les statuts</option>
+                                    <option value="active">Actif</option>
+                                    <option value="suspended">Suspendu</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="loading" id="usersLoading">
+                            <div class="loading-spinner"></div>
+                            <p>Chargement des utilisateurs...</p>
+                        </div>
+
+                        <table class="admin-table" id="usersTable" style="display: none;">
+                            <thead>
+                                <tr>
+                                    <th>Utilisateur</th>
+                                    <th>Email</th>
+                                    <th>Téléphone</th>
+                                    <th>Solde</th>
+                                    <th>Statut KYC</th>
+                                    <th>Date inscription</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersBody">
+                                <!-- Users data loaded by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- KYC Modal -->
+    <div class="modal-overlay" id="kycModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-id-card"></i>
+                    <span>Vérification KYC</span>
+                </h3>
+                <button class="modal-close" onclick="closeModal('kycModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <h4 style="margin-bottom: 10px;">Utilisateur: <span id="kycUserName">Chargement...</span></h4>
+                    <p style="color: var(--medium-gray); margin-bottom: 20px;" id="kycUserEmail"></p>
+                    
+                    <div class="documents-grid" id="kycDocuments">
+                        <!-- Documents will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-comment"></i> Commentaire (optionnel)
+                    </label>
+                    <textarea class="form-textarea" id="kycComment" rows="3" placeholder="Raison de l'approbation/rejet..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('kycModal')">
+                    <i class="fas fa-times"></i> Annuler
+                </button>
+                <button class="btn btn-danger" onclick="rejectKYC()">
+                    <i class="fas fa-times-circle"></i> Rejeter
+                </button>
+                <button class="btn btn-success" onclick="approveKYC()">
+                    <i class="fas fa-check-circle"></i> Approuver
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Balance Modal -->
+    <div class="modal-overlay" id="balanceModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-wallet"></i>
+                    <span>Gestion du solde</span>
+                </h3>
+                <button class="modal-close" onclick="closeModal('balanceModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <h4 style="margin-bottom: 10px;">Utilisateur: <span id="balanceUserName">Chargement...</span></h4>
+                    <p style="color: var(--medium-gray); margin-bottom: 20px;">
+                        Solde actuel: <strong id="currentBalance">0 HTG</strong>
+                    </p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Type d'opération</label>
+                    <select class="form-select" id="balanceOperation">
+                        <option value="credit">Créditer le solde</option>
+                        <option value="debit">Débiter le solde</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Montant (HTG)</label>
+                    <input type="number" class="form-input" id="balanceAmount" placeholder="0" min="0" step="1">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <input type="text" class="form-input" id="balanceDescription" placeholder="Raison de l'opération...">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('balanceModal')">
+                    <i class="fas fa-times"></i> Annuler
+                </button>
+                <button class="btn btn-primary" onclick="updateUserBalance()">
+                    <i class="fas fa-check"></i> Appliquer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>Détails de la commande</span>
+                </h3>
+                <button class="modal-close" onclick="closeModal('orderModal')">&times;</button>
+            </div>
+            <div class="modal-body" id="orderDetails">
+                <!-- Order details loaded by JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal('orderModal')">
+                    <i class="fas fa-times"></i> Fermer
+                </button>
+                <div id="orderActions">
+                    <!-- Dynamic order actions -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase and EmailJS -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <script>
+        // ============================
+        // CONFIGURATION
+        // ============================
+        const ADMIN_EMAIL = 'payfusion@admin.com';
+        const EXCHANGE_RATE = 150; // 1 USD = 150 HTG
+        
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB5_KighCQRfslRjZtGZPxs3OUqqQRk7IE",
+            authDomain: "pay-fusion-26a79.firebaseapp.com",
+            projectId: "pay-fusion-26a79",
+            storageBucket: "pay-fusion-26a79.firebasestorage.app",
+            messagingSenderId: "771406909196",
+            appId: "1:771406909196:web:27bdf4db07ad8d08418329"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+        
+        // EmailJS Configuration
+        emailjs.init('YOUR_EMAILJS_USER_ID'); // Remplacez par votre ID
+        
+        // ============================
+        // STATE MANAGEMENT
+        // ============================
+        let currentUser = null;
+        let currentKYC = null;
+        let currentBalanceUser = null;
+        let currentOrder = null;
+        let kycData = [];
+        let ordersData = [];
+        let usersData = [];
+        let depositsData = [];
+        let withdrawalsData = [];
+        
+        // ============================
+        // DOM ELEMENTS
+        // ============================
+        const loadingOverlay = document.getElementById('loadingOverlay');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const pageTitle = document.getElementById('pageTitle');
+        
+        // Stats elements
+        const usersCount = document.getElementById('usersCount');
+        const transactionsCount = document.getElementById('transactionsCount');
+        const revenueCount = document.getElementById('revenueCount');
+        const pendingOrders = document.getElementById('pendingOrders');
+        
+        // Badges
+        const kycBadge = document.getElementById('kycBadge');
+        const ordersBadge = document.getElementById('ordersBadge');
+        const depositsBadge = document.getElementById('depositsBadge');
+        const withdrawalsBadge = document.getElementById('withdrawalsBadge');
+        
+        // ============================
+        // UTILITY FUNCTIONS
+        // ============================
+        function showLoading() {
+            loadingOverlay.classList.add('active');
+        }
+        
+        function hideLoading() {
+            loadingOverlay.classList.remove('active');
+        }
+        
+        function showLoadingIn(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) element.classList.add('active');
+        }
+        
+        function hideLoadingIn(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) element.classList.remove('active');
+        }
+        
+        function showTable(tableId) {
+            document.getElementById(tableId).style.display = 'table';
+        }
+        
+        function hideTable(tableId) {
+            document.getElementById(tableId).style.display = 'none';
+        }
+        
+        function formatDate(date) {
+            const d = new Date(date);
+            return d.toLocaleDateString('fr-FR', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+        }
+        
+        function formatDateTime(date) {
+            const d = new Date(date);
+            return d.toLocaleDateString('fr-FR', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+        
+        function formatCurrency(amount, currency = 'HTG') {
+            return new Intl.NumberFormat('fr-HT', {
+                style: 'currency',
+                currency: currency === 'USD' ? 'USD' : 'HTG',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(amount);
+        }
+        
+        // ============================
+        // AUTHENTICATION
+        // ============================
+        async function checkAdminAccess() {
+            try {
+                showLoading();
+                
+                // Check if user is logged in
+                auth.onAuthStateChanged(async (user) => {
+                    if (!user) {
+                        // Redirect to login if not authenticated
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    
+                    // Check if user is admin
+                    if (user.email !== ADMIN_EMAIL) {
+                        alert('Accès non autorisé. Seuls les administrateurs peuvent accéder à cette page.');
+                        window.location.href = 'home.html';
+                        return;
+                    }
+                    
+                    currentUser = user;
+                    await loadDashboardData();
+                    hideLoading();
+                });
+            } catch (error) {
+                console.error('Erreur de vérification admin:', error);
+                alert('Erreur d\'authentification. Veuillez vous reconnecter.');
+                window.location.href = 'login.html';
+            }
+        }
+        
+        async function logout() {
+            try {
+                await auth.signOut();
+                window.location.href = 'login.html';
+            } catch (error) {
+                console.error('Erreur de déconnexion:', error);
+            }
+        }
+        
+        // ============================
+        // NAVIGATION
+        // ============================
+        function switchSection(sectionId) {
+            // Update navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.section === sectionId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            document.getElementById(`${sectionId}Section`).style.display = 'block';
+            
+            // Update page title
+            const titles = {
+                'dashboard': 'Tableau de bord',
+                'kyc': 'Vérification KYC',
+                'orders': 'Commandes',
+                'users': 'Utilisateurs',
+                'deposits': 'Dépôts en attente',
+                'withdrawals': 'Retraits en attente',
+                'balance': 'Gestion des soldes',
+                'settings': 'Paramètres',
+                'logs': 'Logs système'
+            };
+            
+            pageTitle.textContent = titles[sectionId] || 'Tableau de bord';
+            
+            // Load section data
+            switch(sectionId) {
+                case 'dashboard':
+                    loadDashboardData();
+                    break;
+                case 'kyc':
+                    loadKYCData();
+                    break;
+                case 'orders':
+                    loadOrdersData();
+                    break;
+                case 'users':
+                    loadUsersData();
+                    break;
+                case 'deposits':
+                    loadDepositsData();
+                    break;
+                case 'withdrawals':
+                    loadWithdrawalsData();
+                    break;
+            }
+        }
+        
+        // ============================
+        // DASHBOARD FUNCTIONS
+        // ============================
+        async function loadDashboardData() {
+            try {
+                showLoadingIn('activityLoading');
+                hideTable('activityTable');
+                
+                // Load stats
+                await loadDashboardStats();
+                
+                // Load recent activity
+                const activitySnapshot = await db.collection('system_logs')
+                    .orderBy('timestamp', 'desc')
+                    .limit(10)
+                    .get();
+                
+                const activityBody = document.getElementById('activityBody');
+                activityBody.innerHTML = '';
+                
+                if (activitySnapshot.empty) {
+                    activityBody.innerHTML = `
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px; color: var(--medium-gray);">
+                                <i class="fas fa-inbox" style="font-size: 32px; margin-bottom: 16px; display: block;"></i>
+                                Aucune activité récente
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    activitySnapshot.forEach(doc => {
+                        const activity = doc.data();
+                        const row = document.createElement('tr');
+                        
+                        let statusBadge = '';
+                        if (activity.status) {
+                            statusBadge = `<span class="status-badge status-${activity.status}">
+                                ${activity.status === 'completed' ? 'Complet' : 
+                                  activity.status === 'pending' ? 'En attente' : 
+                                  activity.status === 'failed' ? 'Échoué' : activity.status}
+                            </span>`;
+                        }
+                        
+                        row.innerHTML = `
+                            <td>${formatDateTime(activity.timestamp?.toDate() || new Date())}</td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div class="user-avatar" style="width: 32px; height: 32px; font-size: 12px;">
+                                        ${activity.userName ? activity.userName.charAt(0) : 'U'}
+                                    </div>
+                                    <span>${activity.userName || 'Utilisateur'}</span>
+                                </div>
+                            </td>
+                            <td>${activity.action || 'Action'}</td>
+                            <td>${activity.details || ''}</td>
+                            <td>${statusBadge}</td>
+                        `;
+                        activityBody.appendChild(row);
+                    });
+                }
+                
+                hideLoadingIn('activityLoading');
+                showTable('activityTable');
+                
+            } catch (error) {
+                console.error('Erreur de chargement du dashboard:', error);
+                hideLoadingIn('activityLoading');
+            }
+        }
+        
+        async function loadDashboardStats() {
+            try {
+                // Get today's date range
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                const tomorrow = new Date(today);
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                
+                // Users count
+                const usersSnapshot = await db.collection('users')
+                    .where('accountStatus', '==', 'active')
+                    .get();
+                usersCount.textContent = usersSnapshot.size;
+                
+                // Today's transactions
+                const transactionsSnapshot = await db.collection('transactions')
+                    .where('createdAt', '>=', today)
+                    .where('createdAt', '<', tomorrow)
+                    .get();
+                transactionsCount.textContent = transactionsSnapshot.size;
+                
+                // Today's revenue
+                let todayRevenue = 0;
+                transactionsSnapshot.forEach(doc => {
+                    const transaction = doc.data();
+                    if (transaction.type === 'deposit' || transaction.type === 'purchase') {
+                        todayRevenue += transaction.amount || 0;
+                    }
+                });
+                revenueCount.textContent = formatCurrency(todayRevenue);
+                
+                // Pending orders
+                const ordersSnapshot = await db.collection('orders')
+                    .where('status', '==', 'pending')
+                    .get();
+                pendingOrders.textContent = ordersSnapshot.size;
+                
+                // Update badges
+                updateBadges();
+                
+            } catch (error) {
+                console.error('Erreur de chargement des stats:', error);
+            }
+        }
+        
+        function refreshDashboard() {
+            loadDashboardData();
+        }
+        
+        // ============================
+        // KYC MANAGEMENT
+        // ============================
+        async function loadKYCData() {
+            try {
+                showLoadingIn('kycLoading');
+                hideTable('kycTable');
+                
+                const kycSnapshot = await db.collection('kyc_submissions')
+                    .orderBy('submittedAt', 'desc')
+                    .get();
+                
+                kycData = [];
+                const kycBody = document.getElementById('kycBody');
+                kycBody.innerHTML = '';
+                
+                if (kycSnapshot.empty) {
+                    kycBody.innerHTML = `
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px; color: var(--medium-gray);">
+                                <i class="fas fa-id-card" style="font-size: 32px; margin-bottom: 16px; display: block;"></i>
+                                Aucune vérification KYC en attente
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    kycSnapshot.forEach(doc => {
+                        const kyc = { id: doc.id, ...doc.data() };
+                        kycData.push(kyc);
+                        
+                        // Get user data
+                        getUserData(kyc.userId).then(user => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>
+                                    <div style="display: flex; align-items: center; gap: 12px;">
+                                        <div class="user-avatar" style="width: 32px; height: 32px; font-size: 12px;">
+                                            ${user.firstName ? user.firstName.charAt(0) : 'U'}
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 500;">${user.firstName || ''} ${user.lastName || ''}</div>
+                                            <div style="font-size: 12px; color: var(--medium-gray);">${user.email || ''}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>${formatDate(kyc.submittedAt?.toDate() || new Date())}</td>
+                                <td>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button class="btn btn-secondary btn-sm" onclick="viewKYCDocument('${doc.id}', 'idFront')">
+                                            <i class="fas fa-id-card"></i> Recto
+                                        </button>
+                                        <button class="btn btn-secondary btn-sm" onclick="viewKYCDocument('${doc.id}', 'idBack')">
+                                            <i class="fas fa-id-card"></i> Verso
+                                        </button>
+                                        <button class="btn btn-secondary btn-sm" onclick="viewKYCDocument('${doc.id}', 'selfie')">
+                                            <i class="fas fa-user"></i> Selfie
+                                        </button>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="status-badge status-${kyc.status || 'pending'}">
+                                        ${kyc.status === 'pending' ? 'En attente' : 
+                                          kyc.status === 'approved' ? 'Approuvé' : 
+                                          kyc.status === 'rejected' ? 'Rejeté' : 'Inconnu'}
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-sm" onclick="viewKYC('${doc.id}')">
+                                            <i class="fas fa-eye"></i> Voir
+                                        </button>
+                                        <button class="btn btn-success btn-sm" onclick="approveKYCModal('${doc.id}')" ${kyc.status !== 'pending' ? 'disabled' : ''}>
+                                            <i class="fas fa-check"></i>
+                                        </button>
+                                        <button class="btn btn-danger btn-sm" onclick="rejectKYCModal('${doc.id}')" ${kyc.status !== 'pending' ? 'disabled' : ''}>
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            `;
+                            kycBody.appendChild(row);
+                        });
+                    });
+                }
+                
+                hideLoadingIn('kycLoading');
+                showTable('kycTable');
+                
+            } catch (error) {
+                console.error('Erreur de chargement KYC:', error);
+                hideLoadingIn('kycLoading');
+            }
+        }
+        
+        async function getUserData(userId) {
+            try {
+                const userDoc = await db.collection('users').doc(userId).get();
+                return userDoc.exists ? userDoc.data() : {};
+            } catch (error) {
+                console.error('Erreur de chargement utilisateur:', error);
+                return {};
+            }
+        }
+        
+        async function viewKYC(kycId) {
+            try {
+                const kycDoc = await db.collection('kyc_submissions').doc(kycId).get();
+                if (!kycDoc.exists) {
+                    alert('Vérification KYC non trouvée');
+                    return;
+                }
+                
+                currentKYC = { id: kycDoc.id, ...kycDoc.data() };
+                const user = await getUserData(currentKYC.userId);
+                
+                // Update modal
+                document.getElementById('kycUserName').textContent = 
+                    `${user.firstName || ''} ${user.lastName || ''}`;
+                document.getElementById('kycUserEmail').textContent = user.email || '';
+                document.getElementById('kycComment').value = '';
+                
+                // Load documents
+                const documentsGrid = document.getElementById('kycDocuments');
+                documentsGrid.innerHTML = `
+                    <div class="document-card">
+                        <div class="document-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <div class="document-label">Carte d'identité - Recto</div>
+                        <button class="document-action" onclick="viewKYCDocument('${kycId}', 'idFront')">
+                            <i class="fas fa-eye"></i> Voir
+                        </button>
+                    </div>
+                    <div class="document-card">
+                        <div class="document-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
+                        <div class="document-label">Carte d'identité - Verso</div>
+                        <button class="document-action" onclick="viewKYCDocument('${kycId}', 'idBack')">
+                            <i class="fas fa-eye"></i> Voir
+                        </button>
+                    </div>
+                    <div class="document-card">
+                        <div class="document-icon">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="document-label">Selfie avec pièce</div>
+                        <button class="document-action" onclick="viewKYCDocument('${kycId}', 'selfie')">
+                            <i class="fas fa-eye"></i> Voir
+                        </button>
+                    </div>
+                `;
+                
+                openModal('kycModal');
+                
+            } catch (error) {
+                console.error('Erreur de visualisation KYC:', error);
+                alert('Erreur de chargement des documents KYC');
+            }
+        }
+        
+        async function viewKYCDocument(kycId, documentType) {
+            try {
+                // Get document URL from Firebase Storage
+                const storageRef = storage.ref();
+                const docRef = storageRef.child(`kyc/${kycId}/${documentType}`);
+                const url = await docRef.getDownloadURL();
+                
+                // Open in new tab
+                window.open(url, '_blank');
+                
+            } catch (error) {
+                console.error('Erreur de visualisation document:', error);
+                alert('Impossible de charger le document. Il peut être en cours de traitement.');
+            }
+        }
+        
+        async function approveKYC() {
+            if (!currentKYC) return;
+            
+            const comment = document.getElementById('kycComment').value;
+            
+            try {
+                showLoading();
+                
+                // Update KYC status
+                await db.collection('kyc_submissions').doc(currentKYC.id).update({
+                    status: 'approved',
+                    reviewedAt: new Date(),
+                    reviewedBy: currentUser.email,
+                    comment: comment,
+                    reviewIp: await getClientIP()
+                });
+                
+                // Update user profile
+                await db.collection('users').doc(currentKYC.userId).update({
+                    kycStatus: 'approved',
+                    accountLevel: 'verified'
+                });
+                
+                // Log the action
+                await logSystemEvent('KYC_APPROVED', {
+                    kycId: currentKYC.id,
+                    userId: currentKYC.userId,
+                    reviewer: currentUser.email,
+                    comment: comment
+                });
+                
+                // Send notification email
+                try {
+                    const userDoc = await db.collection('users').doc(currentKYC.userId).get();
+                    const userData = userDoc.data();
+                    
+                    if (userData.email) {
+                        await emailjs.send('service_payfusion', 'template_kyc_approved', {
+                            to_email: userData.email,
+                            user_name: `${userData.firstName} ${userData.lastName}`,
+                            review_date: new Date().toLocaleDateString('fr-FR'),
+                            reviewer: currentUser.email,
+                            comment: comment || 'Vérification complétée avec succès.'
+                        });
+                    }
+                } catch (emailError) {
+                    console.error('Erreur email:', emailError);
+                }
+                
+                hideLoading();
+                alert(`KYC approuvé pour l'utilisateur`);
+                closeModal('kycModal');
+                loadKYCData();
+                updateBadges();
+                
+            } catch (error) {
+                hideLoading();
+                console.error('Erreur d\'approbation KYC:', error);
+                alert('Erreur lors de l\'approbation du KYC');
+            }
+        }
+        
+        async function rejectKYC() {
+            if (!currentKYC) return;
+            
+            const comment = document.getElementById('kycComment').value;
+            if (!comment.trim()) {
+                alert('Veuillez entrer une raison pour le rejet.');
+                return;
+            }
+            
+            try {
+                showLoading();
+                
+                // Update KYC status
+                await db.collection('kyc_submissions').doc(currentKYC.id).update({
+                    status: 'rejected',
+                    reviewedAt: new Date(),
+                    reviewedBy: currentUser.email,
+                    comment: comment,
+                    reviewIp: await getClientIP()
+                });
+                
+                // Update user profile
+                await db.collection('users').doc(currentKYC.userId).update({
+                    kycStatus: 'rejected'
+                });
+                
+                // Log the action
+                await logSystemEvent('KYC_REJECTED', {
+                    kycId: currentKYC.id,
+                    userId: currentKYC.userId,
+                    reviewer: currentUser.email,
+                    comment: comment
+                });
+                
+                // Send notification email
+                try {
+                    const userDoc = await db.collection('users').doc(currentKYC.userId).get();
+                    const userData = userDoc.data();
+                    
+                    if (userData.email) {
+                        await emailjs.send('service_payfusion', 'template_kyc_rejected', {
+                            to_email: userData.email,
+                            user_name: `${userData.firstName} ${userData.lastName}`,
+                            review_date: new Date().toLocaleDateString('fr-FR'),
+                            reviewer: currentUser.email,
+                            reason: comment
+                        });
+                    }
+                } catch (emailError) {
+                    console.error('Erreur email:', emailError);
+                }
+                
+                hideLoading();
+                alert(`KYC rejeté pour l'utilisateur`);
+                closeModal('kycModal');
+                loadKYCData();
+                updateBadges();
+                
+            } catch (error) {
+                hideLoading();
+                console.error('Erreur de rejet KYC:', error);
+                alert('Erreur lors du rejet du KYC');
+            }
+        }
+        
+        // ============================
+        // ORDERS MANAGEMENT
+        // ============================
+        async function loadOrdersData() {
+            try {
+                showLoadingIn('ordersLoading');
+                hideTable('ordersTable');
+                
+                const ordersSnapshot = await db.collection('orders')
+                    .orderBy('createdAt', 'desc')
+                    .limit(50)
+                    .get();
+                
+                ordersData = [];
+                const ordersBody = document.getElementById('ordersBody');
+                ordersBody.innerHTML = '';
+                
+                if (ordersSnapshot.empty) {
+                    ordersBody.innerHTML = `
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 40px; color: var(--medium-gray);">
+                                <i class="fas fa-shopping-cart" style="font-size: 32px; margin-bottom: 16px; display: block;"></i>
+                                Aucune commande trouvée
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    for (const doc of ordersSnapshot.docs) {
+                        const order = { id: doc.id, ...doc.data() };
+                        ordersData.push(order);
+                        
+                        const user = await getUserData(order.userId);
+                        
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td style="font-family: monospace; font-weight: 600;">${order.orderNumber || order.id.substring(0, 8)}</td>
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div class="user-avatar" style="width: 32px; height: 32px; font-size: 12px;">
+                                        ${user.firstName ? user.firstName.charAt(0) : 'U'}
+                                    </div>
+                                    <span>${user.firstName || ''} ${user.lastName || ''}</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span style="display: flex; align-items: center; gap: 6px;">
+                                    ${getServiceIcon(order.serviceType)}
+                                    ${order.serviceType || 'Service'}
+                                </span>
+                            </td>
+                            <td>${formatCurrency(order.totalAmount || 0)}</td>
+                            <td>${formatDate(order.createdAt?.toDate() || new Date())}</td>
+                            <td>
+                                <span class="status-badge status-${order.status || 'pending'}">
+                                    ${order.status === 'pending' ? 'En attente' : 
+                                     order.status === 'processing' ? 'En traitement' : 
+                                     order.status === 'completed' ? 'Complet' : 
+                                     order.status === 'cancelled' ? 'Annulé' : 'Inconnu'}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-primary btn-sm" onclick="viewOrder('${doc.id}')">
+                                        <i class="fas fa-eye"></i> Détails
+                                    </button>
+                                    ${order.status === 'pending' ? `
+                                        <button class="btn btn-success btn-sm" onclick="updateOrderStatus('${doc.id}', 'processing')">
+                                            <i class="fas fa-cog"></i> Traiter
+                                        </button>
+                                    ` : ''}
+                                    ${order.status === 'processing' ? `
+                                        <button class="btn btn-success btn-sm" onclick="updateOrderStatus('${doc.id}', 'completed')">
+                                            <i class="fas fa-check"></i> Complet
+                                        </button>
+                                    ` : ''}
+                                </div>
+                            </td>
+                        `;
+                        ordersBody.appendChild(row);
+                    }
+                }
+                
+                hideLoadingIn('ordersLoading');
+                showTable('ordersTable');
+                
+            } catch (error) {
+                console.error('Erreur de chargement commandes:', error);
+                hideLoadingIn('ordersLoading');
+            }
+        }
+        
+        function getServiceIcon(serviceType) {
+            const icons = {
+                'freefire': 'fas fa-gamepad',
+                'netflix': 'fas fa-tv',
+                'wise': 'fas fa-money-check-alt',
+                'paypal': 'fab fa-paypal',
+                'usdt': 'fas fa-coins',
+                'default': 'fas fa-shopping-cart'
+            };
+            return `<i class="${icons[serviceType] || icons.default}"></i>`;
+        }
+        
+        async function viewOrder(orderId) {
+            try {
+                const orderDoc = await db.collection('orders').doc(orderId).get();
+                if (!orderDoc.exists) {
+                    alert('Commande non trouvée');
+                    return;
+                }
+                
+                currentOrder = { id: orderDoc.id, ...orderDoc.data() };
+                const user = await getUserData(currentOrder.userId);
+                
+                const orderDetails = document.getElementById('orderDetails');
+                const orderActions = document.getElementById('orderActions');
+                
+                let itemsHtml = '';
+                if (currentOrder.items && Array.isArray(currentOrder.items)) {
+                    itemsHtml = currentOrder.items.map(item => `
+                        <div style="padding: 12px; background: var(--light-gray); border-radius: var(--radius); margin-bottom: 8px;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>${item.name || 'Article'}</span>
+                                <span style="font-weight: 500;">${formatCurrency(item.price || 0)}</span>
+                            </div>
+                            ${item.quantity ? `<div style="font-size: 12px; color: var(--medium-gray);">Quantité: ${item.quantity}</div>` : ''}
+                        </div>
+                    `).join('');
+                }
+                
+                orderDetails.innerHTML = `
+                    <div class="form-group">
+                        <h4 style="margin-bottom: 16px;">Informations de la commande</h4>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                            <div>
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">N° Commande</div>
+                                <div style="font-weight: 500;">${currentOrder.orderNumber || currentOrder.id}</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">Date</div>
+                                <div style="font-weight: 500;">${formatDateTime(currentOrder.createdAt?.toDate() || new Date())}</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">Service</div>
+                                <div style="font-weight: 500;">
+                                    ${getServiceIcon(currentOrder.serviceType)}
+                                    ${currentOrder.serviceType || 'Non spécifié'}
+                                </div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">Statut</div>
+                                <span class="status-badge status-${currentOrder.status || 'pending'}">
+                                    ${currentOrder.status === 'pending' ? 'En attente' : 
+                                     currentOrder.status === 'processing' ? 'En traitement' : 
+                                     currentOrder.status === 'completed' ? 'Complet' : 
+                                     currentOrder.status === 'cancelled' ? 'Annulé' : 'Inconnu'}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">Utilisateur</div>
+                            <div style="display: flex; align-items: center; gap: 12px;">
+                                <div class="user-avatar" style="width: 40px; height: 40px;">
+                                    ${user.firstName ? user.firstName.charAt(0) : 'U'}
+                                </div>
+                                <div>
+                                    <div style="font-weight: 500;">${user.firstName || ''} ${user.lastName || ''}</div>
+                                    <div style="font-size: 12px; color: var(--medium-gray);">${user.email || ''}</div>
+                                    <div style="font-size: 12px; color: var(--medium-gray);">${user.phone || ''}</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        ${itemsHtml ? `
+                            <div style="margin-bottom: 20px;">
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 8px;">Articles</div>
+                                ${itemsHtml}
+                            </div>
+                        ` : ''}
+                        
+                        <div style="padding: 16px; background: var(--light-gray); border-radius: var(--radius);">
+                            <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 600;">
+                                <span>Total</span>
+                                <span>${formatCurrency(currentOrder.totalAmount || 0)}</span>
+                            </div>
+                        </div>
+                        
+                        ${currentOrder.userInfo ? `
+                            <div style="margin-top: 20px; padding: 16px; background: var(--light-gray); border-radius: var(--radius);">
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 8px;">Informations de livraison</div>
+                                <pre style="white-space: pre-wrap; font-size: 13px;">${JSON.stringify(currentOrder.userInfo, null, 2)}</pre>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                
+                // Set up actions
+                let actionsHtml = '';
+                if (currentOrder.status === 'pending') {
+                    actionsHtml = `
+                        <button class="btn btn-success" onclick="updateOrderStatus('${orderId}', 'processing')">
+                            <i class="fas fa-cog"></i> Marquer comme traitement
+                        </button>
+                    `;
+                } else if (currentOrder.status === 'processing') {
+                    actionsHtml = `
+                        <button class="btn btn-success" onclick="updateOrderStatus('${orderId}', 'completed')">
+                            <i class="fas fa-check"></i> Marquer comme complet
+                        </button>
+                    `;
+                }
+                
+                orderActions.innerHTML = actionsHtml;
+                
+                openModal('orderModal');
+                
+            } catch (error) {
+                console.error('Erreur de visualisation commande:', error);
+                alert('Erreur de chargement des détails de la commande');
+            }
+        }
+        
+        async function updateOrderStatus(orderId, status) {
+            try {
+                showLoading();
+                
+                const updateData = {
+                    status: status,
+                    updatedAt: new Date(),
+                    processedBy: currentUser.email
+                };
+                
+                if (status === 'completed') {
+                    updateData.completedAt = new Date();
+                } else if (status === 'processing') {
+                    updateData.processingAt = new Date();
+                }
+                
+                await db.collection('orders').doc(orderId).update(updateData);
+                
+                // Get order details for notification
+                const orderDoc = await db.collection('orders').doc(orderId).get();
+                const order = orderDoc.data();
+                const user = await getUserData(order.userId);
+                
+                // Log the action
+                await logSystemEvent('ORDER_STATUS_UPDATED', {
+                    orderId: orderId,
+                    userId: order.userId,
+                    status: status,
+                    processedBy: currentUser.email
+                });
+                
+                // Send notification email
+                if (user.email) {
+                    try {
+                        const template = status === 'completed' ? 'template_order_completed' : 'template_order_processing';
+                        await emailjs.send('service_payfusion', template, {
+                            to_email: user.email,
+                            user_name: `${user.firstName} ${user.lastName}`,
+                            order_number: order.orderNumber || orderId,
+                            order_date: formatDate(order.createdAt?.toDate() || new Date()),
+                            service_type: order.serviceType || 'Service',
+                            status: status === 'completed' ? 'completé' : 'en traitement'
+                        });
+                    } catch (emailError) {
+                        console.error('Erreur email:', emailError);
+                    }
+                }
+                
+                hideLoading();
+                alert(`Commande marquée comme ${status === 'completed' ? 'complet' : 'en traitement'}`);
+                
+                if (document.getElementById('orderModal').classList.contains('active')) {
+                    closeModal('orderModal');
+                }
+                
+                loadOrdersData();
+                updateBadges();
+                
+            } catch (error) {
+                hideLoading();
+                console.error('Erreur de mise à jour commande:', error);
+                alert('Erreur lors de la mise à jour de la commande');
+            }
+        }
+        
+        // ============================
+        // USERS MANAGEMENT
+        // ============================
+        async function loadUsersData() {
+            try {
+                showLoadingIn('usersLoading');
+                hideTable('usersTable');
+                
+                const usersSnapshot = await db.collection('users')
+                    .orderBy('createdAt', 'desc')
+                    .limit(100)
+                    .get();
+                
+                usersData = [];
+                const usersBody = document.getElementById('usersBody');
+                usersBody.innerHTML = '';
+                
+                if (usersSnapshot.empty) {
+                    usersBody.innerHTML = `
+                        <tr>
+                            <td colspan="7" style="text-align: center; padding: 40px; color: var(--medium-gray);">
+                                <i class="fas fa-users" style="font-size: 32px; margin-bottom: 16px; display: block;"></i>
+                                Aucun utilisateur trouvé
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    usersSnapshot.forEach(doc => {
+                        const user = { id: doc.id, ...doc.data() };
+                        usersData.push(user);
+                        
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div class="user-avatar" style="width: 32px; height: 32px; font-size: 12px;">
+                                        ${user.firstName ? user.firstName.charAt(0) : 'U'}
+                                    </div>
+                                    <div>
+                                        <div style="font-weight: 500;">${user.firstName || ''} ${user.lastName || ''}</div>
+                                        <div style="font-size: 12px; color: var(--medium-gray);">ID: ${doc.id.substring(0, 8)}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${user.email || 'Non spécifié'}</td>
+                            <td>${user.phone || 'Non spécifié'}</td>
+                            <td style="font-weight: 600;">${formatCurrency(user.balance || 0)}</td>
+                            <td>
+                                <span class="status-badge status-${user.kycStatus || 'pending'}">
+                                    ${user.kycStatus === 'approved' ? 'Approuvé' : 
+                                     user.kycStatus === 'pending' ? 'En attente' : 
+                                     user.kycStatus === 'rejected' ? 'Rejeté' : 'Non soumis'}
+                                </span>
+                            </td>
+                            <td>${formatDate(user.createdAt?.toDate() || new Date())}</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button class="btn btn-primary btn-sm" onclick="viewUser('${doc.id}')">
+                                        <i class="fas fa-eye"></i> Voir
+                                    </button>
+                                    <button class="btn btn-secondary btn-sm" onclick="editUserBalanceModal('${doc.id}')">
+                                        <i class="fas fa-wallet"></i> Solde
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="toggleUserStatus('${doc.id}', '${user.accountStatus}')">
+                                        <i class="fas fa-ban"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        `;
+                        usersBody.appendChild(row);
+                    });
+                }
+                
+                hideLoadingIn('usersLoading');
+                showTable('usersTable');
+                
+            } catch (error) {
+                console.error('Erreur de chargement utilisateurs:', error);
+                hideLoadingIn('usersLoading');
+            }
+        }
+        
+        async function viewUser(userId) {
+            try {
+                const userDoc = await db.collection('users').doc(userId).get();
+                if (!userDoc.exists) {
+                    alert('Utilisateur non trouvé');
+                    return;
+                }
+                
+                const user = userDoc.data();
+                
+                // Get user's transactions count
+                const transactionsSnapshot = await db.collection('transactions')
+                    .where('userId', '==', userId)
+                    .get();
+                
+                // Get user's orders count
+                const ordersSnapshot = await db.collection('orders')
+                    .where('userId', '==', userId)
+                    .get();
+                
+                const userDetails = `
+                    <div class="form-group">
+                        <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 24px;">
+                            <div class="user-avatar" style="width: 60px; height: 60px; font-size: 20px;">
+                                ${user.firstName ? user.firstName.charAt(0) : 'U'}
+                            </div>
+                            <div>
+                                <h3 style="margin-bottom: 4px;">${user.firstName || ''} ${user.lastName || ''}</h3>
+                                <div style="color: var(--medium-gray);">ID: ${userId.substring(0, 8)}</div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+                            <div>
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">Email</div>
+                                <div style="font-weight: 500;">${user.email || 'Non spécifié'}</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">Téléphone</div>
+                                <div style="font-weight: 500;">${user.phone || 'Non spécifié'}</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">Solde</div>
+                                <div style="font-weight: 500;">${formatCurrency(user.balance || 0)}</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">Date d'inscription</div>
+                                <div style="font-weight: 500;">${formatDate(user.createdAt?.toDate() || new Date())}</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">Statut KYC</div>
+                                <span class="status-badge status-${user.kycStatus || 'pending'}">
+                                    ${user.kycStatus === 'approved' ? 'Approuvé' : 
+                                     user.kycStatus === 'pending' ? 'En attente' : 
+                                     user.kycStatus === 'rejected' ? 'Rejeté' : 'Non soumis'}
+                                </span>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">Statut compte</div>
+                                <span class="status-badge ${user.accountStatus === 'active' ? 'status-approved' : 'status-cancelled'}">
+                                    ${user.accountStatus === 'active' ? 'Actif' : 
+                                     user.accountStatus === 'suspended' ? 'Suspendu' : 
+                                     user.accountStatus === 'banned' ? 'Banni' : 'Inconnu'}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 24px;">
+                            <div style="text-align: center; padding: 16px; background: var(--light-gray); border-radius: var(--radius);">
+                                <div style="font-size: 24px; font-weight: 700; color: var(--primary-blue);">${transactionsSnapshot.size}</div>
+                                <div style="font-size: 12px; color: var(--medium-gray);">Transactions</div>
+                            </div>
+                            <div style="text-align: center; padding: 16px; background: var(--light-gray); border-radius: var(--radius);">
+                                <div style="font-size: 24px; font-weight: 700; color: var(--success);">${ordersSnapshot.size}</div>
+                                <div style="font-size: 12px; color: var(--medium-gray);">Commandes</div>
+                            </div>
+                            <div style="text-align: center; padding: 16px; background: var(--light-gray); border-radius: var(--radius);">
+                                <div style="font-size: 24px; font-weight: 700; color: var(--purple);">${user.accountLevel || 'basic'}</div>
+                                <div style="font-size: 12px; color: var(--medium-gray);">Niveau</div>
+                            </div>
+                        </div>
+                        
+                        ${user.birthDate ? `
+                            <div style="padding: 16px; background: var(--light-gray); border-radius: var(--radius); margin-bottom: 16px;">
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">Date de naissance</div>
+                                <div style="font-weight: 500;">${user.birthDate}</div>
+                            </div>
+                        ` : ''}
+                        
+                        ${user.country || user.city || user.address ? `
+                            <div style="padding: 16px; background: var(--light-gray); border-radius: var(--radius);">
+                                <div style="font-size: 12px; color: var(--medium-gray); margin-bottom: 4px;">Adresse</div>
+                                <div style="font-weight: 500;">
+                                    ${user.address || ''} ${user.city || ''} ${user.country || ''}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                
+                // Create a temporary modal for user details
+                const modal = document.createElement('div');
+                modal.className = 'modal-overlay active';
+                modal.innerHTML = `
+                    <div class="modal">
+                        <div class="modal-header">
+                            <h3 class="modal-title">
+                                <i class="fas fa-user"></i>
+                                <span>Détails de l'utilisateur</span>
+                            </h3>
+                            <button class="modal-close" onclick="this.parentElement.parentElement.remove()">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            ${userDetails}
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" onclick="this.parentElement.parentElement.parentElement.remove()">
+                                <i class="fas fa-times"></i> Fermer
+                            </button>
+                            <button class="btn btn-primary" onclick="editUserBalanceModal('${userId}'); this.parentElement.parentElement.parentElement.remove()">
+                                <i class="fas fa-wallet"></i> Gérer le solde
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(modal);
+                
+            } catch (error) {
+                console.error('Erreur de visualisation utilisateur:', error);
+                alert('Erreur de chargement des détails de l\'utilisateur');
+            }
+        }
+        
+        async function editUserBalanceModal(userId) {
+            try {
+                const userDoc = await db.collection('users').doc(userId).get();
+                if (!userDoc.exists) {
+                    alert('Utilisateur non trouvé');
+                    return;
+                }
+                
+                currentBalanceUser = { id: userId, ...userDoc.data() };
+                
+                // Update modal
+                document.getElementById('balanceUserName').textContent = 
+                    `${currentBalanceUser.firstName || ''} ${currentBalanceUser.lastName || ''}`;
+                document.getElementById('currentBalance').textContent = 
+                    formatCurrency(currentBalanceUser.balance || 0);
+                document.getElementById('balanceAmount').value = '';
+                document.getElementById('balanceDescription').value = '';
+                
+                openModal('balanceModal');
+                
+            } catch (error) {
+                console.error('Erreur de chargement utilisateur:', error);
+                alert('Erreur de chargement des informations de l\'utilisateur');
+            }
+        }
+        
+        async function updateUserBalance() {
+            if (!currentBalanceUser) return;
+            
+            const operation = document.getElementById('balanceOperation').value;
+            const amount = parseFloat(document.getElementById('balanceAmount').value);
+            const description = document.getElementById('balanceDescription').value.trim();
+            
+            if (!amount || amount <= 0) {
+                alert('Veuillez entrer un montant valide.');
+                return;
+            }
+            
+            if (!description) {
+                alert('Veuillez entrer une description.');
+                return;
+            }
+            
+            if (operation === 'debit' && currentBalanceUser.balance < amount) {
+                alert('Solde insuffisant pour ce débit.');
+                return;
+            }
+            
+            try {
+                showLoading();
+                
+                const newBalance = operation === 'credit' 
+                    ? (currentBalanceUser.balance || 0) + amount
+                    : (currentBalanceUser.balance || 0) - amount;
+                
+                // Update user balance
+                await db.collection('users').doc(currentBalanceUser.id).update({
+                    balance: newBalance,
+                    updatedAt: new Date()
+                });
+                
+                // Record transaction
+                await db.collection('transactions').add({
+                    userId: currentBalanceUser.id,
+                    type: operation === 'credit' ? 'admin_credit' : 'admin_debit',
+                    amount: amount,
+                    currency: 'HTG',
+                    status: 'completed',
+                    description: description,
+                    adminEmail: currentUser.email,
+                    createdAt: new Date(),
+                    newBalance: newBalance
+                });
+                
+                // Log the action
+                await logSystemEvent('BALANCE_UPDATED', {
+                    userId: currentBalanceUser.id,
+                    operation: operation,
+                    amount: amount,
+                    newBalance: newBalance,
+                    description: description,
+                    admin: currentUser.email
+                });
+                
+                hideLoading();
+                alert(`Solde mis à jour avec succès!\nNouveau solde: ${formatCurrency(newBalance)}`);
+                closeModal('balanceModal');
+                loadUsersData();
+                
+            } catch (error) {
+                hideLoading();
+                console.error('Erreur de mise à jour solde:', error);
+                alert('Erreur lors de la mise à jour du solde');
+            }
+        }
+        
+        async function toggleUserStatus(userId, currentStatus) {
+            const newStatus = currentStatus === 'active' ? 'suspended' : 'active';
+            const action = newStatus === 'suspended' ? 'suspendre' : 'réactiver';
+            
+            if (!confirm(`Êtes-vous sûr de vouloir ${action} cet utilisateur ?`)) {
+                return;
+            }
+            
+            try {
+                showLoading();
+                
+                await db.collection('users').doc(userId).update({
+                    accountStatus: newStatus,
+                    updatedAt: new Date()
+                });
+                
+                // Log the action
+                await logSystemEvent('USER_STATUS_CHANGED', {
+                    userId: userId,
+                    oldStatus: currentStatus,
+                    newStatus: newStatus,
+                    admin: currentUser.email
+                });
+                
+                hideLoading();
+                alert(`Utilisateur ${newStatus === 'suspended' ? 'suspendu' : 'réactivé'} avec succès`);
+                loadUsersData();
+                
+            } catch (error) {
+                hideLoading();
+                console.error('Erreur de changement statut:', error);
+                alert('Erreur lors du changement de statut');
+            }
+        }
+        
+        // ============================
+        // DEPOSITS & WITHDRAWALS
+        // ============================
+        async function loadDepositsData() {
+            try {
+                const depositsSnapshot = await db.collection('transactions')
+                    .where('type', '==', 'deposit')
+                    .where('status', '==', 'pending')
+                    .orderBy('createdAt', 'desc')
+                    .get();
+                
+                updateBadge('depositsBadge', depositsSnapshot.size);
+                
+            } catch (error) {
+                console.error('Erreur de chargement dépôts:', error);
+            }
+        }
+        
+        async function loadWithdrawalsData() {
+            try {
+                const withdrawalsSnapshot = await db.collection('transactions')
+                    .where('type', '==', 'withdrawal')
+                    .where('status', '==', 'pending')
+                    .orderBy('createdAt', 'desc')
+                    .get();
+                
+                updateBadge('withdrawalsBadge', withdrawalsSnapshot.size);
+                
+            } catch (error) {
+                console.error('Erreur de chargement retraits:', error);
+            }
+        }
+        
+        // ============================
+        // UTILITY FUNCTIONS
+        // ============================
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+        
+        async function updateBadges() {
+            try {
+                // KYC pending count
+                const kycSnapshot = await db.collection('kyc_submissions')
+                    .where('status', '==', 'pending')
+                    .get();
+                updateBadge('kycBadge', kycSnapshot.size);
+                
+                // Orders pending count
+                const ordersSnapshot = await db.collection('orders')
+                    .where('status', '==', 'pending')
+                    .get();
+                updateBadge('ordersBadge', ordersSnapshot.size);
+                
+                // Deposits pending count
+                const depositsSnapshot = await db.collection('transactions')
+                    .where('type', '==', 'deposit')
+                    .where('status', '==', 'pending')
+                    .get();
+                updateBadge('depositsBadge', depositsSnapshot.size);
+                
+                // Withdrawals pending count
+                const withdrawalsSnapshot = await db.collection('transactions')
+                    .where('type', '==', 'withdrawal')
+                    .where('status', '==', 'pending')
+                    .get();
+                updateBadge('withdrawalsBadge', withdrawalsSnapshot.size);
+                
+            } catch (error) {
+                console.error('Erreur de mise à jour badges:', error);
+            }
+        }
+        
+        function updateBadge(badgeId, count) {
+            const badge = document.getElementById(badgeId);
+            if (badge) {
+                badge.textContent = count;
+                badge.style.display = count > 0 ? 'inline-block' : 'none';
+            }
+        }
+        
+        async function logSystemEvent(eventType, data) {
+            try {
+                await db.collection('system_logs').add({
+                    eventType: eventType,
+                    ...data,
+                    timestamp: new Date(),
+                    adminEmail: currentUser.email,
+                    adminId: currentUser.uid,
+                    userAgent: navigator.userAgent,
+                    ip: await getClientIP()
+                });
+            } catch (error) {
+                console.error('Erreur de journalisation:', error);
+            }
+        }
+        
+        async function getClientIP() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip;
+            } catch (error) {
+                return '0.0.0.0';
+            }
+        }
+        
+        // ============================
+        // INITIALIZATION
+        // ============================
+        async function initializeAdmin() {
+            // Check admin access
+            await checkAdminAccess();
+            
+            // Set up navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    switchSection(link.dataset.section);
+                });
+            });
+            
+            // Set up mobile menu
+            if (window.innerWidth < 1200) {
+                mobileMenuBtn.style.display = 'block';
+                mobileMenuBtn.addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+            }
+            
+            // Close modals on click outside
+            document.querySelectorAll('.modal-overlay').forEach(modal => {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+            
+            // Close modals with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    document.querySelectorAll('.modal-overlay').forEach(modal => {
+                        modal.classList.remove('active');
+                    });
+                }
+            });
+            
+            // Initial data load
+            await updateBadges();
+            
+            // Auto-refresh badges every 30 seconds
+            setInterval(updateBadges, 30000);
+        }
+        
+        // Start the application
+        window.addEventListener('DOMContentLoaded', initializeAdmin);
+    </script>
+</body>
+</html>

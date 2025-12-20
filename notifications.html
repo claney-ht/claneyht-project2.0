@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Notifications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --color-info: #3b82f6;
+            --color-gaming: #f97316;
+            --color-streaming: #8b5cf6;
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER ===== */
+        .pf-notifications-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-gray-light);
+            padding: var(--spacing-md) 0;
+        }
+
+        .pf-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pf-back-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .pf-back-btn:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-page-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+            text-align: center;
+        }
+
+        .pf-badge {
+            background: var(--color-error);
+            color: var(--color-white);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            margin-left: var(--spacing-xs);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-notifications-main {
+            padding: var(--spacing-xl) 0;
+        }
+
+        /* ===== STATS BAR ===== */
+        .pf-stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-stat-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-stat-number {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-stat-label {
+            color: var(--color-gray-medium);
+            font-size: 0.875rem;
+        }
+
+        .pf-stat-unread .pf-stat-number {
+            color: var(--color-error);
+        }
+
+        .pf-stat-today .pf-stat-number {
+            color: var(--color-blue-primary);
+        }
+
+        /* ===== TABS NAVIGATION ===== */
+        .pf-tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .pf-tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            color: var(--color-gray-medium);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .pf-tab:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-tab.active {
+            color: var(--color-blue-primary);
+            border-bottom-color: var(--color-blue-primary);
+            background: var(--color-blue-very-light);
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .pf-tab-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--color-error);
+            color: var(--color-white);
+            font-size: 0.75rem;
+            padding: 0.125rem 0.375rem;
+            border-radius: 10px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* ===== FILTERS BAR ===== */
+        .pf-filters-bar {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .pf-search-box {
+            position: relative;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .pf-search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-dark);
+            background-color: var(--color-white);
+        }
+
+        .pf-search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-gray-medium);
+        }
+
+        .pf-filter-select {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            background: var(--color-white);
+            color: var(--color-gray-dark);
+            font-size: var(--font-size-sm);
+            min-width: 150px;
+        }
+
+        /* ===== NOTIFICATIONS LIST ===== */
+        .pf-notifications-list {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-notification-item {
+            display: flex;
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--color-gray-very-light);
+            gap: var(--spacing-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pf-notification-item:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-notification-item.unread {
+            background: var(--color-blue-very-light);
+            border-left: 3px solid var(--color-blue-primary);
+        }
+
+        .pf-notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .pf-notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .pf-icon-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+        }
+
+        .pf-icon-error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--color-error);
+        }
+
+        .pf-icon-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--color-warning);
+        }
+
+        .pf-icon-info {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--color-info);
+        }
+
+        .pf-icon-gaming {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--color-gaming);
+        }
+
+        .pf-icon-streaming {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--color-streaming);
+        }
+
+        .pf-notification-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .pf-notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-notification-title {
+            font-weight: 600;
+            color: var(--color-gray-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .pf-notification-time {
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            white-space: nowrap;
+            margin-left: var(--spacing-sm);
+        }
+
+        .pf-notification-message {
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-xs);
+            word-break: break-word;
+        }
+
+        .pf-notification-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
+
+        .pf-action-btn {
+            background: none;
+            border: none;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            border-radius: var(--border-radius);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .pf-action-btn:hover {
+            background: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-unread-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--color-blue-primary);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 0.5rem;
+        }
+
+        /* ===== BULK ACTIONS ===== */
+        .pf-bulk-actions {
+            background: var(--color-gray-very-light);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-xl);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-bulk-left {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--color-gray-medium);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pf-checkbox.checked {
+            background: var(--color-blue-primary);
+            border-color: var(--color-blue-primary);
+        }
+
+        .pf-checkbox.checked::after {
+            content: "✓";
+            color: var(--color-white);
+            font-size: 12px;
+        }
+
+        .pf-bulk-right {
+            display: flex;
+            gap: var(--spacing-sm);
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .pf-empty-state {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--color-gray-medium);
+        }
+
+        .pf-empty-icon {
+            font-size: 3rem;
+            color: var(--color-gray-light);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* ===== SETTINGS SECTION ===== */
+        .pf-settings-section {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-settings-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .pf-setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-md);
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-setting-label {
+            font-weight: 500;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-toggle {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .pf-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .pf-toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--color-gray-light);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .pf-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        .pf-toggle input:checked + .pf-toggle-slider {
+            background-color: var(--color-success);
+        }
+
+        .pf-toggle input:checked + .pf-toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            min-width: 140px;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        .pf-btn-danger {
+            background-color: var(--color-error);
+            color: var(--color-white);
+        }
+
+        .pf-btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .pf-btn-success {
+            background-color: var(--color-success);
+            color: var(--color-white);
+        }
+
+        .pf-btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+            min-width: auto;
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-notifications-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-notifications-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .pf-stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .pf-filters-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .pf-search-box {
+                min-width: 100%;
+            }
+            
+            .pf-notification-item {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+            
+            .pf-notification-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .pf-notification-time {
+                margin-left: 0;
+            }
+            
+            .pf-bulk-actions {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+            
+            .pf-bulk-left, .pf-bulk-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .pf-settings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pf-stats-bar {
+                grid-template-columns: 1fr;
+            }
+            
+            .pf-tabs {
+                flex-direction: column;
+            }
+            
+            .pf-tab {
+                text-align: left;
+                border-bottom: none;
+                border-left: 2px solid transparent;
+            }
+            
+            .pf-tab.active {
+                border-left-color: var(--color-blue-primary);
+                border-bottom-color: transparent;
+            }
+            
+            .pf-header-content {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+            
+            .pf-back-btn {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-notifications-header">
+        <div class="container">
+            <div class="pf-header-content">
+                <a href="home.html" class="pf-back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
+                
+                <h1 class="pf-page-title">
+                    Notifications
+                    <span class="pf-badge" id="unreadBadge">3</span>
+                </h1>
+                
+                <div style="width: 80px;"></div> <!-- Spacer for alignment -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pf-notifications-main">
+        <div class="container">
+            <!-- Stats Bar -->
+            <div class="pf-stats-bar">
+                <div class="pf-stat-card pf-stat-unread">
+                    <div class="pf-stat-number" id="unreadCount">3</div>
+                    <div class="pf-stat-label">Non lues</div>
+                </div>
+                <div class="pf-stat-card pf-stat-today">
+                    <div class="pf-stat-number" id="todayCount">5</div>
+                    <div class="pf-stat-label">Aujourd'hui</div>
+                </div>
+                <div class="pf-stat-card">
+                    <div class="pf-stat-number" id="totalCount">24</div>
+                    <div class="pf-stat-label">Total</div>
+                </div>
+                <div class="pf-stat-card">
+                    <div class="pf-stat-number" id="last7days">12</div>
+                    <div class="pf-stat-label">7 derniers jours</div>
+                </div>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <div class="pf-tabs">
+                <button class="pf-tab active" data-tab="all">
+                    <i class="fas fa-bell"></i> Toutes
+                    <span class="pf-tab-badge" id="tabAllBadge">24</span>
+                </button>
+                <button class="pf-tab" data-tab="unread">
+                    <i class="fas fa-envelope"></i> Non lues
+                    <span class="pf-tab-badge" id="tabUnreadBadge">3</span>
+                </button>
+                <button class="pf-tab" data-tab="transactions">
+                    <i class="fas fa-exchange-alt"></i> Transactions
+                    <span class="pf-tab-badge" id="tabTransBadge">8</span>
+                </button>
+                <button class="pf-tab" data-tab="system">
+                    <i class="fas fa-cog"></i> Système
+                    <span class="pf-tab-badge" id="tabSystemBadge">5</span>
+                </button>
+                <button class="pf-tab" data-tab="promotions">
+                    <i class="fas fa-gift"></i> Promotions
+                    <span class="pf-tab-badge" id="tabPromoBadge">4</span>
+                </button>
+            </div>
+
+            <!-- Filters Bar -->
+            <div class="pf-filters-bar">
+                <div class="pf-search-box">
+                    <i class="fas fa-search pf-search-icon"></i>
+                    <input type="text" class="pf-search-input" id="searchNotifications" placeholder="Rechercher dans les notifications...">
+                </div>
+                
+                <select class="pf-filter-select" id="filterDate">
+                    <option value="">Toutes les dates</option>
+                    <option value="today">Aujourd'hui</option>
+                    <option value="week">Cette semaine</option>
+                    <option value="month">Ce mois</option>
+                </select>
+                
+                <select class="pf-filter-select" id="filterPriority">
+                    <option value="">Toutes les priorités</option>
+                    <option value="high">Haute priorité</option>
+                    <option value="normal">Normale</option>
+                    <option value="low">Basse</option>
+                </select>
+            </div>
+
+            <!-- Bulk Actions -->
+            <div class="pf-bulk-actions" id="bulkActions" style="display: none;">
+                <div class="pf-bulk-left">
+                    <div class="pf-checkbox" id="selectAllCheckbox"></div>
+                    <span id="selectedCount">0 sélectionnées</span>
+                </div>
+                <div class="pf-bulk-right">
+                    <button class="pf-btn pf-btn-secondary pf-btn-sm" id="markReadBtn">
+                        <i class="fas fa-envelope-open"></i> Marquer comme lu
+                    </button>
+                    <button class="pf-btn pf-btn-danger pf-btn-sm" id="deleteBtn">
+                        <i class="fas fa-trash"></i> Supprimer
+                    </button>
+                </div>
+            </div>
+
+            <!-- Notifications List -->
+            <div class="pf-notifications-list" id="notificationsList">
+                <!-- Notifications will be loaded here -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="pf-empty-state" id="emptyState" style="display: none;">
+                <div class="pf-empty-icon">
+                    <i class="far fa-bell-slash"></i>
+                </div>
+                <h3>Aucune notification</h3>
+                <p>Vous n'avez aucune notification pour le moment.</p>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="pf-settings-section">
+                <h3 class="pf-settings-title">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>Paramètres de notification</span>
+                </h3>
+                
+                <div class="pf-settings-grid">
+                    <div class="pf-setting-item">
+                        <span class="pf-setting-label">Notifications email</span>
+                        <label class="pf-toggle">
+                            <input type="checkbox" id="emailToggle" checked>
+                            <span class="pf-toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="pf-setting-item">
+                        <span class="pf-setting-label">Alertes transaction</span>
+                        <label class="pf-toggle">
+                            <input type="checkbox" id="transactionToggle" checked>
+                            <span class="pf-toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="pf-setting-item">
+                        <span class="pf-setting-label">Promotions</span>
+                        <label class="pf-toggle">
+                            <input type="checkbox" id="promotionToggle" checked>
+                            <span class="pf-toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="pf-setting-item">
+                        <span class="pf-setting-label">Notifications système</span>
+                        <label class="pf-toggle">
+                            <input type="checkbox" id="systemToggle" checked>
+                            <span class="pf-toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: var(--spacing-lg);">
+                    <button class="pf-btn pf-btn-secondary" id="clearAllBtn">
+                        <i class="fas fa-trash-alt"></i> Tout supprimer
+                    </button>
+                    <button class="pf-btn pf-btn-primary" id="markAllReadBtn">
+                        <i class="fas fa-envelope-open"></i> Tout marquer comme lu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-notifications-footer">
+        <div class="container">
+            <p>Restez informé de toutes vos activités sur PayFusion</p>
+            <p>Gérez vos préférences à tout moment</p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample notifications data
+        const notificationsData = [
+            {
+                id: 1,
+                title: "Dépôt approuvé",
+                message: "Votre dépôt de 1,500 HTG via MonCash a été approuvé. Le montant a été ajouté à votre solde.",
+                time: "Il y a 10 minutes",
+                timestamp: new Date(Date.now() - 10 * 60000).toISOString(),
+                type: "transaction",
+                icon: "fas fa-check-circle",
+                iconClass: "pf-icon-success",
+                priority: "high",
+                read: false,
+                category: "deposit"
+            },
+            {
+                id: 2,
+                title: "Nouveau message du support",
+                message: "Notre équipe support a répondu à votre ticket #TKT-12345. Vérifiez votre boîte email.",
+                time: "Il y a 45 minutes",
+                timestamp: new Date(Date.now() - 45 * 60000).toISOString(),
+                type: "system",
+                icon: "fas fa-headset",
+                iconClass: "pf-icon-info",
+                priority: "high",
+                read: false,
+                category: "support"
+            },
+            {
+                id: 3,
+                title: "Commande traitée",
+                message: "Votre commande Free Fire #CMD-123456 a été traitée avec succès. Les diamants ont été livrés.",
+                time: "Il y a 2 heures",
+                timestamp: new Date(Date.now() - 2 * 3600000).toISOString(),
+                type: "transaction",
+                icon: "fas fa-gem",
+                iconClass: "pf-icon-gaming",
+                priority: "normal",
+                read: false,
+                category: "order"
+            },
+            {
+                id: 4,
+                title: "Promotion spéciale",
+                message: "Profitez de -20% sur tous les packs Free Fire ce weekend seulement ! Offre limitée.",
+                time: "Il y a 5 heures",
+                timestamp: new Date(Date.now() - 5 * 3600000).toISOString(),
+                type: "promotion",
+                icon: "fas fa-gift",
+                iconClass: "pf-icon-warning",
+                priority: "normal",
+                read: true,
+                category: "promo"
+            },
+            {
+                id: 5,
+                title: "KYC Approuvé",
+                message: "Votre vérification KYC a été approuvée. Vous pouvez maintenant accéder à tous les services.",
+                time: "Hier, 14:30",
+                timestamp: new Date(Date.now() - 24 * 3600000).toISOString(),
+                type: "system",
+                icon: "fas fa-id-card",
+                iconClass: "pf-icon-success",
+                priority: "high",
+                read: true,
+                category: "kyc"
+            },
+            {
+                id: 6,
+                title: "Retrait en attente",
+                message: "Votre retrait de 3,000 HTG est en cours de traitement. Délai estimé: 1-24 heures.",
+                time: "Hier, 10:15",
+                timestamp: new Date(Date.now() - 28 * 3600000).toISOString(),
+                type: "transaction",
+                icon: "fas fa-clock",
+                iconClass: "pf-icon-info",
+                priority: "normal",
+                read: true,
+                category: "withdrawal"
+            },
+            {
+                id: 7,
+                title: "Nouveau login détecté",
+                message: "Un nouveau login a été détecté depuis un nouvel appareil. Vérifiez si c'était vous.",
+                time: "Il y a 2 jours",
+                timestamp: new Date(Date.now() - 2 * 24 * 3600000).toISOString(),
+                type: "system",
+                icon: "fas fa-shield-alt",
+                iconClass: "pf-icon-error",
+                priority: "high",
+                read: true,
+                category: "security"
+            },
+            {
+                id: 8,
+                title: "Netflix Premium activé",
+                message: "Votre abonnement Netflix Premium 2 mois a été activé. Profitez du streaming en 4K !",
+                time: "Il y a 3 jours",
+                timestamp: new Date(Date.now() - 3 * 24 * 3600000).toISOString(),
+                type: "transaction",
+                icon: "fas fa-film",
+                iconClass: "pf-icon-streaming",
+                priority: "normal",
+                read: true,
+                category: "order"
+            }
+        ];
+
+        // State
+        let notifications = [...notificationsData];
+        let selectedNotifications = new Set();
+        let currentTab = 'all';
+        let currentFilters = {
+            search: '',
+            date: '',
+            priority: ''
+        };
+
+        // DOM Elements
+        const tabs = document.querySelectorAll('.pf-tab');
+        const notificationsList = document.getElementById('notificationsList');
+        const emptyState = document.getElementById('emptyState');
+        const bulkActions = document.getElementById('bulkActions');
+        const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+        const selectedCount = document.getElementById('selectedCount');
+        const searchInput = document.getElementById('searchNotifications');
+        const filterDate = document.getElementById('filterDate');
+        const filterPriority = document.getElementById('filterPriority');
+
+        // Update stats
+        function updateStats() {
+            const now = new Date();
+            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const weekAgo = new Date(now.getTime() - 7 * 24 * 3600000);
+            
+            const unread = notifications.filter(n => !n.read).length;
+            const todayCount = notifications.filter(n => new Date(n.timestamp) >= today).length;
+            const weekCount = notifications.filter(n => new Date(n.timestamp) >= weekAgo).length;
+            
+            document.getElementById('unreadCount').textContent = unread;
+            document.getElementById('unreadBadge').textContent = unread;
+            document.getElementById('todayCount').textContent = todayCount;
+            document.getElementById('totalCount').textContent = notifications.length;
+            document.getElementById('last7days').textContent = weekCount;
+            
+            // Update tab badges
+            document.getElementById('tabAllBadge').textContent = notifications.length;
+            document.getElementById('tabUnreadBadge').textContent = unread;
+            document.getElementById('tabTransBadge').textContent = notifications.filter(n => n.type === 'transaction').length;
+            document.getElementById('tabSystemBadge').textContent = notifications.filter(n => n.type === 'system').length;
+            document.getElementById('tabPromoBadge').textContent = notifications.filter(n => n.type === 'promotion').length;
+        }
+
+        // Filter notifications
+        function filterNotifications() {
+            let filtered = notifications;
+            
+            // Filter by tab
+            if (currentTab !== 'all') {
+                filtered = filtered.filter(n => {
+                    if (currentTab === 'unread') return !n.read;
+                    if (currentTab === 'transactions') return n.type === 'transaction';
+                    if (currentTab === 'system') return n.type === 'system';
+                    if (currentTab === 'promotions') return n.type === 'promotion';
+                    return true;
+                });
+            }
+            
+            // Filter by search
+            if (currentFilters.search) {
+                const searchLower = currentFilters.search.toLowerCase();
+                filtered = filtered.filter(n => 
+                    n.title.toLowerCase().includes(searchLower) || 
+                    n.message.toLowerCase().includes(searchLower)
+                );
+            }
+            
+            // Filter by date
+            if (currentFilters.date) {
+                const now = new Date();
+                let startDate;
+                
+                switch(currentFilters.date) {
+                    case 'today':
+                        startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                        break;
+                    case 'week':
+                        startDate = new Date(now.getTime() - 7 * 24 * 3600000);
+                        break;
+                    case 'month':
+                        startDate = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());
+                        break;
+                }
+                
+                filtered = filtered.filter(n => new Date(n.timestamp) >= startDate);
+            }
+            
+            // Filter by priority
+            if (currentFilters.priority) {
+                filtered = filtered.filter(n => n.priority === currentFilters.priority);
+            }
+            
+            return filtered;
+        }
+
+        // Render notifications
+        function renderNotifications() {
+            const filtered = filterNotifications();
+            
+            if (filtered.length === 0) {
+                notificationsList.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            notificationsList.style.display = 'block';
+            emptyState.style.display = 'none';
+            
+            let html = '';
+            
+            filtered.forEach(notification => {
+                const isSelected = selectedNotifications.has(notification.id);
+                const isUnread = !notification.read;
+                
+                html += `
+                    <div class="pf-notification-item ${isUnread ? 'unread' : ''} ${isSelected ? 'selected' : ''}" 
+                         data-id="${notification.id}">
+                        <div class="pf-checkbox ${isSelected ? 'checked' : ''}" onclick="event.stopPropagation(); toggleSelectNotification(${notification.id})"></div>
+                        
+                        <div class="pf-notification-icon ${notification.iconClass}">
+                            <i class="${notification.icon}"></i>
+                        </div>
+                        
+                        <div class="pf-notification-content" onclick="markAsRead(${notification.id})">
+                            <div class="pf-notification-header">
+                                <div>
+                                    <div class="pf-notification-title">${notification.title}</div>
+                                    <div class="pf-notification-time">${notification.time}</div>
+                                </div>
+                                ${isUnread ? '<div class="pf-unread-indicator"></div>' : ''}
+                            </div>
+                            <div class="pf-notification-message">${notification.message}</div>
+                            <div class="pf-notification-actions">
+                                <button class="pf-action-btn" onclick="event.stopPropagation(); markAsRead(${notification.id})">
+                                    <i class="fas fa-envelope-open"></i> Marquer comme lu
+                                </button>
+                                <button class="pf-action-btn" onclick="event.stopPropagation(); deleteNotification(${notification.id})">
+                                    <i class="fas fa-trash"></i> Supprimer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            notificationsList.innerHTML = html;
+            updateBulkActions();
+        }
+
+        // Update bulk actions
+        function updateBulkActions() {
+            const selected = selectedNotifications.size;
+            
+            if (selected > 0) {
+                bulkActions.style.display = 'flex';
+                selectedCount.textContent = `${selected} sélectionnée${selected > 1 ? 's' : ''}`;
+                
+                // Update select all checkbox
+                const filtered = filterNotifications();
+                const allFilteredSelected = filtered.every(n => selectedNotifications.has(n.id));
+                selectAllCheckbox.classList.toggle('checked', allFilteredSelected);
+            } else {
+                bulkActions.style.display = 'none';
+            }
+        }
+
+        // Toggle select notification
+        function toggleSelectNotification(id) {
+            if (selectedNotifications.has(id)) {
+                selectedNotifications.delete(id);
+            } else {
+                selectedNotifications.add(id);
+            }
+            renderNotifications();
+        }
+
+        // Select all filtered notifications
+        function selectAllFiltered() {
+            const filtered = filterNotifications();
+            const allSelected = filtered.every(n => selectedNotifications.has(n.id));
+            
+            if (allSelected) {
+                filtered.forEach(n => selectedNotifications.delete(n.id));
+            } else {
+                filtered.forEach(n => selectedNotifications.add(n.id));
+            }
+            renderNotifications();
+        }
+
+        // Mark as read
+        function markAsRead(id) {
+            const notification = notifications.find(n => n.id === id);
+            if (notification) {
+                notification.read = true;
+                selectedNotifications.delete(id);
+                renderNotifications();
+                updateStats();
+            }
+        }
+
+        // Delete notification
+        function deleteNotification(id) {
+            if (confirm('Supprimer cette notification ?')) {
+                notifications = notifications.filter(n => n.id !== id);
+                selectedNotifications.delete(id);
+                renderNotifications();
+                updateStats();
+            }
+        }
+
+        // Mark selected as read
+        function markSelectedAsRead() {
+            selectedNotifications.forEach(id => {
+                const notification = notifications.find(n => n.id === id);
+                if (notification) notification.read = true;
+            });
+            selectedNotifications.clear();
+            renderNotifications();
+            updateStats();
+        }
+
+        // Delete selected
+        function deleteSelected() {
+            if (selectedNotifications.size === 0) return;
+            
+            if (confirm(`Supprimer ${selectedNotifications.size} notification(s) ?`)) {
+                notifications = notifications.filter(n => !selectedNotifications.has(n.id));
+                selectedNotifications.clear();
+                renderNotifications();
+                updateStats();
+            }
+        }
+
+        // Clear all notifications
+        function clearAllNotifications() {
+            if (notifications.length === 0) return;
+            
+            if (confirm('Supprimer toutes les notifications ?')) {
+                notifications = [];
+                selectedNotifications.clear();
+                renderNotifications();
+                updateStats();
+            }
+        }
+
+        // Mark all as read
+        function markAllAsRead() {
+            notifications.forEach(n => n.read = true);
+            selectedNotifications.clear();
+            renderNotifications();
+            updateStats();
+        }
+
+        // Switch tab
+        function switchTab(tabName) {
+            currentTab = tabName;
+            
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            selectedNotifications.clear();
+            renderNotifications();
+        }
+
+        // Apply filters
+        function applyFilters() {
+            currentFilters = {
+                search: searchInput.value,
+                date: filterDate.value,
+                priority: filterPriority.value
+            };
+            selectedNotifications.clear();
+            renderNotifications();
+        }
+
+        // Simulate new notification
+        function simulateNewNotification() {
+            const newId = Math.max(...notifications.map(n => n.id)) + 1;
+            const types = ['transaction', 'system', 'promotion'];
+            const icons = ['fas fa-check-circle', 'fas fa-info-circle', 'fas fa-gift'];
+            const iconClasses = ['pf-icon-success', 'pf-icon-info', 'pf-icon-warning'];
+            
+            const randomType = Math.floor(Math.random() * types.length);
+            
+            const newNotification = {
+                id: newId,
+                title: "Nouvelle notification",
+                message: "Ceci est une notification simulée pour tester le système.",
+                time: "À l'instant",
+                timestamp: new Date().toISOString(),
+                type: types[randomType],
+                icon: icons[randomType],
+                iconClass: iconClasses[randomType],
+                priority: "normal",
+                read: false,
+                category: "test"
+            };
+            
+            notifications.unshift(newNotification);
+            renderNotifications();
+            updateStats();
+            
+            // Show alert
+            alert('Nouvelle notification reçue !');
+        }
+
+        // Initialize
+        function init() {
+            // Initial render
+            updateStats();
+            renderNotifications();
+            
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    switchTab(tab.dataset.tab);
+                });
+            });
+            
+            // Search input
+            searchInput.addEventListener('input', applyFilters);
+            
+            // Filter selects
+            filterDate.addEventListener('change', applyFilters);
+            filterPriority.addEventListener('change', applyFilters);
+            
+            // Bulk actions
+            selectAllCheckbox.addEventListener('click', selectAllFiltered);
+            document.getElementById('markReadBtn').addEventListener('click', markSelectedAsRead);
+            document.getElementById('deleteBtn').addEventListener('click', deleteSelected);
+            
+            // Global actions
+            document.getElementById('clearAllBtn').addEventListener('click', clearAllNotifications);
+            document.getElementById('markAllReadBtn').addEventListener('click', markAllAsRead);
+            
+            // Settings toggles
+            document.querySelectorAll('.pf-toggle input').forEach(toggle => {
+                toggle.addEventListener('change', function() {
+                    console.log(`${this.id} is now ${this.checked ? 'on' : 'off'}`);
+                });
+            });
+            
+            // Simulate notification every 30 seconds for demo
+            setInterval(simulateNewNotification, 30000);
+            
+            // Auto-mark old notifications as read after 24 hours
+            const dayAgo = new Date(Date.now() - 24 * 3600000);
+            notifications.forEach(n => {
+                if (new Date(n.timestamp) < dayAgo) {
+                    n.read = true;
+                }
+            });
+            renderNotifications();
+            updateStats();
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

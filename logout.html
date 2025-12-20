@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Déconnexion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background: linear-gradient(135deg, var(--color-blue-very-light) 0%, #f0f9ff 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER ===== */
+        .pf-logout-header {
+            padding: var(--spacing-lg) 0;
+            text-align: center;
+        }
+
+        .pf-logo {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .pf-logo i {
+            font-size: var(--font-size-lg);
+        }
+
+        .pf-header-text {
+            color: var(--color-gray-medium);
+            font-size: var(--font-size-sm);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-logout-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-xl) 0;
+        }
+
+        .pf-logout-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: var(--spacing-xl);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== LOGOUT ICON ===== */
+        .pf-logout-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--color-blue-primary) 0%, var(--color-blue-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            position: relative;
+        }
+
+        .pf-logout-icon i {
+            font-size: 2.5rem;
+            color: var(--color-white);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        /* ===== LOGOUT MESSAGE ===== */
+        .pf-logout-title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-logout-subtitle {
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-xl);
+            line-height: 1.6;
+        }
+
+        .pf-logout-details {
+            background: var(--color-gray-very-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            text-align: left;
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+
+        .pf-detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .pf-detail-label {
+            color: var(--color-gray-medium);
+            font-weight: 500;
+        }
+
+        .pf-detail-value {
+            color: var(--color-gray-dark);
+            font-weight: 600;
+        }
+
+        /* ===== SECURITY TIPS ===== */
+        .pf-security-tips {
+            background: var(--color-blue-very-light);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+            border: 1px solid var(--color-blue-light);
+            text-align: left;
+        }
+
+        .pf-tips-title {
+            font-weight: 600;
+            color: var(--color-blue-primary);
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .pf-tips-list {
+            list-style: none;
+        }
+
+        .pf-tips-list li {
+            margin-bottom: var(--spacing-xs);
+            padding-left: var(--spacing-md);
+            position: relative;
+        }
+
+        .pf-tips-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-blue-primary);
+            font-weight: bold;
+        }
+
+        /* ===== COUNTDOWN ===== */
+        .pf-countdown {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-countdown-text {
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .pf-countdown-timer {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--color-blue-primary);
+            font-family: monospace;
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-logout-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: center;
+        }
+
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            min-width: 140px;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-logout-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-logout-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .pf-logout-card {
+                padding: var(--spacing-lg);
+                margin: 0 var(--spacing-sm);
+            }
+            
+            .pf-logout-actions {
+                flex-direction: column;
+            }
+            
+            .pf-btn {
+                width: 100%;
+            }
+            
+            .pf-logout-icon {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .pf-logout-icon i {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pf-logout-title {
+                font-size: var(--font-size-lg);
+            }
+            
+            .pf-logout-subtitle {
+                font-size: var(--font-size-sm);
+            }
+            
+            .pf-logout-details,
+            .pf-security-tips {
+                padding: var(--spacing-md);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-logout-header">
+        <div class="container">
+            <a href="index.html" class="pf-logo">
+                <i class="fas fa-fusion"></i>
+                PayFusion
+            </a>
+            <p class="pf-header-text">Déconnexion sécurisée</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pf-logout-main">
+        <div class="container">
+            <div class="pf-logout-card">
+                <!-- Icon -->
+                <div class="pf-logout-icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+
+                <!-- Title & Message -->
+                <h1 class="pf-logout-title">Vous êtes sur le point de vous déconnecter</h1>
+                <p class="pf-logout-subtitle">
+                    Pour votre sécurité, toutes les sessions actives seront terminées. 
+                    Vous devrez vous reconnecter pour accéder à votre compte.
+                </p>
+
+                <!-- Session Details -->
+                <div class="pf-logout-details">
+                    <div class="pf-detail-item">
+                        <span class="pf-detail-label">Session active depuis :</span>
+                        <span class="pf-detail-value" id="sessionTime">15:42</span>
+                    </div>
+                    <div class="pf-detail-item">
+                        <span class="pf-detail-label">Durée de la session :</span>
+                        <span class="pf-detail-value" id="sessionDuration">2h 18m</span>
+                    </div>
+                    <div class="pf-detail-item">
+                        <span class="pf-detail-label">Appareil :</span>
+                        <span class="pf-detail-value" id="deviceInfo">Chrome sur Windows</span>
+                    </div>
+                    <div class="pf-detail-item">
+                        <span class="pf-detail-label">Dernière activité :</span>
+                        <span class="pf-detail-value" id="lastActivity">Il y a 5 minutes</span>
+                    </div>
+                </div>
+
+                <!-- Security Tips -->
+                <div class="pf-security-tips">
+                    <h3 class="pf-tips-title">
+                        <i class="fas fa-shield-alt"></i>
+                        Conseils de sécurité
+                    </h3>
+                    <ul class="pf-tips-list">
+                        <li>Effacez le cache de votre navigateur</li>
+                        <li>Fermez tous les onglets PayFusion</li>
+                        <li>Ne laissez jamais votre session ouverte sur un appareil public</li>
+                        <li>Changez régulièrement votre mot de passe</li>
+                    </ul>
+                </div>
+
+                <!-- Countdown -->
+                <div class="pf-countdown">
+                    <p class="pf-countdown-text">Redirection automatique dans :</p>
+                    <div class="pf-countdown-timer" id="countdown">5</div>
+                </div>
+
+                <!-- Actions -->
+                <div class="pf-logout-actions">
+                    <button class="pf-btn pf-btn-secondary" id="cancelBtn">
+                        <i class="fas fa-times"></i> Annuler
+                    </button>
+                    <button class="pf-btn pf-btn-primary" id="confirmBtn">
+                        <i class="fas fa-sign-out-alt"></i> Se déconnecter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-logout-footer">
+        <div class="container">
+            <p>Pour toute question de sécurité, contactez <a href="mailto:support.payfusion@gmail.com">support.payfusion@gmail.com</a></p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuration
+        let countdown = 5;
+        let countdownInterval;
+        let isProcessing = false;
+
+        // DOM Elements
+        const countdownElement = document.getElementById('countdown');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const confirmBtn = document.getElementById('confirmBtn');
+
+        // Simulated session data (in real app, get from Firebase/backend)
+        function loadSessionData() {
+            const now = new Date();
+            const sessionStart = new Date(now.getTime() - (2 * 60 + 18) * 60000); // 2h18 ago
+            const lastActivity = new Date(now.getTime() - 5 * 60000); // 5 min ago
+
+            document.getElementById('sessionTime').textContent = 
+                sessionStart.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            
+            document.getElementById('sessionDuration').textContent = '2h 18m';
+            
+            document.getElementById('deviceInfo').textContent = 
+                navigator.userAgent.includes('Chrome') ? 'Chrome sur Windows' : 
+                navigator.userAgent.includes('Firefox') ? 'Firefox sur Windows' :
+                navigator.userAgent.includes('Safari') ? 'Safari sur Mac' : 
+                'Appareil mobile';
+            
+            document.getElementById('lastActivity').textContent = 'Il y a 5 minutes';
+        }
+
+        // Start countdown
+        function startCountdown() {
+            countdownElement.textContent = countdown;
+            
+            countdownInterval = setInterval(() => {
+                countdown--;
+                countdownElement.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    performLogout();
+                }
+            }, 1000);
+        }
+
+        // Perform logout
+        async function performLogout() {
+            if (isProcessing) return;
+            
+            isProcessing = true;
+            
+            try {
+                // Show loading state
+                confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Déconnexion...';
+                confirmBtn.disabled = true;
+                cancelBtn.disabled = true;
+                
+                // Simulate API call to logout
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Clear local data
+                clearLocalData();
+                
+                // Show success message
+                showSuccessMessage();
+                
+                // Redirect to index page
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                
+            } catch (error) {
+                console.error('Logout error:', error);
+                showErrorMessage();
+                resetButtons();
+            }
+        }
+
+        // Clear local data
+        function clearLocalData() {
+            // Clear local storage items related to auth
+            localStorage.removeItem('payfusion_auth_token');
+            localStorage.removeItem('payfusion_user_data');
+            localStorage.removeItem('payfusion_session');
+            
+            // Clear session storage
+            sessionStorage.clear();
+            
+            // Clear cookies (simplified approach)
+            document.cookie.split(";").forEach(cookie => {
+                const name = cookie.split("=")[0].trim();
+                if (name.includes('payfusion') || name.includes('auth')) {
+                    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+                }
+            });
+            
+            console.log('Local data cleared');
+        }
+
+        // Show success message
+        function showSuccessMessage() {
+            const card = document.querySelector('.pf-logout-card');
+            card.innerHTML = `
+                <div style="text-align: center; padding: var(--spacing-xl) 0;">
+                    <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #10b981 0%, #34d399 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto var(--spacing-lg);">
+                        <i class="fas fa-check" style="font-size: 3rem; color: white;"></i>
+                    </div>
+                    <h1 style="font-size: var(--font-size-xl); font-weight: 700; margin-bottom: var(--spacing-sm); color: var(--color-gray-dark);">
+                        Déconnexion réussie
+                    </h1>
+                    <p style="color: var(--color-gray-medium); margin-bottom: var(--spacing-xl);">
+                        Vous avez été déconnecté avec succès. Redirection vers l'accueil...
+                    </p>
+                    <div style="display: flex; justify-content: center; gap: var(--spacing-sm);">
+                        <a href="index.html" class="pf-btn pf-btn-primary">
+                            <i class="fas fa-home"></i> Retour à l'accueil
+                        </a>
+                        <a href="login.html" class="pf-btn pf-btn-secondary">
+                            <i class="fas fa-sign-in-alt"></i> Se reconnecter
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Show error message
+        function showErrorMessage() {
+            alert('Erreur lors de la déconnexion. Veuillez réessayer.');
+        }
+
+        // Reset buttons
+        function resetButtons() {
+            confirmBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> Se déconnecter';
+            confirmBtn.disabled = false;
+            cancelBtn.disabled = false;
+            isProcessing = false;
+            countdown = 5;
+            startCountdown();
+        }
+
+        // Cancel logout
+        function cancelLogout() {
+            clearInterval(countdownInterval);
+            window.location.href = 'home.html';
+        }
+
+        // Initialize
+        function init() {
+            loadSessionData();
+            startCountdown();
+            
+            // Event listeners
+            confirmBtn.addEventListener('click', performLogout);
+            cancelBtn.addEventListener('click', cancelLogout);
+            
+            // Prevent back button after logout starts
+            window.addEventListener('popstate', () => {
+                if (isProcessing) {
+                    window.history.pushState(null, '', window.location.href);
+                }
+            });
+            
+            // Clear interval on page unload
+            window.addEventListener('beforeunload', () => {
+                clearInterval(countdownInterval);
+            });
+        }
+
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

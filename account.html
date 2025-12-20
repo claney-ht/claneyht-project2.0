@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Mon Compte</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --color-gaming: #f97316;
+            --color-streaming: #8b5cf6;
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER ===== */
+        .pf-account-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-gray-light);
+            padding: var(--spacing-md) 0;
+        }
+
+        .pf-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pf-back-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .pf-back-btn:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-page-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+            text-align: center;
+        }
+
+        .pf-user-menu {
+            position: relative;
+        }
+
+        .pf-menu-button {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .pf-menu-button:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-menu-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-blue-primary);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-account-main {
+            padding: var(--spacing-xl) 0;
+        }
+
+        /* ===== PROFILE HEADER ===== */
+        .pf-profile-header {
+            background: linear-gradient(135deg, var(--color-blue-primary) 0%, var(--color-blue-light) 100%);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            color: var(--color-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pf-profile-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none"><path d="M0,0 L1000,100 L1000,0 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .pf-profile-info {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .pf-profile-info {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .pf-avatar-large {
+            width: 100px;
+            height: 100px;
+            background: var(--color-white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--color-blue-primary);
+            border: 4px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .pf-profile-details {
+            flex: 1;
+        }
+
+        .pf-profile-name {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-profile-email {
+            font-size: var(--font-size-base);
+            opacity: 0.9;
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .pf-profile-stats {
+            display: flex;
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-md);
+        }
+
+        @media (max-width: 480px) {
+            .pf-profile-stats {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+            }
+        }
+
+        .pf-stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .pf-stat-value {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+        }
+
+        .pf-stat-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        /* ===== ACCOUNT STATUS ===== */
+        .pf-account-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-status-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .pf-status-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .pf-status-icon.verified {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+        }
+
+        .pf-status-icon.pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--color-warning);
+        }
+
+        .pf-status-icon.unverified {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--color-error);
+        }
+
+        .pf-status-details {
+            flex: 1;
+        }
+
+        .pf-status-title {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-status-subtitle {
+            color: var(--color-gray-medium);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* ===== TABS ===== */
+        .pf-account-tabs {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xl);
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .pf-account-tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            color: var(--color-gray-medium);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .pf-account-tab:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-account-tab.active {
+            color: var(--color-blue-primary);
+            border-bottom-color: var(--color-blue-primary);
+        }
+
+        /* ===== TAB CONTENT ===== */
+        .pf-tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .pf-tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ===== ACTIVITY SECTION ===== */
+        .pf-activity-filters {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+            flex-wrap: wrap;
+        }
+
+        .pf-filter-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            background: var(--color-white);
+            color: var(--color-gray-dark);
+            font-size: var(--font-size-sm);
+        }
+
+        .pf-search-input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .pf-activity-table {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-table-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            background: var(--color-gray-very-light);
+            padding: var(--spacing-md);
+            font-weight: 600;
+            color: var(--color-gray-dark);
+            border-bottom: 1px solid var(--color-gray-light);
+        }
+
+        @media (max-width: 768px) {
+            .pf-table-header {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .pf-table-header :nth-child(3),
+            .pf-table-header :nth-child(4) {
+                display: none;
+            }
+        }
+
+        .pf-table-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--color-gray-very-light);
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .pf-table-row {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .pf-table-row :nth-child(3),
+            .pf-table-row :nth-child(4) {
+                display: none;
+            }
+        }
+
+        .pf-table-row:last-child {
+            border-bottom: none;
+        }
+
+        .pf-table-row:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-service-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .pf-badge-finance {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--color-blue-primary);
+        }
+
+        .pf-badge-gaming {
+            background: rgba(249, 115, 22, 0.1);
+            color: var(--color-gaming);
+        }
+
+        .pf-badge-streaming {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--color-streaming);
+        }
+
+        .pf-badge-wallet {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+        }
+
+        /* ===== ORDERS SECTION ===== */
+        .pf-orders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .pf-order-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            transition: all 0.3s ease;
+        }
+
+        .pf-order-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pf-order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-order-number {
+            font-family: monospace;
+            font-weight: 600;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-order-date {
+            color: var(--color-gray-medium);
+            font-size: 0.875rem;
+        }
+
+        .pf-order-details {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-order-service {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-order-amount {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--color-gray-dark);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-order-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .pf-status-completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-success);
+        }
+
+        .pf-status-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--color-warning);
+        }
+
+        .pf-status-processing {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--color-blue-primary);
+        }
+
+        .pf-status-cancelled {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--color-error);
+        }
+
+        /* ===== REFERRALS SECTION ===== */
+        .pf-referral-card {
+            background: linear-gradient(135deg, var(--color-blue-primary) 0%, var(--color-blue-light) 100%);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            color: var(--color-white);
+            margin-bottom: var(--spacing-xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pf-referral-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,100 L100,0 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .pf-referral-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pf-referral-title {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .pf-referral-code {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            font-family: monospace;
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: var(--spacing-lg);
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+
+        .pf-referral-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-referral-stat {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .pf-referral-value {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .pf-referral-label {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        /* ===== SUPPORT SECTION ===== */
+        .pf-support-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-support-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-gray-light);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pf-support-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pf-support-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-md);
+            font-size: 1.5rem;
+            color: var(--color-blue-primary);
+        }
+
+        .pf-support-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-support-desc {
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-blue-primary);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #1d4ed8;
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        .pf-btn-success {
+            background-color: var(--color-success);
+            color: var(--color-white);
+        }
+
+        .pf-btn-success:hover {
+            background-color: #0da271;
+        }
+
+        .pf-btn-lg {
+            padding: 1rem 2rem;
+            font-size: var(--font-size-base);
+        }
+
+        .pf-btn-block {
+            width: 100%;
+        }
+
+        /* ===== NO DATA ===== */
+        .pf-no-data {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--color-gray-medium);
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-account-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-account-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .pf-account-tabs {
+                flex-direction: column;
+            }
+            
+            .pf-account-tab {
+                text-align: left;
+                border-bottom: none;
+                border-left: 2px solid transparent;
+            }
+            
+            .pf-account-tab.active {
+                border-left-color: var(--color-blue-primary);
+                border-bottom-color: transparent;
+            }
+            
+            .pf-activity-filters {
+                flex-direction: column;
+            }
+            
+            .pf-search-input {
+                min-width: 100%;
+            }
+            
+            .pf-action-buttons {
+                flex-direction: column;
+            }
+            
+            .pf-btn {
+                width: 100%;
+            }
+            
+            .pf-header-content {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+            
+            .pf-back-btn {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-account-header">
+        <div class="container">
+            <div class="pf-header-content">
+                <a href="home.html" class="pf-back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
+                
+                <h1 class="pf-page-title">Mon Compte</h1>
+                
+                <div class="pf-user-menu">
+                    <button class="pf-menu-button" onclick="window.location.href='settings.html'">
+                        <div class="pf-menu-avatar">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pf-account-main">
+        <div class="container">
+            <!-- Profile Header -->
+            <div class="pf-profile-header">
+                <div class="pf-profile-info">
+                    <div class="pf-avatar-large">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    
+                    <div class="pf-profile-details">
+                        <h1 class="pf-profile-name">Jean Dupont</h1>
+                        <div class="pf-profile-email">
+                            <i class="fas fa-envelope"></i>
+                            <span>jean.dupont@exemple.com</span>
+                        </div>
+                        <div class="pf-profile-stats">
+                            <div class="pf-stat-item">
+                                <div class="pf-stat-value">25</div>
+                                <div class="pf-stat-label">Commandes</div>
+                            </div>
+                            <div class="pf-stat-item">
+                                <div class="pf-stat-value">2,500 HTG</div>
+                                <div class="pf-stat-label">Solde</div>
+                            </div>
+                            <div class="pf-stat-item">
+                                <div class="pf-stat-value">Depuis Déc 2024</div>
+                                <div class="pf-stat-label">Membre</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Status -->
+            <div class="pf-account-status">
+                <div class="pf-status-card">
+                    <div class="pf-status-icon verified">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="pf-status-details">
+                        <div class="pf-status-title">Email vérifié</div>
+                        <div class="pf-status-subtitle">jean.dupont@exemple.com</div>
+                    </div>
+                </div>
+                
+                <div class="pf-status-card">
+                    <div class="pf-status-icon verified">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="pf-status-details">
+                        <div class="pf-status-title">Téléphone vérifié</div>
+                        <div class="pf-status-subtitle">+509 3944 2808</div>
+                    </div>
+                </div>
+                
+                <div class="pf-status-card">
+                    <div class="pf-status-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="pf-status-details">
+                        <div class="pf-status-title">Vérification KYC</div>
+                        <div class="pf-status-subtitle">En attente d'approbation</div>
+                        <button class="pf-btn pf-btn-secondary pf-btn-sm" onclick="window.location.href='kyc.html'">
+                            <i class="fas fa-upload"></i> Vérifier
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="pf-status-card">
+                    <div class="pf-status-icon verified">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="pf-status-details">
+                        <div class="pf-status-title">Niveau du compte</div>
+                        <div class="pf-status-subtitle">Basique • Limites standard</div>
+                        <button class="pf-btn pf-btn-secondary pf-btn-sm" onclick="upgradeAccount()">
+                            <i class="fas fa-arrow-up"></i> Améliorer
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="pf-account-tabs">
+                <button class="pf-account-tab active" data-tab="activity">
+                    <i class="fas fa-history"></i> Activité récente
+                </button>
+                <button class="pf-account-tab" data-tab="orders">
+                    <i class="fas fa-shopping-cart"></i> Mes commandes
+                </button>
+                <button class="pf-account-tab" data-tab="referrals">
+                    <i class="fas fa-user-friends"></i> Parrainage
+                </button>
+                <button class="pf-account-tab" data-tab="support">
+                    <i class="fas fa-headset"></i> Support
+                </button>
+            </div>
+
+            <!-- Tab 1: Activity -->
+            <div id="activityTab" class="pf-tab-content active">
+                <div class="pf-activity-filters">
+                    <select class="pf-filter-select" id="activityType">
+                        <option value="">Toutes les activités</option>
+                        <option value="transaction">Transactions</option>
+                        <option value="order">Commandes</option>
+                        <option value="login">Connexions</option>
+                        <option value="kyc">KYC</option>
+                    </select>
+                    
+                    <select class="pf-filter-select" id="activityPeriod">
+                        <option value="7">7 derniers jours</option>
+                        <option value="30" selected>30 derniers jours</option>
+                        <option value="90">3 derniers mois</option>
+                        <option value="365">Cette année</option>
+                    </select>
+                    
+                    <input type="text" class="pf-filter-select pf-search-input" id="searchActivity" placeholder="Rechercher une activité...">
+                    
+                    <button class="pf-btn pf-btn-secondary" onclick="exportActivity()">
+                        <i class="fas fa-download"></i> Exporter
+                    </button>
+                </div>
+                
+                <div class="pf-activity-table">
+                    <div class="pf-table-header">
+                        <div>Date</div>
+                        <div>Type</div>
+                        <div>Description</div>
+                        <div>Statut</div>
+                    </div>
+                    
+                    <div id="activityList">
+                        <!-- Activities will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="pf-no-data" id="noActivityMessage" style="display: none;">
+                    <i class="fas fa-history" style="font-size: 3rem; color: var(--color-gray-light); margin-bottom: var(--spacing-sm);"></i>
+                    <h3>Aucune activité récente</h3>
+                    <p>Votre historique d'activité apparaîtra ici.</p>
+                </div>
+            </div>
+
+            <!-- Tab 2: Orders -->
+            <div id="ordersTab" class="pf-tab-content">
+                <div class="pf-activity-filters">
+                    <select class="pf-filter-select" id="orderStatus">
+                        <option value="">Tous les statuts</option>
+                        <option value="completed">Complétés</option>
+                        <option value="pending">En attente</option>
+                        <option value="processing">En traitement</option>
+                        <option value="cancelled">Annulés</option>
+                    </select>
+                    
+                    <select class="pf-filter-select" id="orderService">
+                        <option value="">Tous les services</option>
+                        <option value="freefire">Free Fire</option>
+                        <option value="netflix">Netflix</option>
+                        <option value="wise">Wise</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="usdt">USDT</option>
+                    </select>
+                    
+                    <input type="text" class="pf-filter-select pf-search-input" id="searchOrders" placeholder="Rechercher une commande...">
+                </div>
+                
+                <div class="pf-orders-grid" id="ordersList">
+                    <!-- Orders will be loaded here -->
+                </div>
+                
+                <div class="pf-no-data" id="noOrdersMessage" style="display: none;">
+                    <i class="fas fa-shopping-cart" style="font-size: 3rem; color: var(--color-gray-light); margin-bottom: var(--spacing-sm);"></i>
+                    <h3>Aucune commande</h3>
+                    <p>Vos commandes apparaîtront ici.</p>
+                    <button class="pf-btn pf-btn-primary" onclick="window.location.href='services.html'" style="margin-top: var(--spacing-md);">
+                        <i class="fas fa-shopping-bag"></i> Explorer les services
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab 3: Referrals -->
+            <div id="referralsTab" class="pf-tab-content">
+                <div class="pf-referral-card">
+                    <div class="pf-referral-content">
+                        <h2 class="pf-referral-title">Programme de parrainage</h2>
+                        <div class="pf-referral-code" id="referralCode">REF-JD789XYZ</div>
+                        <p>Parrainez des amis et gagnez 5% sur leurs premières transactions !</p>
+                        
+                        <div class="pf-action-buttons" style="margin-top: var(--spacing-lg);">
+                            <button class="pf-btn pf-btn-secondary" onclick="copyReferralLink()">
+                                <i class="fas fa-copy"></i> Copier le lien
+                            </button>
+                            <button class="pf-btn pf-btn-success" onclick="shareReferral()">
+                                <i class="fas fa-share-alt"></i> Partager
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pf-referral-stats">
+                    <div class="pf-referral-stat">
+                        <div class="pf-referral-value">3</div>
+                        <div class="pf-referral-label">Personnes parrainées</div>
+                    </div>
+                    
+                    <div class="pf-referral-stat">
+                        <div class="pf-referral-value">1,500 HTG</div>
+                        <div class="pf-referral-label">Gains totaux</div>
+                    </div>
+                    
+                    <div class="pf-referral-stat">
+                        <div class="pf-referral-value">50 HTG</div>
+                        <div class="pf-referral-label">Gains en attente</div>
+                    </div>
+                    
+                    <div class="pf-referral-stat">
+                        <div class="pf-referral-value">10</div>
+                        <div class="pf-referral-label">Places restantes</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-bottom: var(--spacing-lg); color: var(--color-gray-dark);">
+                    <i class="fas fa-users"></i> Personnes parrainées
+                </h3>
+                
+                <div class="pf-activity-table">
+                    <div class="pf-table-header">
+                        <div>Nom</div>
+                        <div>Date d'inscription</div>
+                        <div>Statut</div>
+                        <div>Gains</div>
+                    </div>
+                    
+                    <div class="pf-table-row">
+                        <div>
+                            <strong>Marie Laurent</strong>
+                            <div class="pf-form-note">marie.l@exemple.com</div>
+                        </div>
+                        <div>15 Déc 2024</div>
+                        <div><span class="pf-status-completed pf-order-status">Actif</span></div>
+                        <div>500 HTG</div>
+                    </div>
+                    
+                    <div class="pf-table-row">
+                        <div>
+                            <strong>Pierre Martin</strong>
+                            <div class="pf-form-note">pierre.m@exemple.com</div>
+                        </div>
+                        <div>10 Déc 2024</div>
+                        <div><span class="pf-status-completed pf-order-status">Actif</span></div>
+                        <div>750 HTG</div>
+                    </div>
+                    
+                    <div class="pf-table-row">
+                        <div>
+                            <strong>Sophie Bernard</strong>
+                            <div class="pf-form-note">sophie.b@exemple.com</div>
+                        </div>
+                        <div>05 Déc 2024</div>
+                        <div><span class="pf-status-pending pf-order-status">En attente</span></div>
+                        <div>250 HTG</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Support -->
+            <div id="supportTab" class="pf-tab-content">
+                <div class="pf-support-options">
+                    <div class="pf-support-card">
+                        <div class="pf-support-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3 class="pf-support-title">Support WhatsApp</h3>
+                        <p class="pf-support-desc">Obtenez une assistance instantanée via WhatsApp</p>
+                        <a href="https://wa.me/50939442808" class="pf-btn pf-btn-success pf-btn-block">
+                            <i class="fab fa-whatsapp"></i> +509 3944 2808
+                        </a>
+                    </div>
+                    
+                    <div class="pf-support-card">
+                        <div class="pf-support-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="pf-support-title">Email Support</h3>
+                        <p class="pf-support-desc">Envoyez-nous un email détaillé</p>
+                        <a href="mailto:support.payfusion@gmail.com" class="pf-btn pf-btn-primary pf-btn-block">
+                            <i class="fas fa-envelope"></i> support.payfusion@gmail.com
+                        </a>
+                    </div>
+                    
+                    <div class="pf-support-card">
+                        <div class="pf-support-icon">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <h3 class="pf-support-title">Ticket Support</h3>
+                        <p class="pf-support-desc">Créez un ticket pour des problèmes complexes</p>
+                        <button class="pf-btn pf-btn-secondary pf-btn-block" onclick="createSupportTicket()">
+                            <i class="fas fa-plus"></i> Créer un ticket
+                        </button>
+                    </div>
+                </div>
+                
+                <h3 style="margin-bottom: var(--spacing-lg); color: var(--color-gray-dark);">
+                    <i class="fas fa-question-circle"></i> Questions fréquentes
+                </h3>
+                
+                <div style="background: var(--color-white); border-radius: var(--border-radius); padding: var(--spacing-lg); box-shadow: var(--shadow-sm); border: 1px solid var(--color-gray-light);">
+                    <div style="margin-bottom: var(--spacing-lg);">
+                        <h4 style="color: var(--color-gray-dark); margin-bottom: var(--spacing-xs);">
+                            <i class="fas fa-money-bill-wave"></i> Combien de temps pour un dépôt ?
+                        </h4>
+                        <p style="color: var(--color-gray-medium);">
+                            Les dépôts MonCash/NatCash prennent 10-30 minutes. USDT dépend des confirmations blockchain.
+                        </p>
+                    </div>
+                    
+                    <div style="margin-bottom: var(--spacing-lg);">
+                        <h4 style="color: var(--color-gray-dark); margin-bottom: var(--spacing-xs);">
+                            <i class="fas fa-shipping-fast"></i> Livraison des services ?
+                        </h4>
+                        <p style="color: var(--color-gray-medium);">
+                            Free Fire: 5 minutes. Netflix: 15 minutes. Services financiers: instantané.
+                        </p>
+                    </div>
+                    
+                    <div style="margin-bottom: var(--spacing-lg);">
+                        <h4 style="color: var(--color-gray-dark); margin-bottom: var(--spacing-xs);">
+                            <i class="fas fa-user-shield"></i> Sécurité des transactions ?
+                        </h4>
+                        <p style="color: var(--color-gray-medium);">
+                            Toutes les transactions sont cryptées et surveillées 24/7.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h4 style="color: var(--color-gray-dark); margin-bottom: var(--spacing-xs);">
+                            <i class="fas fa-clock"></i> Heures de support ?
+                        </h4>
+                        <p style="color: var(--color-gray-medium);">
+                            Support 24/7 via WhatsApp. Email réponse sous 12 heures.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="pf-action-buttons">
+                    <button class="pf-btn pf-btn-secondary" onclick="window.location.href='support.html'">
+                        <i class="fas fa-external-link-alt"></i> Voir le support complet
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-account-footer">
+        <div class="container">
+            <p>Besoin d'aide avec votre compte ? <a href="https://wa.me/50939442808">Contactez-nous sur WhatsApp</a></p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // State
+        let currentTab = 'activity';
+        let activities = [];
+        let orders = [];
+
+        // DOM Elements
+        const tabs = document.querySelectorAll('.pf-account-tab');
+        const tabContents = document.querySelectorAll('.pf-tab-content');
+
+        // Sample Data
+        const sampleActivities = [
+            {
+                id: 1,
+                date: '2024-12-15 14:30',
+                type: 'transaction',
+                description: 'Dépôt MonCash #TRX-7842',
+                amount: '+1,500 HTG',
+                status: 'completed',
+                icon: 'fas fa-arrow-down',
+                color: 'success'
+            },
+            {
+                id: 2,
+                date: '2024-12-15 14:15',
+                type: 'order',
+                description: 'Achat Free Fire - 100+10 diamants',
+                service: 'freefire',
+                status: 'completed',
+                icon: 'fas fa-shopping-cart',
+                color: 'gaming'
+            },
+            {
+                id: 3,
+                date: '2024-12-14 19:30',
+                type: 'login',
+                description: 'Connexion depuis un nouvel appareil',
+                device: 'Chrome sur Windows',
+                status: 'security',
+                icon: 'fas fa-sign-in-alt',
+                color: 'warning'
+            },
+            {
+                id: 4,
+                date: '2024-12-14 11:45',
+                type: 'transaction',
+                description: 'Retrait NatCash #TRX-7819',
+                amount: '-3,000 HTG',
+                status: 'completed',
+                icon: 'fas fa-arrow-up',
+                color: 'error'
+            },
+            {
+                id: 5,
+                date: '2024-12-12 09:15',
+                type: 'kyc',
+                description: 'Soumission des documents KYC',
+                status: 'pending',
+                icon: 'fas fa-id-card',
+                color: 'warning'
+            },
+            {
+                id: 6,
+                date: '2024-12-10 16:20',
+                type: 'order',
+                description: 'Achat Netflix Premium - 2 mois',
+                service: 'netflix',
+                status: 'completed',
+                icon: 'fas fa-tv',
+                color: 'streaming'
+            },
+            {
+                id: 7,
+                date: '2024-12-08 21:30',
+                type: 'transaction',
+                description: 'Recharge Wise - 50 USD',
+                amount: '-7,500 HTG',
+                status: 'completed',
+                icon: 'fas fa-exchange-alt',
+                color: 'finance'
+            },
+            {
+                id: 8,
+                date: '2024-12-05 11:15',
+                type: 'login',
+                description: 'Connexion réussie',
+                device: 'Safari sur iPhone',
+                status: 'completed',
+                icon: 'fas fa-user-check',
+                color: 'success'
+            }
+        ];
+
+        const sampleOrders = [
+            {
+                id: 1,
+                number: 'CMD-20241215-001',
+                date: '15 Déc 2024, 14:15',
+                service: 'Free Fire',
+                items: ['100+10 diamants', '200+20 diamants'],
+                amount: 505,
+                status: 'completed',
+                icon: 'fas fa-gamepad'
+            },
+            {
+                id: 2,
+                number: 'CMD-20241210-002',
+                date: '10 Déc 2024, 16:20',
+                service: 'Netflix',
+                items: ['Premium - 2 mois'],
+                amount: 900,
+                status: 'completed',
+                icon: 'fas fa-tv'
+            },
+            {
+                id: 3,
+                number: 'CMD-20241208-003',
+                date: '08 Déc 2024, 21:30',
+                service: 'Wise',
+                items: ['Recharge 50 USD'],
+                amount: 7500,
+                status: 'completed',
+                icon: 'fas fa-money-check-alt'
+            },
+            {
+                id: 4,
+                number: 'CMD-20241205-004',
+                date: '05 Déc 2024, 11:15',
+                service: 'Free Fire',
+                items: ['Abonnement Semaine'],
+                amount: 325,
+                status: 'processing',
+                icon: 'fas fa-gamepad'
+            },
+            {
+                id: 5,
+                number: 'CMD-20241201-005',
+                date: '01 Déc 2024, 09:45',
+                service: 'PayPal',
+                items: ['Recharge 20 USD'],
+                amount: 3000,
+                status: 'pending',
+                icon: 'fab fa-paypal'
+            },
+            {
+                id: 6,
+                number: 'CMD-20241128-006',
+                date: '28 Nov 2024, 14:30',
+                service: 'USDT',
+                items: ['Achat 10 USDT'],
+                amount: 1500,
+                status: 'completed',
+                icon: 'fas fa-coins'
+            }
+        ];
+
+        // Switch tab
+        function switchTab(tabName) {
+            currentTab = tabName;
+            
+            // Update tabs
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+                if (tab.dataset.tab === tabName) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            // Update content
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === tabName + 'Tab') {
+                    content.classList.add('active');
+                }
+            });
+            
+            // Load tab data
+            switch(tabName) {
+                case 'activity':
+                    loadActivities();
+                    break;
+                case 'orders':
+                    loadOrders();
+                    break;
+                case 'referrals':
+                    // Already loaded
+                    break;
+                case 'support':
+                    // Already loaded
+                    break;
+            }
+        }
+
+        // Load activities
+        function loadActivities() {
+            const typeFilter = document.getElementById('activityType').value;
+            const periodFilter = parseInt(document.getElementById('activityPeriod').value);
+            const searchQuery = document.getElementById('searchActivity').value.toLowerCase();
+            
+            const now = new Date();
+            const periodDate = new Date();
+            periodDate.setDate(periodDate.getDate() - periodFilter);
+            
+            let filteredActivities = sampleActivities.filter(activity => {
+                // Type filter
+                if (typeFilter && activity.type !== typeFilter) return false;
+                
+                // Date filter
+                const activityDate = new Date(activity.date);
+                if (activityDate < periodDate) return false;
+                
+                // Search filter
+                if (searchQuery && !activity.description.toLowerCase().includes(searchQuery)) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            // Display activities
+            const activityList = document.getElementById('activityList');
+            const noActivityMessage = document.getElementById('noActivityMessage');
+            
+            if (filteredActivities.length === 0) {
+                activityList.innerHTML = '';
+                noActivityMessage.style.display = 'block';
+                return;
+            }
+            
+            noActivityMessage.style.display = 'none';
+            
+            let html = '';
+            filteredActivities.forEach(activity => {
+                const dateObj = new Date(activity.date);
+                const formattedDate = dateObj.toLocaleDateString('fr-FR', { 
+                    day: 'numeric', 
+                    month: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                // Determine badge based on type
+                let badgeClass = '';
+                let badgeText = '';
+                
+                switch(activity.type) {
+                    case 'transaction':
+                        badgeClass = 'pf-badge-wallet';
+                        badgeText = 'Transaction';
+                        break;
+                    case 'order':
+                        badgeClass = activity.service === 'freefire' ? 'pf-badge-gaming' : 
+                                    activity.service === 'netflix' ? 'pf-badge-streaming' : 'pf-badge-finance';
+                        badgeText = 'Commande';
+                        break;
+                    case 'login':
+                        badgeClass = 'pf-badge-wallet';
+                        badgeText = 'Sécurité';
+                        break;
+                    case 'kyc':
+                        badgeClass = 'pf-badge-wallet';
+                        badgeText = 'KYC';
+                        break;
+                }
+                
+                html += `
+                    <div class="pf-table-row">
+                        <div>${formattedDate}</div>
+                        <div><span class="pf-service-badge ${badgeClass}">${badgeText}</span></div>
+                        <div>${activity.description}</div>
+                        <div>
+                            <span class="pf-order-status pf-status-${activity.status}">
+                                <i class="fas fa-circle" style="font-size: 8px;"></i>
+                                ${activity.status === 'completed' ? 'Terminé' : 
+                                  activity.status === 'pending' ? 'En attente' : 
+                                  activity.status === 'security' ? 'Sécurité' : 'Traitement'}
+                            </span>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            activityList.innerHTML = html;
+        }
+
+        // Load orders
+        function loadOrders() {
+            const statusFilter = document.getElementById('orderStatus').value;
+            const serviceFilter = document.getElementById('orderService').value;
+            const searchQuery = document.getElementById('searchOrders').value.toLowerCase();
+            
+            let filteredOrders = sampleOrders.filter(order => {
+                // Status filter
+                if (statusFilter && order.status !== statusFilter) return false;
+                
+                // Service filter
+                if (serviceFilter) {
+                    const serviceMap = {
+                        'freefire': 'Free Fire',
+                        'netflix': 'Netflix',
+                        'wise': 'Wise',
+                        'paypal': 'PayPal',
+                        'usdt': 'USDT'
+                    };
+                    if (order.service !== serviceMap[serviceFilter]) return false;
+                }
+                
+                // Search filter
+                if (searchQuery) {
+                    const searchIn = order.number + ' ' + order.service + ' ' + order.items.join(' ');
+                    if (!searchIn.toLowerCase().includes(searchQuery)) return false;
+                }
+                
+                return true;
+            });
+            
+            // Display orders
+            const ordersList = document.getElementById('ordersList');
+            const noOrdersMessage = document.getElementById('noOrdersMessage');
+            
+            if (filteredOrders.length === 0) {
+                ordersList.innerHTML = '';
+                noOrdersMessage.style.display = 'block';
+                return;
+            }
+            
+            noOrdersMessage.style.display = 'none';
+            
+            let html = '';
+            filteredOrders.forEach(order => {
+                const statusText = {
+                    'completed': 'Complété',
+                    'pending': 'En attente',
+                    'processing': 'En traitement',
+                    'cancelled': 'Annulé'
+                }[order.status];
+                
+                const statusClass = `pf-status-${order.status}`;
+                
+                html += `
+                    <div class="pf-order-card">
+                        <div class="pf-order-header">
+                            <div class="pf-order-number">${order.number}</div>
+                            <div class="pf-order-date">${order.date}</div>
+                        </div>
+                        
+                        <div class="pf-order-details">
+                            <div class="pf-order-service">
+                                <i class="${order.icon}" style="color: var(--color-gray-medium);"></i>
+                                <span style="font-weight: 500;">${order.service}</span>
+                            </div>
+                            
+                            <div class="pf-order-amount">${order.amount.toLocaleString('fr-HT')} HTG</div>
+                            
+                            <div style="color: var(--color-gray-medium); font-size: 0.875rem;">
+                                ${order.items.map(item => `• ${item}`).join('<br>')}
+                            </div>
+                        </div>
+                        
+                        <div class="pf-order-status ${statusClass}">
+                            <i class="fas fa-circle" style="font-size: 8px;"></i>
+                            ${statusText}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            ordersList.innerHTML = html;
+        }
+
+        // Copy referral link
+        function copyReferralLink() {
+            const referralCode = document.getElementById('referralCode').textContent;
+            const referralLink = `${window.location.origin}/register.html?ref=${referralCode}`;
+            
+            navigator.clipboard.writeText(referralLink)
+                .then(() => {
+                    alert('Lien de parrainage copié !');
+                })
+                .catch(err => {
+                    console.error('Erreur de copie:', err);
+                    alert('Erreur lors de la copie du lien');
+                });
+        }
+
+        // Share referral
+        function shareReferral() {
+            const referralCode = document.getElementById('referralCode').textContent;
+            const message = `Rejoins PayFusion avec mon code ${referralCode} et obtiens 5% de bonus sur ta première transaction ! ${window.location.origin}/register.html?ref=${referralCode}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Rejoins PayFusion',
+                    text: message,
+                    url: window.location.origin
+                });
+            } else {
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            }
+        }
+
+        // Create support ticket
+        function createSupportTicket() {
+            const subject = prompt('Sujet de votre ticket:');
+            if (subject) {
+                const description = prompt('Description du problème:');
+                if (description) {
+                    alert(`Ticket créé : "${subject}"\n\nNotre équipe vous répondra sous 24 heures.`);
+                    console.log('Support ticket created:', { subject, description });
+                }
+            }
+        }
+
+        // Upgrade account
+        function upgradeAccount() {
+            alert('Fonctionnalité de mise à niveau du compte - À implémenter');
+            // In real app, show upgrade options and payment process
+        }
+
+        // Export activity
+        function exportActivity() {
+            alert('Export des activités en cours...');
+            // In real app, generate and download CSV file
+        }
+
+        // Initialize
+        function init() {
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    switchTab(tab.dataset.tab);
+                });
+            });
+            
+            // Activity filters
+            document.getElementById('activityType').addEventListener('change', loadActivities);
+            document.getElementById('activityPeriod').addEventListener('change', loadActivities);
+            document.getElementById('searchActivity').addEventListener('input', loadActivities);
+            
+            // Order filters
+            document.getElementById('orderStatus').addEventListener('change', loadOrders);
+            document.getElementById('orderService').addEventListener('change', loadOrders);
+            document.getElementById('searchOrders').addEventListener('input', loadOrders);
+            
+            // Load initial data
+            loadActivities();
+            loadOrders();
+        }
+        
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

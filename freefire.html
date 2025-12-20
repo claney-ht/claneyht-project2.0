@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFusion - Free Fire</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES CSS ===== */
+        :root {
+            --color-blue-primary: #2563eb;
+            --color-blue-light: #3b82f6;
+            --color-blue-very-light: #dbeafe;
+            --color-white: #ffffff;
+            --color-gray-very-light: #f8fafc;
+            --color-gray-light: #e2e8f0;
+            --color-gray-medium: #94a3b8;
+            --color-gray-dark: #334155;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+            --color-warning: #f59e0b;
+            --color-gaming: #f97316;
+            --color-gaming-light: rgba(249, 115, 22, 0.1);
+            --font-family: 'Inter', sans-serif;
+            --font-size-sm: 0.875rem;
+            --font-size-base: 1rem;
+            --font-size-lg: 1.25rem;
+            --font-size-xl: 1.5rem;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            --border-radius: 8px;
+            --border-radius-lg: 12px;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            font-size: var(--font-size-sm);
+            line-height: 1.6;
+            color: var(--color-gray-dark);
+            background-color: var(--color-gray-very-light);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ===== HEADER ===== */
+        .pf-freefire-header {
+            background: var(--color-white);
+            border-bottom: 1px solid var(--color-gray-light);
+            padding: var(--spacing-md) 0;
+        }
+
+        .pf-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pf-back-btn {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--color-gray-dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .pf-back-btn:hover {
+            color: var(--color-blue-primary);
+        }
+
+        .pf-page-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--color-blue-primary);
+            text-align: center;
+        }
+
+        .pf-user-menu {
+            position: relative;
+        }
+
+        .pf-menu-button {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .pf-menu-button:hover {
+            background: var(--color-gray-very-light);
+        }
+
+        .pf-menu-avatar {
+            width: 32px;
+            height: 32px;
+            background: var(--color-blue-very-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-blue-primary);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .pf-freefire-main {
+            padding: var(--spacing-xl) 0;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .pf-freefire-hero {
+            background: linear-gradient(135deg, var(--color-gaming) 0%, #ea580c 100%);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            color: var(--color-white);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pf-freefire-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://cdn-icons-png.flaticon.com/512/871/871366.png') no-repeat center right;
+            background-size: contain;
+            opacity: 0.1;
+        }
+
+        .pf-hero-title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            position: relative;
+            z-index: 1;
+        }
+
+        .pf-hero-subtitle {
+            font-size: var(--font-size-base);
+            opacity: 0.9;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ===== PACKS SECTION ===== */
+        .pf-section-title {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-section-title i {
+            color: var(--color-gaming);
+        }
+
+        .pf-packs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-pack-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            box-shadow: var(--shadow-sm);
+            border: 2px solid var(--color-gray-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .pf-pack-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-gaming);
+        }
+
+        .pf-pack-card.selected {
+            border-color: var(--color-gaming);
+            background: var(--color-gaming-light);
+        }
+
+        .pf-pack-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pf-pack-diamonds {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--color-gaming);
+        }
+
+        .pf-pack-bonus {
+            background: var(--color-gaming);
+            color: var(--color-white);
+            padding: 0.25rem 0.5rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .pf-pack-price {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--color-gray-dark);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-pack-currency {
+            color: var(--color-gray-medium);
+            font-size: 0.875rem;
+        }
+
+        .pf-pack-checkbox {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--color-gray-medium);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .pf-pack-card.selected .pf-pack-checkbox {
+            background: var(--color-gaming);
+            border-color: var(--color-gaming);
+        }
+
+        .pf-pack-card.selected .pf-pack-checkbox::after {
+            content: "✓";
+            color: var(--color-white);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* ===== SHOW MORE BUTTON ===== */
+        .pf-show-more {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        /* ===== SUBSCRIPTIONS SECTION ===== */
+        .pf-subscriptions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .pf-subscription-card {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            border: 2px solid var(--color-gray-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+        }
+
+        .pf-subscription-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .pf-subscription-card.selected {
+            border-color: var(--color-gaming);
+            background: var(--color-gaming-light);
+        }
+
+        .pf-subscription-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-gaming);
+            color: var(--color-white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .pf-subscription-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--color-gaming-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            font-size: 2rem;
+            color: var(--color-gaming);
+        }
+
+        .pf-subscription-title {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-subscription-price {
+            font-size: var(--font-size-xxl);
+            font-weight: 800;
+            color: var(--color-gaming);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .pf-subscription-period {
+            color: var(--color-gray-medium);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-subscription-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-subscription-features li {
+            margin-bottom: var(--spacing-xs);
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .pf-subscription-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--color-success);
+            font-weight: bold;
+        }
+
+        /* ===== ORDER SUMMARY ===== */
+        .pf-order-summary {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-gray-light);
+            margin-bottom: var(--spacing-xl);
+            position: sticky;
+            top: var(--spacing-lg);
+        }
+
+        .pf-summary-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-summary-items {
+            margin-bottom: var(--spacing-lg);
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .pf-summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--color-gray-very-light);
+        }
+
+        .pf-summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .pf-summary-total {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--spacing-md) 0;
+            border-top: 2px solid var(--color-gray-light);
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            color: var(--color-gray-dark);
+        }
+
+        .pf-summary-empty {
+            text-align: center;
+            color: var(--color-gray-medium);
+            padding: var(--spacing-lg) 0;
+        }
+
+        /* ===== ORDER FORM ===== */
+        .pf-order-form {
+            background: var(--color-white);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-form-title {
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--color-gray-dark);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+
+        .pf-form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .pf-form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-dark);
+        }
+
+        .pf-form-label i {
+            margin-right: 0.5rem;
+            color: var(--color-gray-medium);
+        }
+
+        .pf-form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--color-gray-light);
+            border-radius: var(--border-radius);
+            font-size: var(--font-size-sm);
+            color: var(--color-gray-dark);
+            background-color: var(--color-white);
+            transition: border-color 0.2s ease;
+        }
+
+        .pf-form-input:focus {
+            outline: none;
+            border-color: var(--color-blue-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .pf-form-note {
+            font-size: 0.8125rem;
+            color: var(--color-gray-medium);
+            margin-top: 0.25rem;
+        }
+
+        /* ===== BOUTONS ===== */
+        .pf-action-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            flex: 1;
+        }
+
+        .pf-btn-primary {
+            background-color: var(--color-gaming);
+            color: var(--color-white);
+        }
+
+        .pf-btn-primary:hover {
+            background-color: #ea580c;
+        }
+
+        .pf-btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .pf-btn-secondary {
+            background-color: var(--color-gray-very-light);
+            color: var(--color-gray-dark);
+            border: 1px solid var(--color-gray-light);
+        }
+
+        .pf-btn-secondary:hover {
+            background-color: var(--color-gray-light);
+        }
+
+        /* ===== ERROR MESSAGES ===== */
+        .pf-error-message {
+            color: var(--color-error);
+            font-size: 0.8125rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .pf-error-message.show {
+            display: block;
+        }
+
+        /* ===== FOOTER ===== */
+        .pf-freefire-footer {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            color: var(--color-gray-medium);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--color-gray-light);
+            background: var(--color-white);
+            margin-top: var(--spacing-xl);
+        }
+
+        .pf-freefire-footer a {
+            color: var(--color-blue-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .pf-packs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .pf-subscriptions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pf-header-content {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+            
+            .pf-back-btn {
+                align-self: flex-start;
+            }
+            
+            .pf-action-buttons {
+                flex-direction: column;
+            }
+            
+            .pf-order-summary {
+                position: static;
+                margin-bottom: var(--spacing-lg);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pf-packs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pf-freefire-hero {
+                padding: var(--spacing-lg);
+            }
+            
+            .pf-hero-title {
+                font-size: var(--font-size-lg);
+            }
+            
+            .pf-hero-subtitle {
+                font-size: var(--font-size-sm);
+            }
+            
+            .pf-pack-card,
+            .pf-subscription-card,
+            .pf-order-form {
+                padding: var(--spacing-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="pf-freefire-header">
+        <div class="container">
+            <div class="pf-header-content">
+                <a href="home.html" class="pf-back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Retour</span>
+                </a>
+                
+                <h1 class="pf-page-title">Free Fire</h1>
+                
+                <div class="pf-user-menu">
+                    <button class="pf-menu-button" onclick="window.location.href='home.html'">
+                        <div class="pf-menu-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pf-freefire-main">
+        <div class="container">
+            <!-- Hero Section -->
+            <div class="pf-freefire-hero">
+                <h1 class="pf-hero-title">Rechargez vos diamants Free Fire</h1>
+                <p class="pf-hero-subtitle">
+                    Obtenez vos diamants instantanément ! Sélectionnez vos packs ci-dessous et recevez-les en moins de 5 minutes.
+                </p>
+            </div>
+
+            <!-- Packs Section -->
+            <h2 class="pf-section-title">
+                <i class="fas fa-gem"></i>
+                <span>Packs de diamants</span>
+            </h2>
+            
+            <div class="pf-packs-grid" id="packsGrid">
+                <!-- Packs will be generated by JavaScript -->
+            </div>
+            
+            <div class="pf-show-more">
+                <button class="pf-btn pf-btn-secondary" id="showMoreBtn">
+                    <i class="fas fa-chevron-down"></i> Voir plus de packs
+                </button>
+            </div>
+
+            <!-- Subscriptions Section -->
+            <h2 class="pf-section-title">
+                <i class="fas fa-crown"></i>
+                <span>Abonnements</span>
+            </h2>
+            
+            <div class="pf-subscriptions-grid">
+                <!-- Weekly Subscription -->
+                <div class="pf-subscription-card" data-type="weekly" data-price="325">
+                    <div class="pf-subscription-badge">Populaire</div>
+                    <div class="pf-subscription-icon">
+                        <i class="fas fa-calendar-week"></i>
+                    </div>
+                    <h3 class="pf-subscription-title">Abonnement Semaine</h3>
+                    <div class="pf-subscription-price">325 Gdes</div>
+                    <div class="pf-subscription-period">7 jours</div>
+                    
+                    <ul class="pf-subscription-features">
+                        <li>Accès aux récompenses quotidiennes</li>
+                        <li>Badge d'abonné exclusif</li>
+                        <li>Bonus d'expérience +20%</li>
+                        <li>Support prioritaire</li>
+                    </ul>
+                    
+                    <div class="pf-pack-checkbox"></div>
+                </div>
+
+                <!-- Monthly Subscription -->
+                <div class="pf-subscription-card" data-type="monthly" data-price="1600">
+                    <div class="pf-subscription-badge">Meilleure valeur</div>
+                    <div class="pf-subscription-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="pf-subscription-title">Abonnement Mois</h3>
+                    <div class="pf-subscription-price">1,600 Gdes</div>
+                    <div class="pf-subscription-period">30 jours</div>
+                    
+                    <ul class="pf-subscription-features">
+                        <li>Tous les avantages de la semaine</li>
+                        <li>+500 diamants bonus</li>
+                        <li>Skin exclusif mensuel</li>
+                        <li>Bonus d'expérience +30%</li>
+                        <li>Réduction sur les achats</li>
+                    </ul>
+                    
+                    <div class="pf-pack-checkbox"></div>
+                </div>
+
+                <!-- Level Up Pass -->
+                <div class="pf-subscription-card" data-type="levelup" data-price="950">
+                    <div class="pf-subscription-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <h3 class="pf-subscription-title">Level Up Pass</h3>
+                    <div class="pf-subscription-price">950 Gdes</div>
+                    <div class="pf-subscription-period">Niveau actuel +20</div>
+                    
+                    <ul class="pf-subscription-features">
+                        <li>Augmente votre niveau de 20</li>
+                        <li>Récompenses de niveau instantanées</li>
+                        <li>Badge Level Up exclusif</li>
+                        <li>Débloque des récompenses spéciales</li>
+                    </ul>
+                    
+                    <div class="pf-pack-checkbox"></div>
+                </div>
+            </div>
+
+            <!-- Order Summary & Form -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-xl); margin-bottom: var(--spacing-xl);">
+                <!-- Order Summary -->
+                <div class="pf-order-summary">
+                    <h3 class="pf-summary-title">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Résumé de commande</span>
+                    </h3>
+                    
+                    <div class="pf-summary-items" id="summaryItems">
+                        <div class="pf-summary-empty">
+                            <i class="fas fa-shopping-basket" style="font-size: 2rem; color: var(--color-gray-light); margin-bottom: var(--spacing-sm);"></i>
+                            <p>Aucun élément sélectionné</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pf-summary-total">
+                        <span>Total:</span>
+                        <span id="totalAmount">0 Gdes</span>
+                    </div>
+                </div>
+
+                <!-- Order Form -->
+                <div class="pf-order-form">
+                    <h3 class="pf-form-title">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Informations de livraison</span>
+                    </h3>
+                    
+                    <form id="freefireOrderForm">
+                        <div class="pf-form-group">
+                            <label for="freefireId" class="pf-form-label">
+                                <i class="fas fa-id-card"></i> ID Free Fire
+                            </label>
+                            <input 
+                                type="text" 
+                                id="freefireId" 
+                                class="pf-form-input" 
+                                placeholder="Ex: 1234567890"
+                                required
+                                pattern="[0-9]{10}"
+                                maxlength="10"
+                            >
+                            <div class="pf-form-note">
+                                Entrez votre ID Free Fire (10 chiffres)
+                            </div>
+                            <div id="freefireIdError" class="pf-error-message">
+                                ID invalide. Doit contenir 10 chiffres.
+                            </div>
+                        </div>
+
+                        <div class="pf-form-group">
+                            <label for="freefireName" class="pf-form-label">
+                                <i class="fas fa-user"></i> Nom du compte
+                            </label>
+                            <input 
+                                type="text" 
+                                id="freefireName" 
+                                class="pf-form-input" 
+                                placeholder="Votre nom dans Free Fire"
+                                required
+                            >
+                            <div id="freefireNameError" class="pf-error-message">
+                                Le nom du compte est requis
+                            </div>
+                        </div>
+
+                        <div class="pf-form-group">
+                            <label for="freefireWhatsapp" class="pf-form-label">
+                                <i class="fab fa-whatsapp"></i> Numéro WhatsApp
+                            </label>
+                            <input 
+                                type="tel" 
+                                id="freefireWhatsapp" 
+                                class="pf-form-input" 
+                                placeholder="+509XXXXXXXX"
+                                required
+                            >
+                            <div class="pf-form-note">
+                                Pour vous contacter concernant la livraison
+                            </div>
+                            <div id="freefireWhatsappError" class="pf-error-message">
+                                Format: +509 suivi de 8 chiffres
+                            </div>
+                        </div>
+
+                        <div class="pf-action-buttons">
+                            <button type="button" class="pf-btn pf-btn-secondary" id="clearSelectionBtn">
+                                <i class="fas fa-trash-alt"></i> Tout effacer
+                            </button>
+                            <button type="submit" class="pf-btn pf-btn-primary" id="submitOrderBtn" disabled>
+                                <i class="fas fa-check-circle"></i> Commander
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pf-freefire-footer">
+        <div class="container">
+            <p>Livraison instantanée • Support 24/7 • Garantie de satisfaction</p>
+            <p>Problème avec votre commande ? <a href="https://wa.me/50939442808">WhatsApp +509 3944 2808</a></p>
+            <p>&copy; 2024 PayFusion. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Free Fire Packs Data (21 packs exacts)
+        const freefirePacks = [
+            { diamonds: "100+10", price: 165, bonus: "+10" },
+            { diamonds: "200+20", price: 340, bonus: "+20" },
+            { diamonds: "300+30", price: 500, bonus: "+30" },
+            { diamonds: "400+40", price: 650, bonus: "+40" },
+            { diamonds: "500+50", price: 830, bonus: "+50" },
+            { diamonds: "600+60", price: 1000, bonus: "+60" },
+            { diamonds: "700+70", price: 1160, bonus: "+70" },
+            { diamonds: "800+80", price: 1320, bonus: "+80" },
+            { diamonds: "900+90", price: 1490, bonus: "+90" },
+            { diamonds: "1000+100", price: 1650, bonus: "+100" },
+            { diamonds: "1200+120", price: 2000, bonus: "+120" },
+            { diamonds: "1400+140", price: 2320, bonus: "+140" },
+            { diamonds: "1600+160", price: 2640, bonus: "+160" },
+            { diamonds: "1800+180", price: 2980, bonus: "+180" },
+            { diamonds: "2000+200", price: 3300, bonus: "+200" },
+            { diamonds: "2500+250", price: 4100, bonus: "+250" },
+            { diamonds: "3000+300", price: 4950, bonus: "+300" },
+            { diamonds: "4000+400", price: 6600, bonus: "+400" },
+            { diamonds: "4500+450", price: 7420, bonus: "+450" },
+            { diamonds: "5000+500", price: 8250, bonus: "+500" },
+            { diamonds: "5600+560", price: 8000, bonus: "+560" }
+        ];
+        
+        // State
+        let selectedPacks = new Set();
+        let selectedSubscription = null;
+        let showAllPacks = false;
+        
+        // DOM Elements
+        const packsGrid = document.getElementById('packsGrid');
+        const showMoreBtn = document.getElementById('showMoreBtn');
+        const summaryItems = document.getElementById('summaryItems');
+        const totalAmount = document.getElementById('totalAmount');
+        const submitOrderBtn = document.getElementById('submitOrderBtn');
+        const clearSelectionBtn = document.getElementById('clearSelectionBtn');
+        
+        // Generate packs
+        function generatePacks() {
+            packsGrid.innerHTML = '';
+            
+            const packsToShow = showAllPacks ? freefirePacks : freefirePacks.slice(0, 5);
+            
+            packsToShow.forEach((pack, index) => {
+                const card = document.createElement('div');
+                card.className = 'pf-pack-card';
+                card.dataset.index = index;
+                card.dataset.price = pack.price;
+                
+                card.innerHTML = `
+                    <div class="pf-pack-checkbox"></div>
+                    <div class="pf-pack-header">
+                        <div class="pf-pack-diamonds">${pack.diamonds}</div>
+                        <div class="pf-pack-bonus">${pack.bonus}</div>
+                    </div>
+                    <div class="pf-pack-price">${pack.price.toLocaleString('fr-HT')} Gdes</div>
+                    <div class="pf-pack-currency">Prix en Gourdes</div>
+                `;
+                
+                card.addEventListener('click', () => togglePackSelection(index));
+                packsGrid.appendChild(card);
+            });
+            
+            // Update show more button text
+            showMoreBtn.innerHTML = showAllPacks ? 
+                '<i class="fas fa-chevron-up"></i> Voir moins' : 
+                '<i class="fas fa-chevron-down"></i> Voir plus de packs';
+        }
+        
+        // Toggle pack selection
+        function togglePackSelection(index) {
+            const card = document.querySelector(`.pf-pack-card[data-index="${index}"]`);
+            
+            if (selectedPacks.has(index)) {
+                selectedPacks.delete(index);
+                card.classList.remove('selected');
+            } else {
+                selectedPacks.add(index);
+                card.classList.add('selected');
+            }
+            
+            updateOrderSummary();
+        }
+        
+        // Toggle subscription selection
+        function setupSubscriptionSelection() {
+            document.querySelectorAll('.pf-subscription-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const type = card.dataset.type;
+                    const price = parseInt(card.dataset.price);
+                    
+                    // Remove selection from all subscriptions
+                    document.querySelectorAll('.pf-subscription-card').forEach(c => {
+                        c.classList.remove('selected');
+                    });
+                    
+                    // Toggle selection
+                    if (selectedSubscription === type) {
+                        selectedSubscription = null;
+                    } else {
+                        selectedSubscription = type;
+                        card.classList.add('selected');
+                    }
+                    
+                    updateOrderSummary();
+                });
+            });
+        }
+        
+        // Update order summary
+        function updateOrderSummary() {
+            let total = 0;
+            let itemsHTML = '';
+            
+            // Add selected packs
+            selectedPacks.forEach(index => {
+                const pack = freefirePacks[index];
+                total += pack.price;
+                itemsHTML += `
+                    <div class="pf-summary-item">
+                        <span>${pack.diamonds} diamants</span>
+                        <span>${pack.price.toLocaleString('fr-HT')} Gdes</span>
+                    </div>
+                `;
+            });
+            
+            // Add selected subscription
+            if (selectedSubscription) {
+                const subscriptionCards = document.querySelectorAll('.pf-subscription-card');
+                subscriptionCards.forEach(card => {
+                    if (card.classList.contains('selected')) {
+                        const type = card.dataset.type;
+                        const price = parseInt(card.dataset.price);
+                        const typeText = {
+                            'weekly': 'Abonnement Semaine',
+                            'monthly': 'Abonnement Mois',
+                            'levelup': 'Level Up Pass'
+                        }[type];
+                        
+                        total += price;
+                        itemsHTML += `
+                            <div class="pf-summary-item">
+                                <span>${typeText}</span>
+                                <span>${price.toLocaleString('fr-HT')} Gdes</span>
+                            </div>
+                        `;
+                    }
+                });
+            }
+            
+            // Update display
+            if (itemsHTML) {
+                summaryItems.innerHTML = itemsHTML;
+            } else {
+                summaryItems.innerHTML = `
+                    <div class="pf-summary-empty">
+                        <i class="fas fa-shopping-basket" style="font-size: 2rem; color: var(--color-gray-light); margin-bottom: var(--spacing-sm);"></i>
+                        <p>Aucun élément sélectionné</p>
+                    </div>
+                `;
+            }
+            
+            totalAmount.textContent = `${total.toLocaleString('fr-HT')} Gdes`;
+            
+            // Enable/disable submit button
+            submitOrderBtn.disabled = total === 0;
+        }
+        
+        // Clear all selections
+        function clearAllSelections() {
+            selectedPacks.clear();
+            selectedSubscription = null;
+            
+            // Update UI
+            document.querySelectorAll('.pf-pack-card, .pf-subscription-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            updateOrderSummary();
+        }
+        
+        // Validation functions
+        function isValidFreeFireId(id) {
+            return /^[0-9]{10}$/.test(id);
+        }
+        
+        function isValidWhatsApp(whatsapp) {
+            const re = /^\+509[0-9]{8}$/;
+            return re.test(whatsapp.replace(/\s/g, ''));
+        }
+        
+        // Handle form submission
+        function submitOrder(e) {
+            e.preventDefault();
+            
+            const freefireId = document.getElementById('freefireId').value.trim();
+            const freefireName = document.getElementById('freefireName').value.trim();
+            const freefireWhatsapp = document.getElementById('freefireWhatsapp').value.trim();
+            
+            // Reset errors
+            document.getElementById('freefireIdError').classList.remove('show');
+            document.getElementById('freefireNameError').classList.remove('show');
+            document.getElementById('freefireWhatsappError').classList.remove('show');
+            
+            // Validate
+            let isValid = true;
+            
+            if (!isValidFreeFireId(freefireId)) {
+                document.getElementById('freefireIdError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (!freefireName) {
+                document.getElementById('freefireNameError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (!isValidWhatsApp(freefireWhatsapp)) {
+                document.getElementById('freefireWhatsappError').classList.add('show');
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Prepare order data
+            const orderData = {
+                freefireId: freefireId,
+                freefireName: freefireName,
+                whatsapp: freefireWhatsapp,
+                items: [],
+                total: parseInt(totalAmount.textContent.replace(/[^0-9]/g, '')),
+                timestamp: new Date().toISOString()
+            };
+            
+            // Add packs
+            selectedPacks.forEach(index => {
+                const pack = freefirePacks[index];
+                orderData.items.push({
+                    type: 'pack',
+                    name: `${pack.diamonds} diamants`,
+                    price: pack.price
+                });
+            });
+            
+            // Add subscription
+            if (selectedSubscription) {
+                const subscriptionCards = document.querySelectorAll('.pf-subscription-card');
+                subscriptionCards.forEach(card => {
+                    if (card.classList.contains('selected')) {
+                        const type = card.dataset.type;
+                        const price = parseInt(card.dataset.price);
+                        const typeText = {
+                            'weekly': 'Abonnement Semaine',
+                            'monthly': 'Abonnement Mois',
+                            'levelup': 'Level Up Pass'
+                        }[type];
+                        
+                        orderData.items.push({
+                            type: 'subscription',
+                            name: typeText,
+                            price: price
+                        });
+                    }
+                });
+            }
+            
+            // Show loading
+            submitOrderBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Traitement...';
+            submitOrderBtn.disabled = true;
+            
+            // Simulate order processing
+            setTimeout(() => {
+                console.log('Free Fire Order:', orderData);
+                
+                // In real app, create order in Firebase
+                alert(`Commande créée avec succès !\n\nID: ${freefireId}\nTotal: ${orderData.total.toLocaleString('fr-HT')} Gdes\n\nVous serez redirigé vers la page de paiement.`);
+                
+                // Redirect to payment page with order data
+                const queryParams = new URLSearchParams({
+                    service: 'freefire',
+                    amount: orderData.total,
+                    items: JSON.stringify(orderData.items)
+                }).toString();
+                
+                window.location.href = `payment.html?${queryParams}`;
+                
+                // Reset button
+                submitOrderBtn.innerHTML = '<i class="fas fa-check-circle"></i> Commander';
+                submitOrderBtn.disabled = false;
+            }, 2000);
+        }
+        
+        // Initialize
+        function init() {
+            generatePacks();
+            setupSubscriptionSelection();
+            updateOrderSummary();
+            
+            // Show more packs button
+            showMoreBtn.addEventListener('click', () => {
+                showAllPacks = !showAllPacks;
+                generatePacks();
+                
+                // Re-attach event listeners to new cards
+                document.querySelectorAll('.pf-pack-card').forEach((card, index) => {
+                    card.addEventListener('click', () => togglePackSelection(card.dataset.index));
+                });
+            });
+            
+            // Clear selection button
+            clearSelectionBtn.addEventListener('click', clearAllSelections);
+            
+            // Form submission
+            document.getElementById('freefireOrderForm').addEventListener('submit', submitOrder);
+            
+            // Real-time validation
+            document.getElementById('freefireId').addEventListener('input', function() {
+                if (isValidFreeFireId(this.value)) {
+                    document.getElementById('freefireIdError').classList.remove('show');
+                }
+            });
+            
+            document.getElementById('freefireName').addEventListener('input', function() {
+                if (this.value.trim()) {
+                    document.getElementById('freefireNameError').classList.remove('show');
+                }
+            });
+            
+            document.getElementById('freefireWhatsapp').addEventListener('input', function() {
+                // Auto-format
+                let value = this.value.replace(/\D/g, '');
+                if (value.startsWith('509')) {
+                    value = '+509' + value.slice(3);
+                } else if (value.startsWith('0')) {
+                    value = '+509' + value.slice(1);
+                } else if (value.length === 8) {
+                    value = '+509' + value;
+                }
+                this.value = value;
+                
+                if (isValidWhatsApp(value)) {
+                    document.getElementById('freefireWhatsappError').classList.remove('show');
+                }
+            });
+            
+            // Auto-select first pack for demo
+            setTimeout(() => {
+                if (selectedPacks.size === 0) {
+                    togglePackSelection(0); // Select first pack
+                }
+            }, 500);
+        }
+        
+        // Initialize on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
